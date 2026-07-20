@@ -8,7 +8,7 @@ import {
   CalendarDays, Ticket, CreditCard,
   Terminal, ShieldAlert, CalendarCheck, FileText,
   MessageSquare, Package, Bus, Building, DoorOpen, Trophy,
-  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown
+  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell
 } from 'lucide-react';
 import { api } from './api';
 import { LibraryView, HostelView, TransportView, AccountsView, PermissionsView } from './NewModules';
@@ -16,6 +16,7 @@ import { RoleDashboard } from './RoleDashboards';
 import { AttendanceView, TimetableView, ExaminationView, HRView, CommunicationView, InventoryView } from './AdvancedModules';
 import { FacultyModule, type FacultySubView } from './FacultyModule';
 import { AccountModule, type AccountSubView } from './AccountModule';
+import { TimeTableModule, type TimeTableSubView } from './TimeTableModule';
 
 // Types
 interface Student {
@@ -449,6 +450,13 @@ export default function App() {
     report: true,
     bank: true,
     setting: true
+  });
+  const [timetableSubView, setTimetableSubView] = useState<TimeTableSubView>('cls-manage');
+  const [timetableSubgroups, setTimetableSubgroups] = useState<Record<string, boolean>>({
+    classTable: true,
+    report: true,
+    setting: true,
+    bell: true
   });
 
   // Editing state
@@ -1534,10 +1542,103 @@ export default function App() {
               {selectedModule === 'timetable' && (
                 <>
                   <div className="menu-label">Time Table Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('timetable')}>
-                    <Clock size={15} />
-                    <span>Weekly Timetable</span>
+
+                  {/* 1. Add Substitute */}
+                  <div className={`menu-item ${activeView === 'timetable' && timetableSubView === 'add-substitute' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('add-substitute'); }}>
+                    <UserCheck size={15} color="#dc2626" />
+                    <span>Add Substitute</span>
                   </div>
+
+                  {/* 2. Class time Table (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setTimetableSubgroups(prev => ({ ...prev, classTable: !prev.classTable }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Clock size={13} color="#ea580c" /> Class time Table
+                      </span>
+                      <span>{timetableSubgroups.classTable ? '▾' : '▸'}</span>
+                    </div>
+
+                    {timetableSubgroups.classTable && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-teacher-subject' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-teacher-subject'); }}>Teacher Subject</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-assign-subject' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-assign-subject'); }}>Assign subject</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-apply-break' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-apply-break'); }}>Apply Break</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-add-routine' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-add-routine'); }}>Add routine</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-manage' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-manage'); }}>Manage Timetable</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3. Time Table Report (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setTimetableSubgroups(prev => ({ ...prev, report: !prev.report }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FileText size={13} color="#8b4570" /> Time Table Report
+                      </span>
+                      <span>{timetableSubgroups.report ? '▾' : '▸'}</span>
+                    </div>
+
+                    {timetableSubgroups.report && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'report-class-routine' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('report-class-routine'); }}>Class Routin</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'report-teacher-routine' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('report-teacher-routine'); }}>Teacher Routine</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'report-substitute-chart' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('report-substitute-chart'); }}>Substitute Chart</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Time Table Setting (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setTimetableSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Settings size={13} color="#00696b" /> Time Table Setting
+                      </span>
+                      <span>{timetableSubgroups.setting ? '▾' : '▸'}</span>
+                    </div>
+
+                    {timetableSubgroups.setting && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'setting-add-exam' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('setting-add-exam'); }}>Add Exam</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'setting-create-period' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('setting-create-period'); }}>Create Period</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'setting-app-sync' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('setting-app-sync'); }}>App Time Table</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 5. Bell System (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setTimetableSubgroups(prev => ({ ...prev, bell: !prev.bell }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Bell size={13} color="#059669" /> Bell System
+                      </span>
+                      <span>{timetableSubgroups.bell ? '▾' : '▸'}</span>
+                    </div>
+
+                    {timetableSubgroups.bell && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'bell-add-period' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('bell-add-period'); }}>Add Period</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'bell-assign' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('bell-assign'); }}>Assign Bell</div>
+                        <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'bell-add-sound' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('bell-add-sound'); }}>Add sound</div>
+                      </div>
+                    )}
+                  </div>
+
                 </>
               )}
 
@@ -3585,7 +3686,10 @@ export default function App() {
 
           {/* VIEW: TIMETABLE */}
           {activeView === 'timetable' && (
-            <TimetableView editable={activeRole === 'Admin' || activeRole === 'Principal'} />
+            <TimeTableModule 
+              initialSubView={timetableSubView} 
+              onNavigateSubView={(sv) => setTimetableSubView(sv)} 
+            />
           )}
 
           {/* VIEW: EXAMINATION */}

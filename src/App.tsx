@@ -8,13 +8,14 @@ import {
   CalendarDays, Ticket, CreditCard,
   Terminal, ShieldAlert, CalendarCheck, FileText,
   MessageSquare, Package, Bus, Building, DoorOpen, Trophy,
-  BarChart3, GraduationCap, IndianRupee, ClipboardList
+  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown
 } from 'lucide-react';
 import { api } from './api';
 import { LibraryView, HostelView, TransportView, AccountsView, PermissionsView } from './NewModules';
 import { RoleDashboard } from './RoleDashboards';
 import { AttendanceView, TimetableView, ExaminationView, HRView, CommunicationView, InventoryView } from './AdvancedModules';
 import { FacultyModule, type FacultySubView } from './FacultyModule';
+import { AccountModule, type AccountSubView } from './AccountModule';
 
 // Types
 interface Student {
@@ -440,6 +441,14 @@ export default function App() {
     facultyReport: true,
     activityReport: true,
     idCard: true
+  });
+  const [accountSubView, setAccountSubView] = useState<AccountSubView>('manage-income');
+  const [accountSubgroups, setAccountSubgroups] = useState<Record<string, boolean>>({
+    income: true,
+    expense: true,
+    report: true,
+    bank: true,
+    setting: true
   });
 
   // Editing state
@@ -1427,10 +1436,98 @@ export default function App() {
               {selectedModule === 'account' && (
                 <>
                   <div className="menu-label">Account Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('account')}>
-                    <CreditCard size={15} />
-                    <span>Accounts Console</span>
+
+                  {/* 1. Manage Income */}
+                  <div className={`menu-item ${activeView === 'account' && accountSubView === 'manage-income' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('manage-income'); }}>
+                    <DollarSign size={15} />
+                    <span>Manage Income</span>
                   </div>
+
+                  {/* 2. Manage Expense */}
+                  <div className={`menu-item ${activeView === 'account' && accountSubView === 'manage-expense' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('manage-expense'); }}>
+                    <TrendingDown size={15} />
+                    <span>Manage Expense</span>
+                  </div>
+
+                  {/* 3. Account Report (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAccountSubgroups(prev => ({ ...prev, report: !prev.report }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FileText size={13} color="#8b4570" /> Account Report
+                      </span>
+                      <span>{accountSubgroups.report ? '▾' : '▸'}</span>
+                    </div>
+
+                    {accountSubgroups.report && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-expense-date' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-expense-date'); }}>Expense Date wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-expense-head' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-expense-head'); }}>Expense Head wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-extra-income' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-extra-income'); }}>Extra Income Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-balance-sheet' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-balance-sheet'); }}>Balance Sheet</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-outstanding' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-outstanding'); }}>Outstanding Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-collection' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-collection'); }}>Collection Sheet</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-dues-sheet' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-dues-sheet'); }}>Dues Sheet</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-dues-head' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-dues-head'); }}>Dues Head wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-inventory-dcr' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-inventory-dcr'); }}>Inventory DCR</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-demand-bill' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-demand-bill'); }}>Demand Bill</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-discount' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-discount'); }}>Discount report</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-cancel' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-cancel'); }}>Cancel Record</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Manage Bank (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAccountSubgroups(prev => ({ ...prev, bank: !prev.bank }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Building size={13} color="#dc2626" /> Manage Bank
+                      </span>
+                      <span>{accountSubgroups.bank ? '▾' : '▸'}</span>
+                    </div>
+
+                    {accountSubgroups.bank && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-deposit' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-deposit'); }}>Deposit</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-withdraw' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-withdraw'); }}>Withdraw</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-report-withdraw' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-report-withdraw'); }}>Withdraw Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-report-deposit' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-report-deposit'); }}>Deposit Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-ledger' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-ledger'); }}>Bank Ledger</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 5. Account Setting (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAccountSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Settings size={13} color="#0284c7" /> Account Setting
+                      </span>
+                      <span>{accountSubgroups.setting ? '▾' : '▸'}</span>
+                    </div>
+
+                    {accountSubgroups.setting && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-income-mode' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-income-mode'); }}>Income Mode</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-expense-mode' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-expense-mode'); }}>Expense Mode</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-add-bank' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-add-bank'); }}>Add Bank</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-fine-rule' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-fine-rule'); }}>Fine Setting</div>
+                        <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-apply-fine' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-apply-fine'); }}>Apply Fine</div>
+                      </div>
+                    )}
+                  </div>
+
                 </>
               )}
 
@@ -3523,9 +3620,12 @@ export default function App() {
             />
           )}
 
-          {/* PLACEHOLDER: ACCOUNT */}
+          {/* ACCOUNT MODULE VIEW */}
           {activeView === 'account' && (
-            <AccountsView feeRecords={feeRecords} />
+            <AccountModule 
+              initialSubView={accountSubView} 
+              onNavigateSubView={(sv) => setAccountSubView(sv)} 
+            />
           )}
 
           {/* PLACEHOLDER: AI PROGRAM */}

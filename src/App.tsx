@@ -17,6 +17,7 @@ import { AttendanceView, TimetableView, ExaminationView, HRView, CommunicationVi
 import { FacultyModule, type FacultySubView } from './FacultyModule';
 import { AccountModule, type AccountSubView } from './AccountModule';
 import { TimeTableModule, type TimeTableSubView } from './TimeTableModule';
+import { AttendanceModule, type AttendanceSubView } from './AttendanceModule';
 
 // Types
 interface Student {
@@ -457,6 +458,13 @@ export default function App() {
     report: true,
     setting: true,
     bell: true
+  });
+  const [attendanceSubView, setAttendanceSubView] = useState<AttendanceSubView>('mark-student');
+  const [attendanceSubgroups, setAttendanceSubgroups] = useState<Record<string, boolean>>({
+    facultyReport: true,
+    studentReport: true,
+    holiday: true,
+    mark: true
   });
 
   // Editing state
@@ -1645,10 +1653,109 @@ export default function App() {
               {selectedModule === 'attendance' && (
                 <>
                   <div className="menu-label">Attendance Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('attendance')}>
-                    <CalendarCheck size={15} />
-                    <span>Mark Attendance</span>
+
+                  {/* 1. Mark Attendance (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAttendanceSubgroups(prev => ({ ...prev, mark: !prev.mark }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <CalendarCheck size={13} color="#16a34a" /> Mark Attendance
+                      </span>
+                      <span>{attendanceSubgroups.mark ? '▾' : '▸'}</span>
+                    </div>
+
+                    {attendanceSubgroups.mark && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'mark-student' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('mark-student'); }}>Mark Student</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'mark-faculty' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('mark-faculty'); }}>Mark Faculty</div>
+                      </div>
+                    )}
                   </div>
+
+                  {/* 2. Faculty Report (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAttendanceSubgroups(prev => ({ ...prev, facultyReport: !prev.facultyReport }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FileText size={13} color="#ea580c" /> Faculty Report
+                      </span>
+                      <span>{attendanceSubgroups.facultyReport ? '▾' : '▸'}</span>
+                    </div>
+
+                    {attendanceSubgroups.facultyReport && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-single' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-single'); }}>Single Day</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-month' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-month'); }}>Month Wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-date' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-date'); }}>Date wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-teacher' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-teacher'); }}>Teacher Wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-leave' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-leave'); }}>Total Leave</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3. Student Report (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAttendanceSubgroups(prev => ({ ...prev, studentReport: !prev.studentReport }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Users size={13} color="#00696b" /> Student Report
+                      </span>
+                      <span>{attendanceSubgroups.studentReport ? '▾' : '▸'}</span>
+                    </div>
+
+                    {attendanceSubgroups.studentReport && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-month' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-month'); }}>Month Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-class' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-class'); }}>Class Attendance</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-overall' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-overall'); }}>overall class</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-date' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-date'); }}>Date Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-live' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-live'); }}>Live Class</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Mark Holiday (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setAttendanceSubgroups(prev => ({ ...prev, holiday: !prev.holiday }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Calendar size={13} color="#dc2626" /> Mark Holiday
+                      </span>
+                      <span>{attendanceSubgroups.holiday ? '▾' : '▸'}</span>
+                    </div>
+
+                    {attendanceSubgroups.holiday && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'holiday-student' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('holiday-student'); }}>Student Holiday</div>
+                        <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'holiday-faculty' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('holiday-faculty'); }}>Faculty Holiday</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 5. Time Setting */}
+                  <div className={`menu-item ${activeView === 'attendance' && attendanceSubView === 'time-setting' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('time-setting'); }}>
+                    <Clock size={15} color="#556b2f" />
+                    <span>Time Setting</span>
+                  </div>
+
+                  {/* 6. Attendance Subject */}
+                  <div className={`menu-item ${activeView === 'attendance' && attendanceSubView === 'attendance-subject' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('attendance-subject'); }}>
+                    <BookOpen size={15} color="#8b5cf6" />
+                    <span>Attendance Subject</span>
+                  </div>
+
                 </>
               )}
 
@@ -3681,7 +3788,10 @@ export default function App() {
 
           {/* VIEW: ATTENDANCE */}
           {activeView === 'attendance' && (
-            <AttendanceView students={students} />
+            <AttendanceModule 
+              initialSubView={attendanceSubView} 
+              onNavigateSubView={(sv) => setAttendanceSubView(sv)} 
+            />
           )}
 
           {/* VIEW: TIMETABLE */}

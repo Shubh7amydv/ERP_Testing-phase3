@@ -1237,7 +1237,7 @@ export default function App() {
 
               {selectedModule === 'student' && (
                 <>
-                  <div className="menu-label">Student Management</div>
+                  <div className="menu-label" style={{ paddingLeft: '12px', fontSize: '11px' }}>Student Management</div>
                   <div>
                     {/* 1.1 Admission Group */}
                     <div
@@ -1249,21 +1249,21 @@ export default function App() {
                       style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px' }}
                     >
                       <span>Admission</span>
-                      {studentSubgroups.admission ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                      {studentSubgroups.admission ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
                     {studentSubgroups.admission && (
-                      <div style={{ paddingLeft: '8px' }}>
+                      <div className="nested-submenu-container">
                         <div
                           className={`nested-submenu-item ${activeView === 'student-admission-make' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-admission-make')}
                         >
-                          <UserPlus size={11} /> Make Admission
+                          <UserPlus size={14} /> Make Admission
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-admission-view' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-admission-view')}
                         >
-                          <Users size={11} /> View Admission
+                          <Users size={14} /> View Admission
                         </div>
                       </div>
                     )}
@@ -1278,51 +1278,51 @@ export default function App() {
                       style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px' }}
                     >
                       <span>Update Record</span>
-                      {studentSubgroups.updateRecord ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                      {studentSubgroups.updateRecord ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
                     {studentSubgroups.updateRecord && (
-                      <div style={{ paddingLeft: '8px' }}>
+                      <div className="nested-submenu-container">
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-record' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-record')}
                         >
-                          <ClipboardList size={11} /> Student Record
+                          <ClipboardList size={14} /> Student Record
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-roll' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-roll')}
                         >
-                          <Clock size={11} /> Create Roll Number
+                          <Clock size={14} /> Create Roll Number
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-photo' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-photo')}
                         >
-                          <Users size={11} /> Update Photo
+                          <Users size={14} /> Update Photo
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-blocked' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-blocked')}
                         >
-                          <ShieldAlert size={11} /> Blocked Students
+                          <ShieldAlert size={14} /> Blocked Students
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-inactive' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-inactive')}
                         >
-                          <AlertTriangle size={11} /> Inactive Students
+                          <AlertTriangle size={14} /> Inactive Students
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-aadhar' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-aadhar')}
                         >
-                          <CreditCard size={11} /> Update Aadhar
+                          <CreditCard size={14} /> Update Aadhar
                         </div>
                         <div
                           className={`nested-submenu-item ${activeView === 'student-update-data' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-data')}
                         >
-                          <FileSpreadsheet size={11} /> Update Data
+                          <FileSpreadsheet size={14} /> Update Data
                         </div>
                       </div>
                     )}
@@ -1331,9 +1331,9 @@ export default function App() {
                     <div
                       className={`nested-submenu-item ${activeView === 'student-idcard' ? 'active' : ''}`}
                       onClick={() => setActiveView('student-idcard')}
-                      style={{ marginTop: '6px', fontWeight: 600, color: activeView === 'student-idcard' ? '#38bdf8' : '#cbd5e1' }}
+                      style={{ marginTop: '6px', margin: '4px 6px', padding: '8px 12px' }}
                     >
-                      <Printer size={11} /> Identity Card
+                      <Printer size={14} /> Identity Card
                     </div>
 
                     {/* 1.4 Student Report Group */}
@@ -1346,21 +1346,21 @@ export default function App() {
                       style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px' }}
                     >
                       <span>Student Report</span>
-                      {studentSubgroups.reports ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                      {studentSubgroups.reports ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
                     {studentSubgroups.reports && (
-                      <div style={{ paddingLeft: '8px' }}>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-details' ? 'active' : ''}`} onClick={() => setActiveView('student-report-details')}>Student Details</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-strength' ? 'active' : ''}`} onClick={() => setActiveView('student-report-strength')}>Student Strength</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-new' ? 'active' : ''}`} onClick={() => setActiveView('student-report-new')}>New Admission</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-enrolled-strength' ? 'active' : ''}`} onClick={() => setActiveView('student-report-enrolled-strength')}>Enrolled Strength</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-enrolled-students' ? 'active' : ''}`} onClick={() => setActiveView('student-report-enrolled-students')}>Enrolled Students</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-inactive' ? 'active' : ''}`} onClick={() => setActiveView('student-report-inactive')}>Inactive Report</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-bpl' ? 'active' : ''}`} onClick={() => setActiveView('student-report-bpl')}>BPL Students</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-sibling' ? 'active' : ''}`} onClick={() => setActiveView('student-report-sibling')}>Sibling Report</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-category' ? 'active' : ''}`} onClick={() => setActiveView('student-report-category')}>Category Report</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-staffward' ? 'active' : ''}`} onClick={() => setActiveView('student-report-staffward')}>Staff Ward</div>
-                        <div className={`nested-submenu-item ${activeView === 'student-report-classwise' ? 'active' : ''}`} onClick={() => setActiveView('student-report-classwise')}>Class-wise Students</div>
+                      <div className="nested-submenu-container">
+                        <div className={`nested-submenu-item ${activeView === 'student-report-details' ? 'active' : ''}`} onClick={() => setActiveView('student-report-details')}><FileText size={13} /> Student Details</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-strength' ? 'active' : ''}`} onClick={() => setActiveView('student-report-strength')}><Users size={13} /> Student Strength</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-new' ? 'active' : ''}`} onClick={() => setActiveView('student-report-new')}><UserPlus size={13} /> New Admission</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-enrolled-strength' ? 'active' : ''}`} onClick={() => setActiveView('student-report-enrolled-strength')}><BarChart3 size={13} /> Enrolled Strength</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-enrolled-students' ? 'active' : ''}`} onClick={() => setActiveView('student-report-enrolled-students')}><ClipboardList size={13} /> Enrolled Students</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-inactive' ? 'active' : ''}`} onClick={() => setActiveView('student-report-inactive')}><AlertTriangle size={13} /> Inactive Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-bpl' ? 'active' : ''}`} onClick={() => setActiveView('student-report-bpl')}><ShieldAlert size={13} /> BPL Students</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-sibling' ? 'active' : ''}`} onClick={() => setActiveView('student-report-sibling')}><Users size={13} /> Sibling Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-category' ? 'active' : ''}`} onClick={() => setActiveView('student-report-category')}><Award size={13} /> Category Report</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-staffward' ? 'active' : ''}`} onClick={() => setActiveView('student-report-staffward')}><Award size={13} /> Staff Ward</div>
+                        <div className={`nested-submenu-item ${activeView === 'student-report-classwise' ? 'active' : ''}`} onClick={() => setActiveView('student-report-classwise')}><Layers size={13} /> Class-wise Students</div>
                       </div>
                     )}
                   </div>

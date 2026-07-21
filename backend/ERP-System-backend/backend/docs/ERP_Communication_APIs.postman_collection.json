@@ -1,0 +1,2132 @@
+{
+  "info": {
+    "_postman_id": "7a35cb96-d242-45e0-82a8-f71bb5d2bf61",
+    "name": "ERP - Communication APIs (Production Level)",
+    "description": "Production-ready Postman Collection for the School ERP Communication module. Includes Authentication, Notifications, SMS, Email, Circulars, Parent Communication, and Event Reminders with dynamic variable capturing, automated test assertions, patch requests, and realistic response examples.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "Endpoints to manage authentication tokens, refresh sessions, check user profile, and log out.",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has access token\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.access).to.be.a('string');",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.access);",
+                  "}",
+                  "if (jsonData.user) {",
+                  "    if (jsonData.user.id) {",
+                  "        pm.collectionVariables.set(\"userId\", jsonData.user.id);",
+                  "    }",
+                  "    if (jsonData.user.school) {",
+                  "        pm.collectionVariables.set(\"schoolId\", jsonData.user.school);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@school.com\",\n  \"password\": \"adminpassword\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login",
+                ""
+              ]
+            },
+            "description": "Authenticate user and get JWT access and refresh tokens. Saves token, userId, and schoolId to collection variables."
+          },
+          "response": [
+            {
+              "name": "Login Successful",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5Mjg4OTAwLCJqdGkiOiJjZjU5MDFiYiIsInVzZXJfaWQiOiJkMDRhNjIxNy0xZmRmLTQ1NzMtOGI3Ny1jZmM4YjBlNzdkMjQifQ...\",\n  \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxOTg5MzcwMCwianRpIjoiOGExNjFlMDAiLCJ1c2VyX2lkIjoiZDA0YTYyMTctMWZkZi00NTczLThiNzctY2ZjOGIwZTc3ZDI0In0...\",\n  \"user\": {\n    \"id\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"user_id\": 55487,\n    \"email\": \"admin@school.com\",\n    \"first_name\": \"School\",\n    \"last_name\": \"Admin\",\n    \"phone\": \"+919876543210\",\n    \"avatar\": null,\n    \"is_active\": true,\n    \"is_staff\": true,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"role\": 2\n  }\n}"
+            },
+            {
+              "name": "Invalid Credentials",
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"error\": \"Invalid credentials\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set(\"token\", jsonData.access);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh\": \"your_refresh_token_here\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/refresh/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh",
+                ""
+              ]
+            },
+            "description": "Obtain a fresh JWT access token using the valid refresh token."
+          },
+          "response": [
+            {
+              "name": "Refresh Successful",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5Mjg4OTAwLCJqdGkiOiJjZjU5MDFiYiIsInVzZXJfaWQiOiJkMDRhNjIxNy0xZmRmLTQ1NzMtOGI3Ny1jZmM4YjBlNzdkMjQifQ...\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Profile (Me)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me",
+                ""
+              ]
+            },
+            "description": "Gets the active authenticated user profile details."
+          },
+          "response": [
+            {
+              "name": "Profile Retrieved",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"user_id\": 55487,\n  \"email\": \"admin@school.com\",\n  \"first_name\": \"School\",\n  \"last_name\": \"Admin\",\n  \"phone\": \"+919876543210\",\n  \"avatar\": null,\n  \"is_active\": true,\n  \"is_staff\": true,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"role\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh\": \"your_refresh_token_here\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout",
+                ""
+              ]
+            },
+            "description": "Log out from the current user session and deactivate the associated session token in the database."
+          },
+          "response": [
+            {
+              "name": "Logout Successful",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Logged out successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "description": "Create, read, update, delete, and list push notifications targeted to teachers, parents, students, staff, or all.",
+      "item": [
+        {
+          "name": "List Notifications",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List Notifications",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"School Reopening Delay\",\n    \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July.\",\n    \"notification_type\": \"urgent\",\n    \"target_audience\": \"all\",\n    \"target_ids\": [],\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"is_read\": false,\n    \"read_at\": null,\n    \"created_at\": \"2026-07-09T10:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create Notification",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.id) {",
+                  "    pm.collectionVariables.set(\"notificationId\", jsonData.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"title\": \"School Reopening Delay\",\n  \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July.\",\n  \"notification_type\": \"urgent\",\n  \"target_audience\": \"all\",\n  \"target_ids\": [],\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Notification Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"School Reopening Delay\",\n  \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July.\",\n  \"notification_type\": \"urgent\",\n  \"target_audience\": \"all\",\n  \"target_ids\": [],\n  \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"is_read\": false,\n  \"read_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve Notification",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/{{notificationId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "{{notificationId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Notification Retrieved",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"School Reopening Delay\",\n  \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July.\",\n  \"notification_type\": \"urgent\",\n  \"target_audience\": \"all\",\n  \"target_ids\": [],\n  \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"is_read\": false,\n  \"read_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Notification - Full (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"title\": \"School Reopening Delay (Updated)\",\n  \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July. Online classes will run instead.\",\n  \"notification_type\": \"urgent\",\n  \"target_audience\": \"all\",\n  \"target_ids\": [],\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/{{notificationId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "{{notificationId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Notification Fully Updated",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"School Reopening Delay (Updated)\",\n  \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July. Online classes will run instead.\",\n  \"notification_type\": \"urgent\",\n  \"target_audience\": \"all\",\n  \"target_ids\": [],\n  \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"is_read\": false,\n  \"read_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Notification - Partial (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Urgent Reopening Weather Postponement\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/{{notificationId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "{{notificationId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Notification Partially Updated",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"Urgent Reopening Weather Postponement\",\n  \"message\": \"Due to extreme weather conditions, the school reopening is postponed to Monday, 15th July. Online classes will run instead.\",\n  \"notification_type\": \"urgent\",\n  \"target_audience\": \"all\",\n  \"target_ids\": [],\n  \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"is_read\": false,\n  \"read_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Notification",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/{{notificationId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "{{notificationId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Notification Deleted Successfully",
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "plain",
+              "header": [],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Mark Notification as Read",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/{{notificationId}}/read/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "{{notificationId}}",
+                "read",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Notification Marked as Read",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Notification marked as read.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Mark All Notifications as Read",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/read_all/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "read_all",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "All Notifications Marked as Read",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"All notifications marked as read.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Unread Count",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/notifications/unread_count/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "notifications",
+                "unread_count",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Unread Count Retrieved",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"unread_count\": 5\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SMS Logs",
+      "description": "Send individual and bulk SMS updates and monitor transmission history/responses from the SMS gateway.",
+      "item": [
+        {
+          "name": "List SMS Logs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/sms-logs/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "sms-logs",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "SMS Logs Listed",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"phone_number\": \"+919876543210\",\n    \"message\": \"Dear Parent, your child has checked into the school campus at 08:30 AM today.\",\n    \"status\": \"sent\",\n    \"gateway_response\": {},\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Send Single SMS",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"smsId\", jsonData.data.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"phone_number\": \"+919876543210\",\n  \"message\": \"Dear Parent, your child has checked into the school campus at 08:30 AM today.\",\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/sms-logs/send/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "sms-logs",
+                "send",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "SMS Sent Successfully",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"SMS sent successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"phone_number\": \"+919876543210\",\n    \"message\": \"Dear Parent, your child has checked into the school campus at 08:30 AM today.\",\n    \"status\": \"sent\",\n    \"gateway_response\": {},\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:05:00Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Send Bulk SMS",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"phone_numbers\": [\n    \"+919876543210\",\n    \"+919876543211\",\n    \"+919876543212\"\n  ],\n  \"message\": \"Dear Parents, this is to inform you that report cards are now accessible on the parent portal.\",\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/sms-logs/bulk_send/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "sms-logs",
+                "bulk_send",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Bulk SMS Queued",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Bulk SMS sent successfully.\",\n  \"count\": 3,\n  \"data\": [\n    {\n      \"id\": 2,\n      \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n      \"phone_number\": \"+919876543210\",\n      \"message\": \"Dear Parents, this is to inform you that report cards are now accessible on the parent portal.\",\n      \"status\": \"sent\",\n      \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\"\n    },\n    {\n      \"id\": 3,\n      \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n      \"phone_number\": \"+919876543211\",\n      \"message\": \"Dear Parents, this is to inform you that report cards are now accessible on the parent portal.\",\n      \"status\": \"sent\",\n      \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\"\n    },\n    {\n      \"id\": 4,\n      \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n      \"phone_number\": \"+919876543212\",\n      \"message\": \"Dear Parents, this is to inform you that report cards are now accessible on the parent portal.\",\n      \"status\": \"sent\",\n      \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Email Logs",
+      "description": "Send single or bulk HTML/plain text emails, check delivery states, and verify metadata/attachments.",
+      "item": [
+        {
+          "name": "List Email Logs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/email-logs/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "email-logs",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Email Logs Listed",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"to_email\": \"parent@example.com\",\n    \"subject\": \"First Term Report Card Released\",\n    \"body\": \"Dear Parent, your child's First Term Exam marks are now published. Please log in to review.\",\n    \"html_body\": \"<p>Dear Parent,</p><p>Your child's <strong>First Term Exam</strong> marks are now published.</p>\",\n    \"status\": \"sent\",\n    \"attachment\": null,\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Send Single Email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"emailId\", jsonData.data.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"to_email\": \"parent@example.com\",\n  \"subject\": \"First Term Report Card Released\",\n  \"body\": \"Dear Parent, your child's First Term Exam marks are now published. Please log in to review.\",\n  \"html_body\": \"<p>Dear Parent,</p><p>Your child's <strong>First Term Exam</strong> marks are now published.</p><p>Please log in to the portal to review.</p>\",\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/email-logs/send/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "email-logs",
+                "send",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Email Sent Successfully",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Email sent successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"to_email\": \"parent@example.com\",\n    \"subject\": \"First Term Report Card Released\",\n    \"body\": \"Dear Parent, your child's First Term Exam marks are now published. Please log in to review.\",\n    \"html_body\": \"<p>Dear Parent,</p><p>Your child's <strong>First Term Exam</strong> marks are now published.</p><p>Please log in to the portal to review.</p>\",\n    \"status\": \"sent\",\n    \"attachment\": null,\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:05:00Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Send Bulk Email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"emails\": [\n    \"parent1@example.com\",\n    \"parent2@example.com\",\n    \"parent3@example.com\"\n  ],\n  \"subject\": \"Upcoming Annual Sports Day Invitation\",\n  \"body\": \"Dear Parents, you are cordially invited to our school Annual Sports Day on 20th July.\",\n  \"html_body\": \"<p>Dear Parents,</p><p>You are cordially invited to our school <strong>Annual Sports Day</strong> on <strong>20th July</strong>.</p>\",\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/email-logs/bulk_send/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "email-logs",
+                "bulk_send",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Bulk Emails Sent Successfully",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Bulk Email sent successfully.\",\n  \"count\": 3,\n  \"data\": [\n    {\n      \"id\": 2,\n      \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n      \"to_email\": \"parent1@example.com\",\n      \"subject\": \"Upcoming Annual Sports Day Invitation\",\n      \"status\": \"sent\"\n    },\n    {\n      \"id\": 3,\n      \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n      \"to_email\": \"parent2@example.com\",\n      \"subject\": \"Upcoming Annual Sports Day Invitation\",\n      \"status\": \"sent\"\n    },\n    {\n      \"id\": 4,\n      \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n      \"to_email\": \"parent3@example.com\",\n      \"subject\": \"Upcoming Annual Sports Day Invitation\",\n      \"status\": \"sent\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Circulars",
+      "description": "Publish internal school guidelines, notices, and policies targeted to staff, parents, students, or all groups.",
+      "item": [
+        {
+          "name": "List Circulars",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circulars Listed",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"Standard Operating Procedure for Health Audits\",\n    \"content\": \"All staff members are instructed to read the attached guidelines regarding regular sanitation checks.\",\n    \"target_audience\": \"staff\",\n    \"published\": false,\n    \"published_at\": null,\n    \"attachment\": null,\n    \"created_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:00:00Z\",\n    \"updated_at\": \"2026-07-09T10:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create Circular",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"circularId\", jsonData.data.id);",
+                  "} else if (jsonData.id) {",
+                  "    pm.collectionVariables.set(\"circularId\", jsonData.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"title\": \"Standard Operating Procedure for Health Audits\",\n  \"content\": \"All staff members are instructed to read the attached guidelines regarding regular sanitation checks.\",\n  \"target_audience\": \"staff\",\n  \"created_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circular Created Successfully",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Circular created successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"Standard Operating Procedure for Health Audits\",\n    \"content\": \"All staff members are instructed to read the attached guidelines regarding regular sanitation checks.\",\n    \"target_audience\": \"staff\",\n    \"published\": false,\n    \"published_at\": null,\n    \"attachment\": null,\n    \"created_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:05:00Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve Circular",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/{{circularId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                "{{circularId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circular Retrieved",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"Standard Operating Procedure for Health Audits\",\n  \"content\": \"All staff members are instructed to read the attached guidelines regarding regular sanitation checks.\",\n  \"target_audience\": \"staff\",\n  \"published\": false,\n  \"published_at\": null,\n  \"attachment\": null,\n  \"created_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"created_at\": \"2026-07-09T10:00:00Z\",\n  \"updated_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Circular - Full (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"title\": \"Standard Operating Procedure for Health Audits (Revised)\",\n  \"content\": \"All staff members are strictly instructed to read the revised sanitation guidelines.\",\n  \"target_audience\": \"staff\",\n  \"created_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/{{circularId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                "{{circularId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circular Updated Successfully",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Circular updated successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"Standard Operating Procedure for Health Audits (Revised)\",\n    \"content\": \"All staff members are strictly instructed to read the revised sanitation guidelines.\",\n    \"target_audience\": \"staff\",\n    \"published\": false,\n    \"published_at\": null,\n    \"attachment\": null,\n    \"created_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"created_at\": \"2026-07-09T10:05:00Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Circular - Partial (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Sanitation Standards Directive\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/{{circularId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                "{{circularId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circular Partially Updated",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Circular updated successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"Sanitation Standards Directive\",\n    \"content\": \"All staff members are strictly instructed to read the revised sanitation guidelines.\",\n    \"target_audience\": \"staff\",\n    \"published\": false,\n    \"published_at\": null,\n    \"attachment\": null,\n    \"created_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Circular",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/{{circularId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                "{{circularId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circular Deleted Successfully",
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "plain",
+              "header": [],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Publish Circular",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/circulars/{{circularId}}/publish/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "circulars",
+                "{{circularId}}",
+                "publish",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Circular Published",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Circular published successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"Standard Operating Procedure for Health Audits\",\n    \"content\": \"All staff members are instructed to read the attached guidelines regarding regular sanitation checks.\",\n    \"target_audience\": \"staff\",\n    \"published\": true,\n    \"published_at\": \"2026-07-09T10:10:00Z\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Parent Communication",
+      "description": "Send official notices or inquiries to specific students' parents and view past log histories.",
+      "item": [
+        {
+          "name": "List Parent Communications",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/parent-comm/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "parent-comm",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Parent Communications Listed",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"student\": \"fa67f1b2-132d-41a4-927d-947acfb287a1\",\n    \"subject\": \"Regarding behavioral reports in mathematics class\",\n    \"message\": \"Dear Mr. Sharma, we would like to schedule a session regarding your son's math progress.\",\n    \"communication_type\": \"both\",\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"sent_at\": \"2026-07-09T10:00:00Z\",\n    \"read_at\": null,\n    \"response\": \"\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Send Parent Communication",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.id) {",
+                  "    pm.collectionVariables.set(\"parentCommId\", jsonData.data.id);",
+                  "} else if (jsonData.id) {",
+                  "    pm.collectionVariables.set(\"parentCommId\", jsonData.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"student\": \"{{studentId}}\",\n  \"subject\": \"Regarding behavioral reports in mathematics class\",\n  \"message\": \"Dear Mr. Sharma, we would like to schedule a session regarding your son's math progress.\",\n  \"communication_type\": \"both\",\n  \"sent_by\": \"{{userId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/parent-comm/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "parent-comm",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Parent Communication Sent",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Communication sent successfully.\",\n  \"data\": {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"student\": \"fa67f1b2-132d-41a4-927d-947acfb287a1\",\n    \"subject\": \"Regarding behavioral reports in mathematics class\",\n    \"message\": \"Dear Mr. Sharma, we would like to schedule a session regarding your son's math progress.\",\n    \"communication_type\": \"both\",\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"sent_at\": \"2026-07-09T10:05:00Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Student History",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/parent-comm/student/{{studentId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "parent-comm",
+                "student",
+                "{{studentId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Student History Retrieved",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"student\": \"fa67f1b2-132d-41a4-927d-947acfb287a1\",\n    \"subject\": \"Regarding behavioral reports in mathematics class\",\n    \"message\": \"Dear Mr. Sharma, we would like to schedule a session regarding your son's math progress.\",\n    \"communication_type\": \"both\",\n    \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n    \"sent_at\": \"2026-07-09T10:00:00Z\",\n    \"read_at\": null,\n    \"response\": \"\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Update Parent Communication (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"response\": \"Parent acknowledged meeting date for 15th July.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/parent-comm/{{parentCommId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "parent-comm",
+                "{{parentCommId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Parent Communication Updated",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"student\": \"fa67f1b2-132d-41a4-927d-947acfb287a1\",\n  \"subject\": \"Regarding behavioral reports in mathematics class\",\n  \"message\": \"Dear Mr. Sharma, we would like to schedule a session regarding your son's math progress.\",\n  \"communication_type\": \"both\",\n  \"sent_by\": \"d04a6217-1fdf-4573-8b77-cfc8b0e77d24\",\n  \"sent_at\": \"2026-07-09T10:00:00Z\",\n  \"read_at\": null,\n  \"response\": \"Parent acknowledged meeting date for 15th July.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Event Reminders",
+      "description": "Establish and update alert schedules for upcoming school events.",
+      "item": [
+        {
+          "name": "List Event Reminders",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/event-reminders/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "event-reminders",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Event Reminders Listed",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1,\n    \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n    \"title\": \"Annual Science Exhibition 2026\",\n    \"event_date\": \"2026-08-10\",\n    \"reminder_days\": 3,\n    \"sent\": false,\n    \"sent_at\": null,\n    \"created_at\": \"2026-07-09T10:00:00Z\"\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create Event Reminder",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.id) {",
+                  "    pm.collectionVariables.set(\"reminderId\", jsonData.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"title\": \"Annual Science Exhibition 2026\",\n  \"event_date\": \"2026-08-10\",\n  \"reminder_days\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/event-reminders/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "event-reminders",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Event Reminder Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"Annual Science Exhibition 2026\",\n  \"event_date\": \"2026-08-10\",\n  \"reminder_days\": 3,\n  \"sent\": false,\n  \"sent_at\": null,\n  \"created_at\": \"2026-07-09T10:05:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve Event Reminder",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/event-reminders/{{reminderId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "event-reminders",
+                "{{reminderId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Event Reminder Retrieved",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"Annual Science Exhibition 2026\",\n  \"event_date\": \"2026-08-10\",\n  \"reminder_days\": 3,\n  \"sent\": false,\n  \"sent_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Event Reminder - Full (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{schoolId}}\",\n  \"title\": \"Annual Science Exhibition 2026 (Revised Date)\",\n  \"event_date\": \"2026-08-12\",\n  \"reminder_days\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/event-reminders/{{reminderId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "event-reminders",
+                "{{reminderId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Event Reminder Updated",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"Annual Science Exhibition 2026 (Revised Date)\",\n  \"event_date\": \"2026-08-12\",\n  \"reminder_days\": 2,\n  \"sent\": false,\n  \"sent_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Event Reminder - Partial (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Annual Science & Tech Fair\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/event-reminders/{{reminderId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "event-reminders",
+                "{{reminderId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Event Reminder Partially Updated",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 1,\n  \"school\": \"33df84d6-a2d2-4ef8-93fb-bafecbdf1234\",\n  \"title\": \"Annual Science & Tech Fair\",\n  \"event_date\": \"2026-08-12\",\n  \"reminder_days\": 2,\n  \"sent\": false,\n  \"sent_at\": null,\n  \"created_at\": \"2026-07-09T10:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Event Reminder",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/communication/event-reminders/{{reminderId}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "communication",
+                "event-reminders",
+                "{{reminderId}}",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Event Reminder Deleted Successfully",
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "plain",
+              "header": [],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "your_jwt_access_token_here",
+      "type": "string"
+    },
+    {
+      "key": "schoolId",
+      "value": "33df84d6-a2d2-4ef8-93fb-bafecbdf1234",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "d04a6217-1fdf-4573-8b77-cfc8b0e77d24",
+      "type": "string"
+    },
+    {
+      "key": "studentId",
+      "value": "fa67f1b2-132d-41a4-927d-947acfb287a1",
+      "type": "string"
+    },
+    {
+      "key": "notificationId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "circularId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "reminderId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "smsId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "emailId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "parentCommId",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+}

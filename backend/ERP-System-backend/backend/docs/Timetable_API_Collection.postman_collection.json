@@ -1,0 +1,184 @@
+{
+  "info": {
+    "name": "ERP System - Timetable APIs",
+    "description": "Complete API collection for Timetable module",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Time Slots",
+      "item": [
+        {
+          "name": "List Time Slots",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/time-slots/", "host": ["{{base_url}}"], "path": ["time-slots"] } }
+        },
+        {
+          "name": "Create Time Slot",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/time-slots/", "host": ["{{base_url}}"], "path": ["time-slots"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"name\": \"Period 1\",\n  \"start_time\": \"08:00:00\",\n  \"end_time\": \"08:45:00\",\n  \"slot_order\": 1,\n  \"is_break\": false,\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Update Time Slot",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{base_url}}/time-slots/1/", "host": ["{{base_url}}"], "path": ["time-slots", "1"] },
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Period 1 Updated\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Time Slot",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/time-slots/1/", "host": ["{{base_url}}"], "path": ["time-slots", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Timetables",
+      "item": [
+        {
+          "name": "List Timetables",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/timetables/", "host": ["{{base_url}}"], "path": ["timetables"] } }
+        },
+        {
+          "name": "Create Timetable",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/timetables/", "host": ["{{base_url}}"], "path": ["timetables"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"academic_year\": 1,\n  \"class_obj\": 1,\n  \"section\": 1,\n  \"name\": \"Class 10-A Timetable\",\n  \"effective_from\": \"2026-07-01\",\n  \"effective_to\": \"2026-12-31\",\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Get Timetable",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/timetables/1/", "host": ["{{base_url}}"], "path": ["timetables", "1"] } }
+        },
+        {
+          "name": "Get Timetable Entries",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/timetables/1/entries/?day=monday", "host": ["{{base_url}}"], "path": ["timetables", "1", "entries"], "query": [{ "key": "day", "value": "monday", "description": "monday|tuesday|wednesday|thursday|friday|saturday" }] }
+          }
+        },
+        {
+          "name": "Get Class Timetable",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/timetables/class-timetable/?class_id=1&section_id=1&day=monday", "host": ["{{base_url}}"], "path": ["timetables", "class-timetable"], "query": [{ "key": "class_id", "value": "1" }, { "key": "section_id", "value": "1" }, { "key": "day", "value": "monday", "description": "Optional" }] }
+          }
+        },
+        {
+          "name": "Delete Timetable",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/timetables/1/", "host": ["{{base_url}}"], "path": ["timetables", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Timetable Entries",
+      "item": [
+        {
+          "name": "List Timetable Entries",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/timetable-entries/", "host": ["{{base_url}}"], "path": ["timetable-entries"] } }
+        },
+        {
+          "name": "Create Timetable Entry",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/timetable-entries/", "host": ["{{base_url}}"], "path": ["timetable-entries"] },
+            "body": { "mode": "raw", "raw": "{\n  \"timetable\": 1,\n  \"day_of_week\": \"monday\",\n  \"time_slot\": 1,\n  \"subject\": 1,\n  \"teacher\": 1,\n  \"room_no\": \"101\",\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Bulk Create Timetable Entries",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/timetable-entries/bulk-create/", "host": ["{{base_url}}"], "path": ["timetable-entries", "bulk-create"] },
+            "body": { "mode": "raw", "raw": "{\n  \"timetable_id\": 1,\n  \"entries\": [\n    {\n      \"day_of_week\": \"monday\",\n      \"time_slot\": 1,\n      \"subject\": 1,\n      \"teacher\": 1,\n      \"room_no\": \"101\"\n    },\n    {\n      \"day_of_week\": \"monday\",\n      \"time_slot\": 2,\n      \"subject\": 2,\n      \"teacher\": 2,\n      \"room_no\": \"102\"\n    },\n    {\n      \"day_of_week\": \"tuesday\",\n      \"time_slot\": 1,\n      \"subject\": 2,\n      \"teacher\": 2,\n      \"room_no\": \"102\"\n    }\n  ]\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Timetable Entry",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/timetable-entries/1/", "host": ["{{base_url}}"], "path": ["timetable-entries", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Teacher Timetables",
+      "item": [
+        {
+          "name": "List Teacher Timetables",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/teacher-timetables/", "host": ["{{base_url}}"], "path": ["teacher-timetables"] } }
+        },
+        {
+          "name": "Create Teacher Timetable",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/teacher-timetables/", "host": ["{{base_url}}"], "path": ["teacher-timetables"] },
+            "body": { "mode": "raw", "raw": "{\n  \"teacher\": 1,\n  \"day_of_week\": \"monday\",\n  \"time_slot\": 1,\n  \"class_obj\": 1,\n  \"section\": 1,\n  \"subject\": 1,\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Get Teacher Schedule",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/teacher-timetables/teacher/1/?day=monday", "host": ["{{base_url}}"], "path": ["teacher-timetables", "teacher", "1"], "query": [{ "key": "day", "value": "monday", "description": "Optional" }] }
+          }
+        },
+        {
+          "name": "Delete Teacher Timetable",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/teacher-timetables/1/", "host": ["{{base_url}}"], "path": ["teacher-timetables", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Substitute Teachers",
+      "item": [
+        {
+          "name": "List Substitute Teachers",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/substitute-teachers/", "host": ["{{base_url}}"], "path": ["substitute-teachers"] } }
+        },
+        {
+          "name": "Create Substitute Teacher",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/substitute-teachers/", "host": ["{{base_url}}"], "path": ["substitute-teachers"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"date\": \"2026-07-01\",\n  \"original_teacher\": 1,\n  \"substitute_teacher\": 2,\n  \"timetable_entry\": 1,\n  \"reason\": \"Leave\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Substitute Teacher",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/substitute-teachers/1/", "host": ["{{base_url}}"], "path": ["substitute-teachers", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "List Rooms",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/rooms/", "host": ["{{base_url}}"], "path": ["rooms"] } }
+        },
+        {
+          "name": "Create Room",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/rooms/", "host": ["{{base_url}}"], "path": ["rooms"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"room_no\": \"101\",\n  \"building\": \"Main Block\",\n  \"capacity\": 40,\n  \"room_type\": \"classroom\",\n  \"facilities\": [\"projector\", \"whiteboard\"],\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Room",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/rooms/1/", "host": ["{{base_url}}"], "path": ["rooms", "1"] } }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+# Module 11: Hostel Management - UI/UX Flow
+
+## Screens
+
+### 1. Hostel Dashboard
+```
+┌──────────────────────────────────────────────┐
+│  Hostel Dashboard                            │
+│  ──────────────────────────────────────────  │
+│                                              │
+│  ┌─────────────┐ ┌─────────────┐ ┌────────┐ │
+│  │ 🏠 Hostels  │ │ 🛏️ Occupancy│ │ 💰 Fees│ │
+│  │ 2 Active    │ │ 85% (170/200)│ │₹1.5L  │ │
+│  └─────────────┘ └─────────────┘ └────────┘ │
+│                                              │
+│  Room Occupancy:                             │
+│  ┌────────────────────────────────────────┐  │
+│  │ Boys Hostel:  ████████████░░ 90/100   │  │
+│  │ Girls Hostel: ██████████░░░░ 80/100   │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  Today's Attendance:                         │
+│  Present: 165 | Absent: 3 | Out: 2           │
+└──────────────────────────────────────────────┘
+```
+
+### 2. Room Allocation
+```
+┌──────────────────────────────────────────────┐
+│  Room Allocation            [+ Allocate]     │
+│  ──────────────────────────────────────────  │
+│  Hostel: [Boys Hostel ▼]                     │
+│  ──────────────────────────────────────────  │
+│                                              │
+│  ┌────────────────────────────────────────┐  │
+│  │ Room │ Type    │ Capacity │ Occupied   │  │
+│  ├────────────────────────────────────────┤  │
+│  │ 101  │ Double  │ 2        │ 2/2 🔴     │  │
+│  │ 102  │ Double  │ 2        │ 1/2 🟡     │  │
+│  │ 103  │ Triple  │ 3        │ 2/3 🟡     │  │
+│  │ 104  │ Dorm    │ 8        │ 8/8 🔴     │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  Allocate Modal:                             │
+│  ┌────────────────────────────────────────┐  │
+│  │ Student: [Aarav Kumar ▼]               │  │
+│  │ Room: [102 (1 bed available) ▼]        │  │
+│  │ Academic Year: [2025-2026 ▼]           │  │
+│  │ From: [01/04/2025]                     │  │
+│  │ Remarks: [                 ]            │  │
+│  │                                        │  │
+│  │         [Cancel]  [Allocate]           │  │
+│  └────────────────────────────────────────┘  │
+└──────────────────────────────────────────────┘
+```
+
+### 3. Hostel Attendance
+```
+┌──────────────────────────────────────────────┐
+│  Hostel Attendance                           │
+│  ──────────────────────────────────────────  │
+│  Hostel: [Boys Hostel ▼]  Date: [25/06/2025] │
+│  ──────────────────────────────────────────  │
+│                                              │
+│  [✅ Mark All Present]                       │
+│                                              │
+│  ┌────────────────────────────────────────┐  │
+│  │ Room │ Student   │ Status  │ Time     │  │
+│  ├────────────────────────────────────────┤  │
+│  │ 101  │ Rahul Dev │ Present │ 10:00 PM │  │
+│  │ 101  │ Vikram R. │ Present │ 9:45 PM  │  │
+│  │ 102  │ Aarav K.  │ Out     │ -        │  │
+│  │ 103  │ Sneha P.  │ Present │ 10:15 PM │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  [  Save Attendance  ]                       │
+└──────────────────────────────────────────────┘
+```
+
+### 4. Mess Menu
+```
+┌──────────────────────────────────────────────┐
+│  Mess Menu                     [+ Add Menu]  │
+│  ──────────────────────────────────────────  │
+│  Week: [24-30 Jun 2025 ▼]                    │
+│  ──────────────────────────────────────────  │
+│  ┌────────────────────────────────────────┐  │
+│  │ Day      │ Breakfast │ Lunch    │Dinner│  │
+│  ├────────────────────────────────────────┤  │
+│  │ Monday   │ Poha,Tea  │ Rice,Dal │Chapati│ │
+│  │ Tuesday  │ Idli,Sambar│ Rice,Curry│Roti │  │
+│  │ Wednesday│ Paratha   │ Rice,Dal │Chapati│ │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  Edit Menu Modal:                            │
+│  ┌────────────────────────────────────────┐  │
+│  │ Day: [Monday ▼]                        │  │
+│  │ Breakfast: [Poha, Tea, Banana    ]     │  │
+│  │ Lunch:     [Rice, Dal, Salad     ]     │  │
+│  │ Dinner:    [Chapati, Sabzi, Curd ]     │  │
+│  │                                        │  │
+│  │         [Cancel]  [Save]               │  │
+│  └────────────────────────────────────────┘  │
+└──────────────────────────────────────────────┘
+```
+
+### 5. Visitor Management
+```
+┌──────────────────────────────────────────────┐
+│  Hostel Visitors             [+ Log Visitor] │
+│  ──────────────────────────────────────────  │
+│  Date: [25/06/2025]                          │
+│  ──────────────────────────────────────────  │
+│  ┌────────────────────────────────────────┐  │
+│  │ Visitor    │ Student  │ In    │ Out    │  │
+│  ├────────────────────────────────────────┤  │
+│  │ Rajesh K.  │ Aarav    │2:00PM│4:00PM  │  │
+│  │ Sunita M.  │ Priya    │3:00PM│-       │  │
+│  └────────────────────────────────────────┘  │
+│                                              │
+│  Log Visitor Modal:                          │
+│  ┌────────────────────────────────────────┐  │
+│  │ Visitor Name: [                 ]       │  │
+│  │ Phone:        [                 ]       │  │
+│  │ Relation:     [Father ▼]               │  │
+│  │ ID Proof:     [Aadhaar ▼]              │  │
+│  │ ID Number:    [                 ]       │  │
+│  │ Visiting:     [Aarav Kumar ▼]          │  │
+│  │ Purpose:      [                 ]       │  │
+│  │                                        │  │
+│  │ [  Log Check-In  ]                     │  │
+│  └────────────────────────────────────────┘  │
+└──────────────────────────────────────────────┘
+```
+
+---
+
+## API Integration Points
+
+| Screen | API Calls |
+|--------|-----------|
+| Hostel List | `GET /hostels/` |
+| Room List | `GET /hostel-rooms/` |
+| Available Rooms | `GET /hostel-rooms/available/` |
+| Allocate | `POST /hostel-allocations/` |
+| Vacate | `POST /hostel-allocations/{id}/vacate/` |
+| Transfer | `POST /hostel-allocations/{id}/transfer/` |
+| Attendance | `GET/POST /hostel-attendance/mark/` |
+| Visitors | `GET/POST /hostel-visitors/` |
+| Mess Menu | `GET/POST /hostel-mess-menu/` |
+| Occupancy Report | `GET /hostel/reports/occupancy/` |
+
+---
+
+## Key Components
+
+| Component | Type | Description |
+|-----------|------|-------------|
+| `HostelDashboard` | Page | Occupancy + stats |
+| `RoomGrid` | Grid | Visual room layout |
+| `RoomAllocationForm` | Modal | Allocate student |
+| `HostelAttendance` | Page | Night attendance |
+| `MessMenuEditor` | Page | Weekly menu |
+| `VisitorLog` | Page | Visitor check-in/out |
+| `HostelFeePage` | Page | Hostel fee management |

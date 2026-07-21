@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Users, UserPlus, FileSpreadsheet, Wallet, Settings,
   BookOpen, Calendar, Search, AlertTriangle,
@@ -12,6 +12,7 @@ import {
   Mail, Phone, Tag, Layers, ArrowRight, Send, AlertCircle, Video, Shield, Check
 } from 'lucide-react';
 import { api } from './api';
+import { studentService } from './services/studentService';
 import { LibraryView, HostelView, TransportView, AccountsView, PermissionsView } from './NewModules';
 import { RoleDashboard } from './RoleDashboards';
 import { AttendanceView, TimetableView, ExaminationView, HRView, CommunicationView, InventoryView } from './AdvancedModules';
@@ -538,6 +539,38 @@ export default function App() {
     }, 4000);
   };
 
+  // Sync Live Students Data from Backend API at http://localhost:8000
+  useEffect(() => {
+    studentService.getAdmissions({ limit: 50 })
+      .then(res => {
+        const rawList = Array.isArray(res) ? res : res?.results || [];
+        if (rawList && rawList.length > 0) {
+          const mappedStudents: Student[] = rawList.map((item: any) => ({
+            id: item.id || item.admission_no,
+            admissionNo: item.admission_no || item.id,
+            name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
+            class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
+            section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
+            gender: item.gender || 'Male',
+            fatherName: item.father_name || 'N/A',
+            phone: item.phone || 'N/A',
+            type: 'New',
+            status: item.status || 'Approved',
+            blood: item.blood_group || 'O+',
+            category: item.category || 'General',
+            caste: item.caste || 'Hinduism',
+            house: item.house || 'Red House',
+            aadhar: item.aadhaar_no || 'N/A',
+          }));
+          setStudents(mappedStudents);
+          console.log('Live student records fetched from Django backend:', mappedStudents);
+        }
+      })
+      .catch(err => {
+        console.log('Backend API connection info:', err?.message);
+      });
+  }, []);
+
   // Admission Submit
   const handleAdmissionSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -567,10 +600,10 @@ export default function App() {
 
     setStudents(prev => [...prev, newStudent]);
 
-    // Sync with backend API
+    // Sync with Live Django Backend API (http://localhost:8000/api/admissions/)
     const apiPayload = {
       first_name: formName.split(' ')[0],
-      last_name: formName.split(' ')[1] || '',
+      last_name: formName.split(' ').slice(1).join(' ') || '',
       phone: formPhone,
       address: "123 School Lane",
       date_of_birth: formDob || "2016-01-01",
@@ -583,8 +616,8 @@ export default function App() {
       father_name: formFather,
       father_occupation: "Business",
       mother_name: "Mother Name",
-      admission_class: formClass,
-      section: formSection,
+      admission_class: formClass.replace('Class ', ''),
+      section: formSection.replace('Section ', ''),
       roll_number: formRoll || "1",
       house: formHouse || "Red",
       bus_route: "Route-1",
@@ -593,10 +626,11 @@ export default function App() {
       status: "Approved"
     };
 
-    api.createAdmission(currentSchoolId, apiPayload).then(res => {
-      console.log('Admission synced to backend:', res);
+    studentService.createAdmission(apiPayload).then(res => {
+      console.log('Admission successfully created in backend DB:', res);
+      addToast('Database Synced', `${formName} registered in Backend DB!`, 'success');
     }).catch(err => {
-      console.warn('API Sync unavailable, relying on local sandbox state:', err);
+      console.warn('Backend DB sync note:', err?.message);
     });
 
     // Auto insert tuition fee

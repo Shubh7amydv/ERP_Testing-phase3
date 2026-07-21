@@ -1,0 +1,439 @@
+{
+  "info": {
+    "name": "ERP School Module APIs",
+    "description": "School Module API Collection for ERP System\n\nPermission Requirements:\n- School CRUD (list, create, update, delete): Requires IsSuperAdmin (Super Admin role)\n- School detail, settings, academic years, holidays, templates: Requires IsSchoolMember (user must belong to the school)\n- Academic Year create/update, Holiday CRUD, Template create: Requires IsSchoolAdmin (School Admin role)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "school_id",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.access) { pm.collectionVariables.set('token', res.access); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Schools",
+      "item": [
+        {
+          "name": "List Schools",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", ""]
+            }
+          }
+        },
+        {
+          "name": "Create School",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Delhi Public School\",\n  \"code\": \"DPS001\",\n  \"address\": \"123 Education Lane\",\n  \"city\": \"New Delhi\",\n  \"state\": \"Delhi\",\n  \"pincode\": \"110001\",\n  \"phone\": \"011-12345678\",\n  \"email\": \"info@dps001.edu.in\",\n  \"website\": \"https://dps001.edu.in\",\n  \"affiliation\": \"CBSE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/create/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "create", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('school_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get School Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update School",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Delhi Public School Updated\",\n  \"code\": \"DPS001\",\n  \"address\": \"456 New Education Lane\",\n  \"city\": \"New Delhi\",\n  \"state\": \"Delhi\",\n  \"pincode\": \"110002\",\n  \"phone\": \"011-87654321\",\n  \"email\": \"info@dps001.edu.in\",\n  \"affiliation\": \"CBSE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/update/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "update", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete School (Soft)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/delete/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "delete", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "School Settings",
+      "item": [
+        {
+          "name": "Get Settings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/settings/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "settings", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"timezone\": \"Asia/Kolkata\",\n  \"currency\": \"INR\",\n  \"currency_symbol\": \"₹\",\n  \"academic_start_month\": 4,\n  \"passing_percentage\": 33,\n  \"max_students_per_section\": 40,\n  \"sms_enabled\": true,\n  \"email_enabled\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/settings/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "settings", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Academic Years",
+      "item": [
+        {
+          "name": "List Academic Years",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/academic-years/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "academic-years", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Academic Year",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"year\": \"2025-2026\",\n  \"start_date\": \"2025-04-01\",\n  \"end_date\": \"2026-03-31\",\n  \"is_current\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/academic-years/create/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "academic-years", "create", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('academic_year_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Academic Year Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/academic-years/{{academic_year_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "academic-years", "{{academic_year_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Set Current Year",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/academic-years/{{academic_year_id}}/set-current/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "academic-years", "{{academic_year_id}}", "set-current", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Holidays",
+      "item": [
+        {
+          "name": "List Holidays",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/holidays/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "holidays", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Holiday",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Independence Day\",\n  \"date\": \"2025-08-15\",\n  \"holiday_type\": \"national\",\n  \"description\": \"National Holiday\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/holidays/create/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "holidays", "create", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('holiday_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Holiday Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/holidays/{{holiday_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "holidays", "{{holiday_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Holiday",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Independence Day\",\n  \"date\": \"2025-08-15\",\n  \"holiday_type\": \"national\",\n  \"description\": \"National Holiday - Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/holidays/{{holiday_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "holidays", "{{holiday_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Holiday",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/holidays/{{holiday_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "holidays", "{{holiday_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notification Templates",
+      "item": [
+        {
+          "name": "List Templates",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/templates/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "templates", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Template",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"template_type\": \"fee_receipt\",\n  \"subject\": \"Fee Payment Receipt\",\n  \"body\": \"Dear {student_name}, your fee payment of {amount} has been received. Receipt No: {receipt_no}\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/templates/create/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "templates", "create", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('template_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Template Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/templates/{{template_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "templates", "{{template_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Template",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"template_type\": \"fee_receipt\",\n  \"subject\": \"Fee Payment Receipt Updated\",\n  \"body\": \"Dear {student_name}, your fee payment of {amount} has been received successfully.\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/schools/{{school_id}}/templates/{{template_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["schools", "{{school_id}}", "templates", "{{template_id}}", ""]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

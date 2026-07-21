@@ -1,0 +1,328 @@
+{
+  "info": {
+    "name": "ERP System - Examinations APIs",
+    "description": "Complete API collection for Examinations module",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Exam Types",
+      "item": [
+        {
+          "name": "List Exam Types",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exam-types/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["exam-types"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Exam Type",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/exam-types/", "host": ["{{base_url}}"], "path": ["exam-types"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"name\": \"Mid Term\",\n  \"description\": \"Mid term examination\",\n  \"weightage\": 50,\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Get Exam Type",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/exam-types/1/", "host": ["{{base_url}}"], "path": ["exam-types", "1"] } }
+        },
+        {
+          "name": "Update Exam Type",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{base_url}}/exam-types/1/", "host": ["{{base_url}}"], "path": ["exam-types", "1"] },
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Mid Term Updated\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Exam Type",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/exam-types/1/", "host": ["{{base_url}}"], "path": ["exam-types", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Subjects",
+      "item": [
+        {
+          "name": "List Subjects",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/subjects/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["subjects"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Subject",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/subjects/", "host": ["{{base_url}}"], "path": ["subjects"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"name\": \"Mathematics\",\n  \"code\": \"MATH\",\n  \"type\": \"theory\",\n  \"max_marks\": 100,\n  \"passing_marks\": 33,\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Get Subject",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/subjects/1/", "host": ["{{base_url}}"], "path": ["subjects", "1"] } }
+        },
+        {
+          "name": "Update Subject",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{base_url}}/subjects/1/", "host": ["{{base_url}}"], "path": ["subjects", "1"] },
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Mathematics Updated\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Subject",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/subjects/1/", "host": ["{{base_url}}"], "path": ["subjects", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Class Subjects",
+      "item": [
+        {
+          "name": "List Class Subjects",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/class-subjects/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["class-subjects"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Class Subject",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/class-subjects/", "host": ["{{base_url}}"], "path": ["class-subjects"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"class_obj\": 1,\n  \"subject\": 1,\n  \"teacher\": null,\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Bulk Assign Subjects",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/class-subjects/bulk-assign/", "host": ["{{base_url}}"], "path": ["class-subjects", "bulk-assign"] },
+            "body": { "mode": "raw", "raw": "{\n  \"class_id\": 1,\n  \"items\": [\n    { \"subject_id\": 1, \"teacher_id\": null },\n    { \"subject_id\": 2, \"teacher_id\": null }\n  ]\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Class Subject",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/class-subjects/1/", "host": ["{{base_url}}"], "path": ["class-subjects", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Exams",
+      "item": [
+        {
+          "name": "List Exams",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exams/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["exams"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Exam",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/exams/", "host": ["{{base_url}}"], "path": ["exams"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"exam_type\": 1,\n  \"name\": \"Mid Term 2026\",\n  \"academic_year\": 1,\n  \"start_date\": \"2026-07-15\",\n  \"end_date\": \"2026-07-25\",\n  \"result_date\": \"2026-08-01\",\n  \"is_published\": false\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Get Exam",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/exams/1/", "host": ["{{base_url}}"], "path": ["exams", "1"] } }
+        },
+        {
+          "name": "Update Exam",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{base_url}}/exams/1/", "host": ["{{base_url}}"], "path": ["exams", "1"] },
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Mid Term 2026 Updated\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Publish Exam",
+          "request": { "method": "POST", "url": { "raw": "{{base_url}}/exams/1/publish/", "host": ["{{base_url}}"], "path": ["exams", "1", "publish"] } }
+        },
+        {
+          "name": "Delete Exam",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/exams/1/", "host": ["{{base_url}}"], "path": ["exams", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Exam Schedules",
+      "item": [
+        {
+          "name": "List Exam Schedules",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exam-schedules/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["exam-schedules"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Exam Schedule",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/exam-schedules/", "host": ["{{base_url}}"], "path": ["exam-schedules"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"exam\": 1,\n  \"subject\": 1,\n  \"class_obj\": 1,\n  \"date\": \"2026-07-15\",\n  \"start_time\": \"09:00:00\",\n  \"end_time\": \"12:00:00\",\n  \"max_marks\": 100,\n  \"passing_marks\": 33,\n  \"room_no\": \"101\",\n  \"instructions\": \"Carry pens and pencils\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Bulk Create Exam Schedules",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/exam-schedules/bulk-create/", "host": ["{{base_url}}"], "path": ["exam-schedules", "bulk-create"] },
+            "body": { "mode": "raw", "raw": "{\n  \"exam_id\": 1,\n  \"class_id\": 1,\n  \"schedules\": [\n    {\n      \"subject_id\": 1,\n      \"date\": \"2026-07-15\",\n      \"start_time\": \"09:00:00\",\n      \"end_time\": \"12:00:00\",\n      \"max_marks\": 100,\n      \"passing_marks\": 33,\n      \"room_no\": \"101\",\n      \"instructions\": \"\"\n    },\n    {\n      \"subject_id\": 2,\n      \"date\": \"2026-07-16\",\n      \"start_time\": \"09:00:00\",\n      \"end_time\": \"12:00:00\",\n      \"max_marks\": 100,\n      \"passing_marks\": 33,\n      \"room_no\": \"102\",\n      \"instructions\": \"\"\n    }\n  ]\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Delete Exam Schedule",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/exam-schedules/1/", "host": ["{{base_url}}"], "path": ["exam-schedules", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Exam Results",
+      "item": [
+        {
+          "name": "List Exam Results",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exam-results/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["exam-results"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Exam Result",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/exam-results/", "host": ["{{base_url}}"], "path": ["exam-results"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"exam\": 1,\n  \"student\": 1,\n  \"schedule\": 1,\n  \"marks_obtained\": 85.50,\n  \"is_absent\": false,\n  \"remarks\": \"Good performance\"\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Bulk Enter Results",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/exam-results/bulk-enter/", "host": ["{{base_url}}"], "path": ["exam-results", "bulk-enter"] },
+            "body": { "mode": "raw", "raw": "{\n  \"exam_id\": 1,\n  \"class_id\": 1,\n  \"section_id\": 1,\n  \"schedule_id\": 1,\n  \"results\": [\n    {\n      \"student_id\": 1,\n      \"marks_obtained\": 85.50,\n      \"is_absent\": false,\n      \"remarks\": \"Good\"\n    },\n    {\n      \"student_id\": 2,\n      \"marks_obtained\": null,\n      \"is_absent\": true,\n      \"remarks\": \"Absent\"\n    }\n  ]\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Get Student Results",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/exam-results/student/1/", "host": ["{{base_url}}"], "path": ["exam-results", "student", "1"] } }
+        },
+        {
+          "name": "Get Class Results",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exam-results/class/1/?exam_id=1", "host": ["{{base_url}}"], "path": ["exam-results", "class", "1"], "query": [{ "key": "exam_id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Delete Exam Result",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/exam-results/1/", "host": ["{{base_url}}"], "path": ["exam-results", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Grading Systems",
+      "item": [
+        {
+          "name": "List Grading Systems",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/grading-systems/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["grading-systems"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Create Grading System",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/grading-systems/", "host": ["{{base_url}}"], "path": ["grading-systems"] },
+            "body": { "mode": "raw", "raw": "{\n  \"school\": 1,\n  \"name\": \"CBSE Grading\",\n  \"grades\": [\n    { \"min\": 91, \"max\": 100, \"grade\": \"A1\" },\n    { \"min\": 81, \"max\": 90, \"grade\": \"A2\" },\n    { \"min\": 71, \"max\": 80, \"grade\": \"B1\" },\n    { \"min\": 61, \"max\": 70, \"grade\": \"B2\" },\n    { \"min\": 51, \"max\": 60, \"grade\": \"C1\" },\n    { \"min\": 41, \"max\": 50, \"grade\": \"C2\" },\n    { \"min\": 33, \"max\": 40, \"grade\": \"D\" },\n    { \"min\": 0, \"max\": 32, \"grade\": \"E\" }\n  ],\n  \"is_default\": false,\n  \"is_active\": true\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Set Default Grading",
+          "request": { "method": "POST", "url": { "raw": "{{base_url}}/grading-systems/1/set-default/", "host": ["{{base_url}}"], "path": ["grading-systems", "1", "set-default"] } }
+        },
+        {
+          "name": "Delete Grading System",
+          "request": { "method": "DELETE", "url": { "raw": "{{base_url}}/grading-systems/1/", "host": ["{{base_url}}"], "path": ["grading-systems", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Report Cards",
+      "item": [
+        {
+          "name": "List Report Cards",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/report-cards/?page=1&limit=10", "host": ["{{base_url}}"], "path": ["report-cards"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Generate Report Cards",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/report-cards/generate/", "host": ["{{base_url}}"], "path": ["report-cards", "generate"] },
+            "body": { "mode": "raw", "raw": "{\n  \"exam_id\": 1\n}", "options": { "raw": { "language": "json" } } }
+          }
+        },
+        {
+          "name": "Download Report Card",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/report-cards/1/download/", "host": ["{{base_url}}"], "path": ["report-cards", "1", "download"] } }
+        }
+      ]
+    },
+    {
+      "name": "Exam Reports",
+      "item": [
+        {
+          "name": "Class Performance Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exams/reports/class-performance/?exam_id=1&class_id=1", "host": ["{{base_url}}"], "path": ["exams", "reports", "class-performance"], "query": [{ "key": "exam_id", "value": "1" }, { "key": "class_id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Subject Analysis Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exams/reports/subject-analysis/?exam_id=1&subject_id=1", "host": ["{{base_url}}"], "path": ["exams", "reports", "subject-analysis"], "query": [{ "key": "exam_id", "value": "1" }, { "key": "subject_id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Toppers Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exams/reports/toppers/?exam_id=1&limit=10", "host": ["{{base_url}}"], "path": ["exams", "reports", "toppers"], "query": [{ "key": "exam_id", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Fail Students Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exams/reports/fail-students/?exam_id=1", "host": ["{{base_url}}"], "path": ["exams", "reports", "fail-students"], "query": [{ "key": "exam_id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Exam Comparison Report",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/exams/reports/comparison/?exam_ids=1,2&class_id=1", "host": ["{{base_url}}"], "path": ["exams", "reports", "comparison"], "query": [{ "key": "exam_ids", "value": "1,2" }, { "key": "class_id", "value": "1" }] }
+          }
+        }
+      ]
+    }
+  ]
+}

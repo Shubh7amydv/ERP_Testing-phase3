@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { examinationService } from './services/examinationService';
 import { 
   Award, FileText, CheckCircle2, XCircle, Search, Download, 
   Printer, PlusCircle, Check, Sparkles, Settings, Bell, BookOpen, 
@@ -167,6 +168,34 @@ export function ExaminationModule({ initialSubView = 'marks-entry', onNavigateSu
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
   };
+
+  useEffect(() => {
+    examinationService.getMarks()
+      .then(res => {
+        const rawList = Array.isArray(res) ? res : (res?.data || res?.results || []);
+        if (rawList && rawList.length > 0) {
+          const mapped: ExamMark[] = rawList.map((item: any, idx: number) => ({
+            id: item.id || `mk-${idx}`,
+            studentId: item.student || 'std-1',
+            rollNo: item.roll_number || '101',
+            studentName: item.student_name || 'Student',
+            className: item.admission_class || 'Class 10',
+            section: item.section || 'A',
+            subject: item.subject_name || 'Mathematics',
+            theoryMarks: item.marks_obtained || 75,
+            practicalMarks: 15,
+            vivaMarks: 0,
+            graceMarks: 0,
+            totalMarks: item.marks_obtained || 90,
+            maxMarks: item.max_marks || 100,
+            grade: item.grade || 'A1',
+            remarks: item.remarks || 'Good'
+          }));
+          setExamMarks(mapped);
+        }
+      })
+      .catch(err => console.log('Examination service fetch info:', err?.message));
+  }, []);
 
   return (
     <div>

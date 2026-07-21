@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { timetableService } from './services/timetableService';
 import { 
   Clock, Calendar, UserCheck, Users, BookOpen, AlertCircle, 
   Bell, Volume2, PlusCircle, CheckCircle2, Edit, Trash2, 
@@ -163,6 +164,28 @@ export function TimeTableModule({ initialSubView = 'cls-manage', onNavigateSubVi
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
   };
+
+  useEffect(() => {
+    timetableService.getRoutines()
+      .then(res => {
+        const rawList = Array.isArray(res) ? res : (res?.data || res?.results || []);
+        if (rawList && rawList.length > 0) {
+          const mapped: TimetableEntry[] = rawList.map((item: any, idx: number) => ({
+            id: item.id || `tt-${idx}`,
+            className: item.admission_class || 'Class 10',
+            section: item.section || 'A',
+            day: item.day_of_week || 'Monday',
+            periodNo: item.period_no || 1,
+            periodName: item.period_name || 'Period 1',
+            subject: item.subject_name || 'Mathematics',
+            teacher: item.teacher_name || 'Sunita Verma',
+            roomNo: item.room_no || '101'
+          }));
+          setTimetableEntries(mapped);
+        }
+      })
+      .catch(err => console.log('Timetable service fetch info:', err?.message));
+  }, []);
 
   return (
     <div>

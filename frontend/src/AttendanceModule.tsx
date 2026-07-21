@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { attendanceService } from './services/attendanceService';
 import { 
   CalendarCheck, Calendar, Users, UserCheck, CheckCircle2, XCircle, 
   Clock, AlertCircle, FileText, Search, PlusCircle, Filter, Download, 
@@ -145,6 +146,27 @@ export function AttendanceModule({ initialSubView = 'mark-student', onNavigateSu
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
   };
+
+  useEffect(() => {
+    attendanceService.getAttendance()
+      .then(res => {
+        const rawList = Array.isArray(res) ? res : (res?.data || res?.results || []);
+        if (rawList && rawList.length > 0) {
+          const mapped: StudentAttendance[] = rawList.map((item: any) => ({
+            studentId: item.id || item.student,
+            rollNo: item.roll_no || '101',
+            name: item.student_name || item.first_name || 'Student',
+            className: item.admission_class || 'Class 10',
+            section: item.section || 'A',
+            status: item.status === 'present' ? 'Present' : (item.status === 'absent' ? 'Absent' : 'Late'),
+            inTime: item.in_time || '08:00 AM',
+            remarks: item.remarks || 'Normal'
+          }));
+          setStudentsAtt(mapped);
+        }
+      })
+      .catch(err => console.log('Attendance service fetch info:', err?.message));
+  }, []);
 
   return (
     <div>

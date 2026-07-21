@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { libraryService } from './services/libraryService';
 import { 
   Search, BookOpen, Check, Trash2, ShieldCheck, 
   MapPin, Users, Award, ShieldAlert, DollarSign, CreditCard,
@@ -111,6 +112,26 @@ export function LibraryView({
     { id: "ISS-902", studentName: "Priya Das", bookTitle: "A Brief History of Time", issueDate: "2026-06-20", dueDate: "2026-07-01", status: "Overdue", fine: 60 },
     { id: "ISS-903", studentName: "Rohan Ghosh", bookTitle: "Introduction to Algorithms", issueDate: "2026-07-02", dueDate: "2026-07-16", status: "Issued", fine: 0 }
   ]);
+
+  useEffect(() => {
+    libraryService.getBooks()
+      .then(res => {
+        const rawList = Array.isArray(res) ? res : (res?.data || res?.results || []);
+        if (rawList && rawList.length > 0) {
+          const mapped: Book[] = rawList.map((item: any, idx: number) => ({
+            id: item.id || `b-${idx}`,
+            title: item.title || 'Book',
+            isbn: item.isbn || '123456789',
+            author: item.author || 'Author',
+            quantity: item.quantity || 5,
+            available: item.available_quantity || 5,
+            category: item.category_name || item.category || 'General'
+          }));
+          setBooks(mapped);
+        }
+      })
+      .catch(err => console.log('Library service fetch info:', err?.message));
+  }, []);
 
   const filteredBooks = books.filter(b => 
     b.title.toLowerCase().includes(search.toLowerCase()) || 

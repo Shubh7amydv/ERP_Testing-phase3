@@ -8,7 +8,7 @@ import {
   CalendarDays, Ticket, CreditCard,
   Terminal, ShieldAlert, CalendarCheck, FileText,
   MessageSquare, Package, Bus, Building, DoorOpen, Trophy,
-  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell
+  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell, Star, RefreshCw, PlusCircle
 } from 'lucide-react';
 import { api } from './api';
 import { LibraryView, HostelView, TransportView, AccountsView, PermissionsView } from './NewModules';
@@ -18,6 +18,7 @@ import { FacultyModule, type FacultySubView } from './FacultyModule';
 import { AccountModule, type AccountSubView } from './AccountModule';
 import { TimeTableModule, type TimeTableSubView } from './TimeTableModule';
 import { AttendanceModule, type AttendanceSubView } from './AttendanceModule';
+import { ExaminationModule, type ExaminationSubView } from './ExaminationModule';
 
 // Types
 interface Student {
@@ -465,6 +466,13 @@ export default function App() {
     studentReport: true,
     holiday: true,
     mark: true
+  });
+  const [examSubView, setExamSubView] = useState<ExaminationSubView>('marks-entry');
+  const [examSubgroups, setExamSubgroups] = useState<Record<string, boolean>>({
+    marks: true,
+    result: true,
+    report: true,
+    setting: true
   });
 
   // Editing state
@@ -1792,10 +1800,121 @@ export default function App() {
               {selectedModule === 'examination' && (
                 <>
                   <div className="menu-label">Examination Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('examination')}>
-                    <FileText size={15} />
-                    <span>Exam Grades</span>
+
+                  {/* 1. Marks Management (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setExamSubgroups(prev => ({ ...prev, marks: !prev.marks }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Award size={13} color="#00696b" /> Marks
+                      </span>
+                      <span>{examSubgroups.marks ? '▾' : '▸'}</span>
+                    </div>
+
+                    {examSubgroups.marks && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-entry' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-entry'); }}>Add Marks</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-excel' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-excel'); }}>Excel Upload</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-admitcard' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-admitcard'); }}>Admit Card</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-ledger' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-ledger'); }}>Marks Ledger</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-subject-teacher' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-subject-teacher'); }}>Add Subject Teacher</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-sms' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-sms'); }}>Send Marks SMS</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-admitcard-design' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-admitcard-design'); }}>Admit Card Design</div>
+                      </div>
+                    )}
                   </div>
+
+                  {/* 2. Add Co-Scholastic */}
+                  <div className={`menu-item ${activeView === 'examination' && examSubView === 'criteriagrade' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('criteriagrade'); }}>
+                    <Star size={15} color="#ea580c" />
+                    <span>Add Co-Scholastic</span>
+                  </div>
+
+                  {/* 3. Exam Result (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setExamSubgroups(prev => ({ ...prev, result: !prev.result }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <FileText size={13} color="#16a34a" /> Exam Result
+                      </span>
+                      <span>{examSubgroups.result ? '▾' : '▸'}</span>
+                    </div>
+
+                    {examSubgroups.result && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'result-generate' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('result-generate'); }}>Exam Result</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'result-publish' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('result-publish'); }}>Publish Result</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4. Exam Report (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setExamSubgroups(prev => ({ ...prev, report: !prev.report }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <BarChart3 size={13} color="#8b4570" /> Exam Report
+                      </span>
+                      <span>{examSubgroups.report ? '▾' : '▸'}</span>
+                    </div>
+
+                    {examSubgroups.report && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-exam-wise' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-exam-wise'); }}>Exam Wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-term-wise' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-term-wise'); }}>Term Wise</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-cross-list' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-cross-list'); }}>Cross List</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-cumulative' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-cumulative'); }}>Cummulative</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-graph' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-graph'); }}>Graph Analysis</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-analysis' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-analysis'); }}>Teacher Analysis</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 5. Exam Setting (Collapsible) */}
+                  <div>
+                    <div 
+                      className="nested-subgroup-header" 
+                      onClick={() => setExamSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                    >
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Settings size={13} color="#0284c7" /> Exam Setting
+                      </span>
+                      <span>{examSubgroups.setting ? '▾' : '▸'}</span>
+                    </div>
+
+                    {examSubgroups.setting && (
+                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-exam-term' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-exam-term'); }}>Add Exam Name / Term</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-grading' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-grading'); }}>Grading System</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-subjects' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-subjects'); }}>Add Subject</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-promotion' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-promotion'); }}>Promotion Class</div>
+                        <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-signatures' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-signatures'); }}>Add Sign</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 6. Migrate Setting */}
+                  <div className={`menu-item ${activeView === 'examination' && examSubView === 'migrate-setting' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('migrate-setting'); }}>
+                    <RefreshCw size={15} color="#8b5cf6" />
+                    <span>Migrate Setting</span>
+                  </div>
+
+                  {/* 7. Extra Marks */}
+                  <div className={`menu-item ${activeView === 'examination' && examSubView === 'extra-marks' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('extra-marks'); }}>
+                    <PlusCircle size={15} color="#dc2626" />
+                    <span>Extra Marks</span>
+                  </div>
+
                 </>
               )}
 
@@ -3804,7 +3923,10 @@ export default function App() {
 
           {/* VIEW: EXAMINATION */}
           {activeView === 'examination' && (
-            <ExaminationView students={students} />
+            <ExaminationModule 
+              initialSubView={examSubView} 
+              onNavigateSubView={(sv) => setExamSubView(sv)} 
+            />
           )}
 
           {/* VIEW: HR & STAFF */}

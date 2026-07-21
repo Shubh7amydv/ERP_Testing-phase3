@@ -1,0 +1,70 @@
+// Centralized API Client for Backend Integration
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
+export interface RequestOptions extends RequestInit {
+  params?: Record<string, string | number | boolean | undefined>;
+}
+
+export async function apiClient<T = any>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+  const { params, headers: customHeaders, body, ...customConfig } = options;
+
+  let url = `${BASE_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+
+  if (params) {
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        searchParams.append(key, String(value));
+      }
+    });
+    const queryString = searchParams.toString();
+    if (queryString) {
+      url += (url.includes('?') ? '&' : '?') + queryString;
+    }
+  }
+
+  const token = localStorage.getItem('access_token');
+  const headers: Record<string, string> = {
+    ...((customHeaders as Record<string, string>) || {}),
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  // If body is NOT FormData, default to application/json
+  if (body && !(body instanceof FormData) && !headers['Content-Type']) {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  try {
+    const response = await fetch(url, {
+      ...customConfig,
+      headers,
+      body,
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        console.warn('API Unauthorized 401 - clearing token');
+      }
+      const errorText = await response.text();
+      let errorJson: any = {};
+      try {
+        errorJson = JSON.parse(errorText);
+      } catch {
+        // non-json response
+      }
+      throw new Error(errorJson.detail || errorJson.message || `HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    if (response.status === 204) {
+      return {} as T;
+    }
+
+    return await response.json();
+  } catch (error: any) {
+    console.error(`API Error [${endpoint}]:`, error.message);
+    throw error;
+  }
+}

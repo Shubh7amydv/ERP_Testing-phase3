@@ -252,15 +252,8 @@ export default function App() {
     { id: "RT-02", routeName: "West Delhi Dwarka Line", vehicleNumber: "DL-1C-B-9921", driverName: "Manjeet Kumar", driverPhone: "9871234509", stops: ["Janakpuri", "Dwarka Sec 6", "Uttam Nagar"], studentCount: 8 }
   ]);
 
-  // Data Sets
-  const [students, setStudents] = useState<Student[]>([
-    { id: "ADM-2026-001", admissionNo: "ADM-2026-001", name: "Aarav Sharma", class: "Class 5", section: "Section A", gender: "Male", fatherName: "Rajesh Sharma", phone: "9875543210", type: "New", status: "Approved", blood: "O+", category: "General", caste: "Hinduism", house: "Red House", aadhar: "1234-5678-9012" },
-    { id: "ADM-2026-002", admissionNo: "ADM-2026-002", name: "Priya Das", class: "Class 4", section: "Section B", gender: "Female", fatherName: "Sunil Das", phone: "9812345678", type: "New", status: "Approved", blood: "A+", category: "General", caste: "Hinduism", house: "Blue House", aadhar: "2345-6789-0123" },
-    { id: "ADM-2026-003", admissionNo: "ADM-2026-003", name: "Rohan Ghosh", class: "Class 6", section: "Section A", gender: "Male", fatherName: "Amit Ghosh", phone: "9988776655", type: "Transfer", status: "Pending", blood: "B+", category: "OBC", caste: "Hinduism", house: "Green House", aadhar: "3456-7890-1234" },
-    { id: "ADM-2026-004", admissionNo: "ADM-2026-004", name: "Sneha Mondal", class: "Class 3", section: "Section B", gender: "Female", fatherName: "Dipak Mondal", phone: "9123456789", type: "New", status: "Approved", blood: "AB+", category: "General", caste: "Hinduism", house: "Red House", aadhar: "4567-8901-2345" },
-    { id: "ADM-2026-005", admissionNo: "ADM-2026-005", name: "Arjun Paul", class: "Class 5", section: "Section A", gender: "Male", fatherName: "Sanjay Paul", phone: "9654321098", type: "Transfer", status: "Rejected", blood: "O-", category: "SC", caste: "Hinduism", house: "Blue House", aadhar: "5678-9012-3456" },
-    { id: "ADM-2026-006", admissionNo: "ADM-2026-006", name: "Ritka Sen", class: "Class 4", section: "Section B", gender: "Female", fatherName: "Bikash Sen", phone: "9778543210", type: "New", status: "Pending", blood: "O+", category: "ST", caste: "Hinduism", house: "Green House", aadhar: "6789-0123-4567" }
-  ]);
+  // Data Sets (Initialized empty to load real registered student records from Database)
+  const [students, setStudents] = useState<Student[]>([]);
 
   const [feeRecords, setFeeRecords] = useState<FeeRecord[]>([
     { id: 1, class: "Class 1", section: "Section A", type: "Tuition", amount: 2500, due: "2026-04-10", status: "Paid" },
@@ -544,27 +537,25 @@ export default function App() {
     studentService.getAdmissions({ limit: 50 })
       .then(res => {
         const rawList = Array.isArray(res) ? res : res?.results || [];
-        if (rawList && rawList.length > 0) {
-          const mappedStudents: Student[] = rawList.map((item: any) => ({
-            id: item.id || item.admission_no,
-            admissionNo: item.admission_no || item.id,
-            name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
-            class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
-            section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
-            gender: item.gender || 'Male',
-            fatherName: item.father_name || 'N/A',
-            phone: item.phone || 'N/A',
-            type: 'New',
-            status: item.status || 'Approved',
-            blood: item.blood_group || 'O+',
-            category: item.category || 'General',
-            caste: item.caste || 'Hinduism',
-            house: item.house || 'Red House',
-            aadhar: item.aadhaar_no || 'N/A',
-          }));
-          setStudents(mappedStudents);
-          console.log('Live student records fetched from Django backend:', mappedStudents);
-        }
+        const mappedStudents: Student[] = rawList.map((item: any) => ({
+          id: item.id || item.admission_no,
+          admissionNo: item.admission_no || item.id,
+          name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
+          class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
+          section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
+          gender: item.gender || 'Male',
+          fatherName: item.father_name || 'N/A',
+          phone: item.phone || 'N/A',
+          type: 'New',
+          status: item.status || 'Approved',
+          blood: item.blood_group || 'O+',
+          category: item.category || 'General',
+          caste: item.caste || 'Hinduism',
+          house: item.house || 'Red House',
+          aadhar: item.aadhaar_no || 'N/A',
+        }));
+        setStudents(mappedStudents);
+        console.log('Live student records fetched from Django backend:', mappedStudents);
       })
       .catch(err => {
         console.log('Backend API connection info:', err?.message);

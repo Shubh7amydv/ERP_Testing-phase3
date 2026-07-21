@@ -536,7 +536,7 @@ export default function App() {
   useEffect(() => {
     studentService.getAdmissions({ limit: 50 })
       .then(res => {
-        const rawList = Array.isArray(res) ? res : res?.results || [];
+        const rawList = Array.isArray(res) ? res : ((res as any)?.data?.admissions || (res as any)?.data || res?.results || []);
         const mappedStudents: Student[] = rawList.map((item: any) => ({
           id: item.id || item.admission_no,
           admissionNo: item.admission_no || item.id,

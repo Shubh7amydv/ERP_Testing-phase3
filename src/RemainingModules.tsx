@@ -90,10 +90,10 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><ClipboardList size={22} color="#00696b" /> HR & Staff Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><ClipboardList size={22} color="#2563eb" /> HR & Staff Management</h2>
           <span className="view-subtitle">Staff records, leave management, departments, designations & holiday calendar</span>
         </div>
       </div>
@@ -103,17 +103,17 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800 }}>All Staff Registry ({HR_STAFF.length} Records)</h3>
-            <button onClick={() => go('hr-add-staff')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add New Staff</button>
+            <button onClick={() => go('hr-add-staff')} className="erp-btn btn-primary"><PlusCircle size={14} /> Add New Staff</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Emp ID', 'Staff Name', 'Department', 'Designation', 'Phone', 'Join Date', 'Status', 'Action'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Emp ID', 'Staff Name', 'Department', 'Designation', 'Phone', 'Join Date', 'Status', 'Action'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{HR_STAFF.map(s => (
               <tr key={s.id}>
                 <td style={{ fontWeight: 800, color: '#dc2626' }}>{s.id}</td>
                 <td style={{ fontWeight: 800 }}>{s.name}</td>
-                <td style={{ fontWeight: 700, color: '#00696b' }}>{s.dept}</td>
+                <td style={{ fontWeight: 700, color: '#2563eb' }}>{s.dept}</td>
                 <td>{s.desig}</td>
                 <td>{s.phone}</td>
                 <td>{s.joinDate}</td>
@@ -147,7 +147,7 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
             </div>
             <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
               <button type="button" onClick={() => go('hr-staff-list')} className="erp-btn btn-outline">Cancel</button>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Save Staff</button>
+              <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Save Staff</button>
             </div>
           </form>
         </div>
@@ -158,7 +158,7 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800 }}>{subView === 'hr-leave-apply' ? 'Apply for Leave' : 'Leave Approval Console'}</h3>
-            {subView === 'hr-leave-apply' && <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Apply Leave</button>}
+            {subView === 'hr-leave-apply' && <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary"><PlusCircle size={14} /> Apply Leave</button>}
           </div>
           {showAddForm && subView === 'hr-leave-apply' && (
             <div className="erp-card" style={{ marginBottom: 16 }}>
@@ -170,14 +170,14 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
                   <div className="form-group col-span-2"><label>Reason *</label><input type="text" required placeholder="Reason for leave" /></div>
                 </div>
                 <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
-                  <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Submit Application</button>
+                  <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Submit Application</button>
                 </div>
               </form>
             </div>
           )}
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['App ID', 'Staff Name', 'Leave Type', 'From', 'To', 'Days', 'Reason', 'Status', 'Action'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['App ID', 'Staff Name', 'Leave Type', 'From', 'To', 'Days', 'Reason', 'Status', 'Action'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{HR_LEAVES.map(l => (
               <tr key={l.id}>
@@ -243,10 +243,10 @@ export function CertificateModule({ initialSubView = 'cert-bonafide', onNavigate
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Award size={22} color="#00696b" /> Certificate Generator</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Award size={22} color="#2563eb" /> Certificate Generator</h2>
           <span className="view-subtitle">Issue bonafide, transfer, character & migration certificates with digital stamps</span>
         </div>
       </div>
@@ -263,7 +263,7 @@ export function CertificateModule({ initialSubView = 'cert-bonafide', onNavigate
               <div className="form-group col-span-2"><label>Body Text / Description</label><textarea rows={4} defaultValue={`This is to certify that [STUDENT_NAME], Son/Daughter of [FATHER_NAME], is a bonafide student of this school studying in Class [CLASS] during the Session [SESSION].`} style={{ width: '100%', padding: '8px', borderRadius: 6, border: '1px solid #e2e8f0' }} /></div>
             </div>
             <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-              <button onClick={() => showToast('Certificate template saved!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Save Template</button>
+              <button onClick={() => showToast('Certificate template saved!')} className="erp-btn btn-primary"><Check size={14} /> Save Template</button>
             </div>
           </div>
         </div>
@@ -271,7 +271,7 @@ export function CertificateModule({ initialSubView = 'cert-bonafide', onNavigate
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>{certTypes[subView] || 'Certificate'} Issuance Console</h3>
-            <button onClick={() => showToast('Certificate generated & printed!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Printer size={14} /> Generate & Print</button>
+            <button onClick={() => showToast('Certificate generated & printed!')} className="erp-btn btn-primary"><Printer size={14} /> Generate & Print</button>
           </div>
 
           <div className="erp-card" style={{ marginBottom: 16 }}>
@@ -292,14 +292,14 @@ export function CertificateModule({ initialSubView = 'cert-bonafide', onNavigate
           <div className="erp-card">
             <div className="erp-card-header"><span className="erp-card-title">Recently Issued Certificates</span></div>
             <div className="table-container"><table className="erp-table">
-              <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-                {['Cert No', 'Student Name', 'Class', 'Certificate Type', 'Issue Date', 'Status', 'Action'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+              <thead><tr>
+                {['Cert No', 'Student Name', 'Class', 'Certificate Type', 'Issue Date', 'Status', 'Action'].map(h => <th key={h}>{h}</th>)}
               </tr></thead>
               <tbody>{CERT_RECORDS.map(c => (
                 <tr key={c.id}>
                   <td style={{ fontWeight: 800 }}>{c.id}</td>
                   <td style={{ fontWeight: 800 }}>{c.studentName}</td>
-                  <td style={{ color: '#00696b', fontWeight: 700 }}>{c.class}</td>
+                  <td style={{ color: '#2563eb', fontWeight: 700 }}>{c.class}</td>
                   <td>{c.certType}</td>
                   <td>{c.issueDate}</td>
                   <td><span className={`erp-badge ${c.status === 'Issued' ? 'badge-approved' : 'badge-pending'}`}>{c.status}</span></td>
@@ -333,10 +333,10 @@ export function AcademicModule({ initialSubView = 'academic-subject', onNavigate
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><GraduationCap size={22} color="#00696b" /> Academic Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><GraduationCap size={22} color="#2563eb" /> Academic Management</h2>
           <span className="view-subtitle">Subjects, chapters, lesson plans, homework assignments & syllabus tracking</span>
         </div>
       </div>
@@ -345,7 +345,7 @@ export function AcademicModule({ initialSubView = 'academic-subject', onNavigate
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>{subView === 'academic-homework' ? 'Assign & Manage Homework' : 'Homework Submission Report'}</h3>
-            {subView === 'academic-homework' && <button onClick={() => setShowForm(!showForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Assign Homework</button>}
+            {subView === 'academic-homework' && <button onClick={() => setShowForm(!showForm)} className="erp-btn btn-primary"><PlusCircle size={14} /> Assign Homework</button>}
           </div>
           {showForm && subView === 'academic-homework' && (
             <div className="erp-card" style={{ marginBottom: 16 }}>
@@ -358,19 +358,19 @@ export function AcademicModule({ initialSubView = 'academic-subject', onNavigate
                   <div className="form-group col-span-2"><label>Homework Description *</label><textarea required rows={3} placeholder="Describe the homework task in detail..." style={{ width: '100%', padding: 8, borderRadius: 6, border: '1px solid #e2e8f0' }} /></div>
                 </div>
                 <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
-                  <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Assign & Notify</button>
+                  <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Assign & Notify</button>
                 </div>
               </form>
             </div>
           )}
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['ID', 'Class', 'Subject', 'Topic / Task', 'Assigned', 'Due Date', 'Teacher', 'Status'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['ID', 'Class', 'Subject', 'Topic / Task', 'Assigned', 'Due Date', 'Teacher', 'Status'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{HOMEWORK_LIST.map(hw => (
               <tr key={hw.id}>
                 <td style={{ fontWeight: 800 }}>{hw.id}</td>
-                <td style={{ fontWeight: 700, color: '#00696b' }}>{hw.class}</td>
+                <td style={{ fontWeight: 700, color: '#2563eb' }}>{hw.class}</td>
                 <td style={{ fontWeight: 800 }}>{hw.subject}</td>
                 <td style={{ color: '#0f172a', fontSize: 12 }}>{hw.topic}</td>
                 <td>{hw.assignDate}</td>
@@ -418,10 +418,10 @@ export function FrontOfficeModule({ initialSubView = 'fo-enquiry-list', onNaviga
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Contact size={22} color="#00696b" /> Front Office & Reception Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Contact size={22} color="#2563eb" /> Front Office & Reception Management</h2>
           <span className="view-subtitle">Enquiry management, visitor log, postal dispatch & phone call register</span>
         </div>
       </div>
@@ -430,7 +430,7 @@ export function FrontOfficeModule({ initialSubView = 'fo-enquiry-list', onNaviga
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Admission Enquiry Register</h3>
-            <button onClick={() => setShowForm(!showForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add Enquiry</button>
+            <button onClick={() => setShowForm(!showForm)} className="erp-btn btn-primary"><PlusCircle size={14} /> Add Enquiry</button>
           </div>
           {showForm && (
             <div className="erp-card" style={{ marginBottom: 16 }}>
@@ -445,21 +445,21 @@ export function FrontOfficeModule({ initialSubView = 'fo-enquiry-list', onNaviga
                   <div className="form-group col-span-2"><label>Remarks / Notes</label><input type="text" placeholder="Additional notes" /></div>
                 </div>
                 <div style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}>
-                  <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Save Enquiry</button>
+                  <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Save Enquiry</button>
                 </div>
               </form>
             </div>
           )}
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['ENQ ID', 'Parent Name', 'Phone', 'For Class', 'Date', 'Purpose', 'Source', 'Follow-up', 'Status'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['ENQ ID', 'Parent Name', 'Phone', 'For Class', 'Date', 'Purpose', 'Source', 'Follow-up', 'Status'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{ENQUIRIES.map(e => (
               <tr key={e.id}>
                 <td style={{ fontWeight: 800 }}>{e.id}</td>
                 <td style={{ fontWeight: 800 }}>{e.name}</td>
                 <td>{e.phone}</td>
-                <td style={{ color: '#00696b', fontWeight: 700 }}>{e.forClass}</td>
+                <td style={{ color: '#2563eb', fontWeight: 700 }}>{e.forClass}</td>
                 <td>{e.enquiryDate}</td>
                 <td style={{ fontSize: 12 }}>{e.purpose}</td>
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{e.source}</span></td>
@@ -475,11 +475,11 @@ export function FrontOfficeModule({ initialSubView = 'fo-enquiry-list', onNaviga
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Visitor Log & Gate Pass Register</h3>
-            <button onClick={() => showToast('New visitor entry recorded!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add Visitor Entry</button>
+            <button onClick={() => showToast('New visitor entry recorded!')} className="erp-btn btn-primary"><PlusCircle size={14} /> Add Visitor Entry</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Badge No', 'Visitor Name', 'Purpose', 'To Meet', 'ID Type', 'In Time', 'Out Time', 'Date'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Badge No', 'Visitor Name', 'Purpose', 'To Meet', 'ID Type', 'In Time', 'Out Time', 'Date'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{VISITORS.map(v => (
               <tr key={v.id}>
@@ -526,17 +526,17 @@ export function SendSMSModule({ initialSubView = 'sms-send-student', onNavigateS
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><MessageSquare size={22} color="#00696b" /> SMS Communication Centre</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><MessageSquare size={22} color="#2563eb" /> SMS Communication Centre</h2>
           <span className="view-subtitle">Send bulk SMS to students, parents & staff with delivery tracking</span>
         </div>
       </div>
 
       {subView === 'sms-balance' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 20 }}>
-          {[{ label: 'SMS Balance', value: '4,850 Credits', color: '#00696b' }, { label: 'Used This Month', value: '1,150 SMS', color: '#dc2626' }, { label: 'Success Rate', value: '98.2%', color: '#16a34a' }].map(s => (
+          {[{ label: 'SMS Balance', value: '4,850 Credits', color: '#2563eb' }, { label: 'Used This Month', value: '1,150 SMS', color: '#dc2626' }, { label: 'Success Rate', value: '98.2%', color: '#16a34a' }].map(s => (
             <div key={s.label} className="erp-card" style={{ padding: 16, borderLeft: `4px solid ${s.color}`, margin: 0, textAlign: 'center' }}>
               <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>{s.label}</div>
               <div style={{ fontSize: 22, fontWeight: 800, color: s.color, marginTop: 4 }}>{s.value}</div>
@@ -549,13 +549,13 @@ export function SendSMSModule({ initialSubView = 'sms-send-student', onNavigateS
         <div>
           <h3 style={{ margin: '0 0 16px', fontWeight: 800 }}>SMS Delivery Log & History</h3>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['ID', 'Sent To', 'Message Preview', 'Sent At', 'Count', 'Status'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['ID', 'Sent To', 'Message Preview', 'Sent At', 'Count', 'Status'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{SMS_LOG.map(s => (
               <tr key={s.id}>
                 <td style={{ fontWeight: 800 }}>{s.id}</td>
-                <td style={{ fontWeight: 700, color: '#00696b' }}>{s.sentTo}</td>
+                <td style={{ fontWeight: 700, color: '#2563eb' }}>{s.sentTo}</td>
                 <td style={{ fontSize: 12, color: '#475569' }}>{s.message}</td>
                 <td style={{ fontSize: 12 }}>{s.sentAt}</td>
                 <td style={{ fontWeight: 800 }}>{s.count}</td>
@@ -588,7 +588,7 @@ export function SendSMSModule({ initialSubView = 'sms-send-student', onNavigateS
             </div>
             <div style={{ marginTop: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: 12, color: '#64748b' }}>Estimated recipients: ~42 contacts | SMS Credits needed: ~42</span>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Send size={14} /> Send SMS Now</button>
+              <button type="submit" className="erp-btn btn-primary"><Send size={14} /> Send SMS Now</button>
             </div>
           </form>
         </div>
@@ -625,10 +625,10 @@ export function PayrollModule({ initialSubView = 'payroll-generate', onNavigateS
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><IndianRupee size={22} color="#00696b" /> Payroll & Salary Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><IndianRupee size={22} color="#2563eb" /> Payroll & Salary Management</h2>
           <span className="view-subtitle">Staff salary generation, salary slips, PF/ESI deductions & advance management</span>
         </div>
       </div>
@@ -646,7 +646,7 @@ export function PayrollModule({ initialSubView = 'payroll-generate', onNavigateS
               <div className="form-group"><label>TDS Deduction (₹)</label><input type="number" defaultValue={3000} /></div>
             </div>
             <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Save Salary Structure</button>
+              <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Save Salary Structure</button>
             </div>
           </form>
         </div>
@@ -660,20 +660,20 @@ export function PayrollModule({ initialSubView = 'payroll-generate', onNavigateS
               <span style={{ fontSize: 12, color: '#64748b' }}>Total Payable: ₹{PAYROLL_DATA.reduce((s, p) => s + p.net, 0).toLocaleString('en-IN')} for {PAYROLL_DATA.length} staff</span>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <button onClick={() => showToast('Payroll processed & bank transfer initiated!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Process Payroll</button>
+              <button onClick={() => showToast('Payroll processed & bank transfer initiated!')} className="erp-btn btn-primary"><Check size={14} /> Process Payroll</button>
               <button onClick={() => showToast('Payroll report exported!')} className="erp-btn btn-outline"><Download size={14} /> Export</button>
             </div>
           </div>
 
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Emp ID', 'Name', 'Designation', 'Basic', 'HRA', 'TA/DA', 'Gross Salary', 'PF', 'TDS', 'Net Payable'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Emp ID', 'Name', 'Designation', 'Basic', 'HRA', 'TA/DA', 'Gross Salary', 'PF', 'TDS', 'Net Payable'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{PAYROLL_DATA.map(p => (
               <tr key={p.empId}>
                 <td style={{ fontWeight: 800, color: '#dc2626' }}>{p.empId}</td>
                 <td style={{ fontWeight: 800 }}>{p.name}</td>
-                <td style={{ color: '#00696b', fontWeight: 700 }}>{p.desig}</td>
+                <td style={{ color: '#2563eb', fontWeight: 700 }}>{p.desig}</td>
                 <td>{fmt(p.basic)}</td>
                 <td>{fmt(p.hra)}</td>
                 <td>{fmt(p.ta)}</td>
@@ -724,10 +724,10 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><BookOpen size={22} color="#00696b" /> Library & Book Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><BookOpen size={22} color="#2563eb" /> Library & Book Management</h2>
           <span className="view-subtitle">Book catalog, issue & return management, overdue tracking & member registration</span>
         </div>
       </div>
@@ -736,11 +736,11 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Library Book Catalog ({BOOKS.length} Titles, {BOOKS.reduce((s, b) => s + b.copies, 0)} Total Copies)</h3>
-            <button onClick={() => showToast('Navigate to Add Book to add')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add New Book</button>
+            <button onClick={() => showToast('Navigate to Add Book to add')} className="erp-btn btn-primary"><PlusCircle size={14} /> Add New Book</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Book ID', 'Title', 'Author', 'Publisher', 'Category', 'ISBN', 'Copies', 'Available', 'Rack', 'Action'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Book ID', 'Title', 'Author', 'Publisher', 'Category', 'ISBN', 'Copies', 'Available', 'Rack', 'Action'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{BOOKS.map(b => (
               <tr key={b.id}>
@@ -752,8 +752,8 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
                 <td style={{ fontFamily: 'monospace', fontSize: 11 }}>{b.isbn}</td>
                 <td style={{ fontWeight: 800 }}>{b.copies}</td>
                 <td style={{ fontWeight: 800, color: b.available === 0 ? '#dc2626' : '#16a34a' }}>{b.available}</td>
-                <td style={{ color: '#00696b', fontWeight: 700 }}>{b.rack}</td>
-                <td><button onClick={() => showToast('Book issue form opened')} style={{ padding: '4px 10px', backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Issue</button></td>
+                <td style={{ color: '#2563eb', fontWeight: 700 }}>{b.rack}</td>
+                <td><button onClick={() => showToast('Book issue form opened')} style={{ padding: '4px 10px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Issue</button></td>
               </tr>
             ))}</tbody>
           </table></div></div>
@@ -776,7 +776,7 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
               <div className="form-group"><label>Purchased Date</label><input type="date" /></div>
             </div>
             <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Add to Catalog</button>
+              <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Add to Catalog</button>
             </div>
           </form>
         </div>
@@ -788,24 +788,24 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
             <h3 style={{ margin: 0, fontWeight: 800 }}>
               {subView === 'lib-issue-book' ? 'Issue Book to Student/Staff' : subView === 'lib-return-book' ? 'Book Return Console' : 'Overdue Books & Fine Register'}
             </h3>
-            {subView === 'lib-issue-book' && <button onClick={() => showToast('Book issued successfully!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Issue Book</button>}
+            {subView === 'lib-issue-book' && <button onClick={() => showToast('Book issued successfully!')} className="erp-btn btn-primary"><Check size={14} /> Issue Book</button>}
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Issue ID', 'Student Name', 'Roll No', 'Class', 'Book Title', 'Issue Date', 'Due Date', 'Status', 'Action'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Issue ID', 'Student Name', 'Roll No', 'Class', 'Book Title', 'Issue Date', 'Due Date', 'Status', 'Action'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{ISSUED_BOOKS.map(i => (
               <tr key={i.issueId}>
                 <td style={{ fontWeight: 800 }}>{i.issueId}</td>
                 <td style={{ fontWeight: 800 }}>{i.studentName}</td>
                 <td>{i.rollNo}</td>
-                <td style={{ color: '#00696b', fontWeight: 700 }}>{i.class}</td>
+                <td style={{ color: '#2563eb', fontWeight: 700 }}>{i.class}</td>
                 <td style={{ fontWeight: 800 }}>{i.book}</td>
                 <td>{i.issueDate}</td>
                 <td style={{ fontWeight: 800, color: i.status === 'Overdue' ? '#dc2626' : '#16a34a' }}>{i.dueDate}</td>
                 <td><span className={`erp-badge ${i.status === 'Issued' ? 'badge-approved' : 'badge-rejected'}`}>{i.status}</span></td>
                 <td>
-                  {subView !== 'lib-issue-book' && <button onClick={() => showToast('Book returned successfully!')} style={{ padding: '4px 10px', backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Return</button>}
+                  {subView !== 'lib-issue-book' && <button onClick={() => showToast('Book returned successfully!')} style={{ padding: '4px 10px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Return</button>}
                 </td>
               </tr>
             ))}</tbody>
@@ -843,10 +843,10 @@ export function InventoryModule({ initialSubView = 'inv-item-list', onNavigateSu
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Package size={22} color="#00696b" /> Inventory & Stock Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Package size={22} color="#2563eb" /> Inventory & Stock Management</h2>
           <span className="view-subtitle">Stock item catalog, stock entries, department issuing, suppliers & store rooms</span>
         </div>
       </div>
@@ -855,11 +855,11 @@ export function InventoryModule({ initialSubView = 'inv-item-list', onNavigateSu
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Inventory Stock Register ({INVENTORY_ITEMS.length} Items)</h3>
-            <button onClick={() => showToast('Stock entry form opened')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add Stock</button>
+            <button onClick={() => showToast('Stock entry form opened')} className="erp-btn btn-primary"><PlusCircle size={14} /> Add Stock</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Item Code', 'Item Name', 'Category', 'In Stock', 'Unit', 'Store Room', 'Supplier', 'Status'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Item Code', 'Item Name', 'Category', 'In Stock', 'Unit', 'Store Room', 'Supplier', 'Status'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{INVENTORY_ITEMS.map(item => (
               <tr key={item.id}>
@@ -892,7 +892,7 @@ export function InventoryModule({ initialSubView = 'inv-item-list', onNavigateSu
               <div className="form-group"><label>Purchase Date</label><input type="date" defaultValue={new Date().toISOString().split('T')[0]} /></div>
             </div>
             <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Check size={14} /> Save Stock Entry</button>
+              <button type="submit" className="erp-btn btn-primary"><Check size={14} /> Save Stock Entry</button>
             </div>
           </form>
         </div>
@@ -927,10 +927,10 @@ export function TransportModule({ initialSubView = 'trans-route-list', onNavigat
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Bus size={22} color="#00696b" /> Transport Fleet Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Bus size={22} color="#2563eb" /> Transport Fleet Management</h2>
           <span className="view-subtitle">Routes, bus fleet, vehicle fitness/insurance, pick-up points & student transport fee</span>
         </div>
       </div>
@@ -939,17 +939,17 @@ export function TransportModule({ initialSubView = 'trans-route-list', onNavigat
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Transport Routes Registry ({ROUTES.length} Routes)</h3>
-            <button onClick={() => showToast('Add Route form opened')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add Route</button>
+            <button onClick={() => showToast('Add Route form opened')} className="erp-btn btn-primary"><PlusCircle size={14} /> Add Route</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Route Code', 'Route Title', 'Vehicle Assigned', 'Driver Name', 'Capacity', 'Allocated', 'Monthly Fee (₹)'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Route Code', 'Route Title', 'Vehicle Assigned', 'Driver Name', 'Capacity', 'Allocated', 'Monthly Fee (₹)'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{ROUTES.map(r => (
               <tr key={r.id}>
                 <td style={{ fontWeight: 800, color: '#dc2626' }}>{r.id}</td>
                 <td style={{ fontWeight: 800 }}>{r.name}</td>
-                <td style={{ fontWeight: 700, color: '#00696b' }}>{r.vehicle}</td>
+                <td style={{ fontWeight: 700, color: '#2563eb' }}>{r.vehicle}</td>
                 <td>{r.driver}</td>
                 <td style={{ fontWeight: 800 }}>{r.capacity} Seats</td>
                 <td style={{ fontWeight: 800, color: r.allocated >= r.capacity ? '#dc2626' : '#16a34a' }}>{r.allocated} Students</td>
@@ -989,10 +989,10 @@ export function HostelModule({ initialSubView = 'hostel-room-list', onNavigateSu
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Building size={22} color="#00696b" /> Hostel & Dormitory Management</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Building size={22} color="#2563eb" /> Hostel & Dormitory Management</h2>
           <span className="view-subtitle">Hostel rooms, room types, room allotment, hostel fees & mess reports</span>
         </div>
       </div>
@@ -1001,18 +1001,18 @@ export function HostelModule({ initialSubView = 'hostel-room-list', onNavigateSu
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Hostel Rooms Occupancy Grid ({ROOMS.length} Rooms)</h3>
-            <button onClick={() => showToast('Add room modal opened')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Add Room</button>
+            <button onClick={() => showToast('Add room modal opened')} className="erp-btn btn-primary"><PlusCircle size={14} /> Add Room</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Room Code', 'Hostel Building', 'Floor', 'Room No', 'Room Type', 'Capacity', 'Occupied', 'Fee (₹)', 'Status'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Room Code', 'Hostel Building', 'Floor', 'Room No', 'Room Type', 'Capacity', 'Occupied', 'Fee (₹)', 'Status'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{ROOMS.map(r => (
               <tr key={r.id}>
                 <td style={{ fontWeight: 800, color: '#dc2626' }}>{r.id}</td>
                 <td style={{ fontWeight: 800 }}>{r.building}</td>
                 <td>{r.floor}</td>
-                <td style={{ fontWeight: 800, color: '#00696b' }}>{r.roomNo}</td>
+                <td style={{ fontWeight: 800, color: '#2563eb' }}>{r.roomNo}</td>
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{r.roomType}</span></td>
                 <td style={{ fontWeight: 800 }}>{r.capacity} Beds</td>
                 <td style={{ fontWeight: 800, color: r.occupied >= r.capacity ? '#dc2626' : '#16a34a' }}>{r.occupied} Beds</td>
@@ -1053,10 +1053,10 @@ export function EContentModule({ initialSubView = 'econtent-list', onNavigateSub
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Video size={22} color="#00696b" /> E-Learning & Digital Content</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Video size={22} color="#2563eb" /> E-Learning & Digital Content</h2>
           <span className="view-subtitle">Video lectures, syllabus documents, PDF notes & online homework assignments</span>
         </div>
       </div>
@@ -1074,7 +1074,7 @@ export function EContentModule({ initialSubView = 'econtent-list', onNavigateSub
               <div className="form-group col-span-2"><label>Description / Instructions</label><textarea rows={3} placeholder="Brief summary for students..." style={{ width: '100%', padding: 8, borderRadius: 6, border: '1px solid #e2e8f0' }} /></div>
             </div>
             <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><Upload size={14} /> Upload Content</button>
+              <button type="submit" className="erp-btn btn-primary"><Upload size={14} /> Upload Content</button>
             </div>
           </form>
         </div>
@@ -1084,22 +1084,22 @@ export function EContentModule({ initialSubView = 'econtent-list', onNavigateSub
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ margin: 0, fontWeight: 800 }}>Digital Learning Assets Library ({DIGITAL_ASSETS.length} Files)</h3>
-            <button onClick={() => { setSubView('econtent-add'); onNavigateSubView?.('econtent-add'); }} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}><PlusCircle size={14} /> Upload New</button>
+            <button onClick={() => { setSubView('econtent-add'); onNavigateSubView?.('econtent-add'); }} className="erp-btn btn-primary"><PlusCircle size={14} /> Upload New</button>
           </div>
           <div className="erp-card"><div className="table-container"><table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              {['Asset Code', 'Title', 'Class', 'Subject', 'Type', 'Uploaded By', 'Date', 'Action'].map(h => <th key={h} style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{h}</th>)}
+            <thead><tr>
+              {['Asset Code', 'Title', 'Class', 'Subject', 'Type', 'Uploaded By', 'Date', 'Action'].map(h => <th key={h}>{h}</th>)}
             </tr></thead>
             <tbody>{DIGITAL_ASSETS.map(a => (
               <tr key={a.id}>
                 <td style={{ fontWeight: 800 }}>{a.id}</td>
                 <td style={{ fontWeight: 800, color: '#0f172a' }}>{a.title}</td>
-                <td style={{ color: '#00696b', fontWeight: 700 }}>{a.class}</td>
+                <td style={{ color: '#2563eb', fontWeight: 700 }}>{a.class}</td>
                 <td style={{ fontWeight: 700 }}>{a.subject}</td>
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{a.type}</span></td>
                 <td>{a.uploadedBy}</td>
                 <td>{a.date}</td>
-                <td><button onClick={() => showToast('Opening digital asset...')} style={{ padding: '4px 10px', backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>View</button></td>
+                <td><button onClick={() => showToast('Opening digital asset...')} style={{ padding: '4px 10px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>View</button></td>
               </tr>
             ))}</tbody>
           </table></div></div>
@@ -1152,10 +1152,10 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
 
   return (
     <div>
-      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#00696b', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}><CheckCircle2 size={16} />{toast}</div>}
+      {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
       <div className="view-header">
         <div>
-          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Settings size={22} color="#00696b" /> Master Configuration & System Setup</h2>
+          <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Settings size={22} color="#2563eb" /> Master Configuration & System Setup</h2>
           <span className="view-subtitle">School master data: classes, sections, subjects, sessions, categories, ID cards & role permissions</span>
         </div>
       </div>
@@ -1182,17 +1182,17 @@ function SimpleConfigView({ title, items, onAdd }: { title: string; items: strin
               <label>New Entry Name *</label>
               <input type="text" required placeholder="Enter name..." />
             </div>
-            <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', height: 38 }}><Check size={14} /> Save</button>
+            <button type="submit" className="erp-btn btn-primary" style={{ height: 38 }}><Check size={14} /> Save</button>
           </form>
         </div>
       )}
       <div className="erp-card">
         <div className="table-container">
           <table className="erp-table">
-            <thead><tr style={{ backgroundColor: '#00696b', color: '#fff' }}>
-              <th style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800, width: 50 }}>S.No</th>
-              <th style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>Name / Description</th>
-              <th style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800, textAlign: 'center', width: 120 }}>Action</th>
+            <thead><tr>
+              <th style={{ width: 50 }}>S.No</th>
+              <th>Name / Description</th>
+              <th style={{ textAlign: 'center', width: 120 }}>Action</th>
             </tr></thead>
             <tbody>{items.map((item, idx) => (
               <tr key={idx}>

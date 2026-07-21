@@ -101,7 +101,7 @@ if os.getenv('USE_SQLITE', 'false').lower() == 'true':
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-elif os.getenv('DATABASE_URL'):
+elif os.getenv('DATABASE_URL') and '://' in os.getenv('DATABASE_URL') and not os.getenv('DATABASE_URL').strip().startswith('://'):
     DATABASES = {
         'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
     }

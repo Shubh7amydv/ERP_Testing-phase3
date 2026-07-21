@@ -1378,30 +1378,30 @@ export default function App() {
                       e.stopPropagation();
                       setFacultySubgroups(prev => ({ ...prev, staff: !prev.staff }));
                     }}
-                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', color: '#f59e0b', fontWeight: 600 }}
+                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', color: '#f59e0b', fontWeight: 700 }}
                   >
                     <span>Staff</span>
-                    {facultySubgroups.staff ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                    {facultySubgroups.staff ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                   </div>
                   {facultySubgroups.staff && (
-                    <div style={{ paddingLeft: '8px' }}>
+                    <div className="nested-submenu-container">
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'view-staff' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('view-staff'); }}
                       >
-                        View Staff
+                        <Users size={14} /> View Staff
                       </div>
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'add-staff' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('add-staff'); }}
                       >
-                        Add Staff
+                        <UserPlus size={14} /> Add Staff
                       </div>
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'department' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('department'); }}
                       >
-                        Department
+                        <Building size={14} /> Department
                       </div>
                     </div>
                   )}
@@ -1413,24 +1413,24 @@ export default function App() {
                       e.stopPropagation();
                       setFacultySubgroups(prev => ({ ...prev, facultyReport: !prev.facultyReport }));
                     }}
-                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px', color: '#10b981', fontWeight: 600 }}
+                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px', color: '#10b981', fontWeight: 700 }}
                   >
                     <span>Faculty Report</span>
-                    {facultySubgroups.facultyReport ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                    {facultySubgroups.facultyReport ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                   </div>
                   {facultySubgroups.facultyReport && (
-                    <div style={{ paddingLeft: '8px' }}>
+                    <div className="nested-submenu-container">
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'report-details' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('report-details'); }}
                       >
-                        Staff Details
+                        <FileText size={14} /> Staff Details
                       </div>
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'report-inactive' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('report-inactive'); }}
                       >
-                        Inactive Report
+                        <AlertTriangle size={14} /> Inactive Report
                       </div>
                     </div>
                   )}
@@ -1442,24 +1442,24 @@ export default function App() {
                       e.stopPropagation();
                       setFacultySubgroups(prev => ({ ...prev, activityReport: !prev.activityReport }));
                     }}
-                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px', color: '#a855f7', fontWeight: 600 }}
+                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px', color: '#a855f7', fontWeight: 700 }}
                   >
                     <span>Activity Report</span>
-                    {facultySubgroups.activityReport ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                    {facultySubgroups.activityReport ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                   </div>
                   {facultySubgroups.activityReport && (
-                    <div style={{ paddingLeft: '8px' }}>
+                    <div className="nested-submenu-container">
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'activity-teacher' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('activity-teacher'); }}
                       >
-                        Teacher Wise
+                        <Users size={14} /> Teacher Wise
                       </div>
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'activity-class' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('activity-class'); }}
                       >
-                        Class Wise
+                        <Layers size={14} /> Class Wise
                       </div>
                     </div>
                   )}
@@ -1471,24 +1471,24 @@ export default function App() {
                       e.stopPropagation();
                       setFacultySubgroups(prev => ({ ...prev, idCard: !prev.idCard }));
                     }}
-                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px', color: '#ef4444', fontWeight: 600 }}
+                    style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingRight: '8px', marginTop: '6px', color: '#ef4444', fontWeight: 700 }}
                   >
                     <span>Staff ID Card</span>
-                    {facultySubgroups.idCard ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
+                    {facultySubgroups.idCard ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                   </div>
                   {facultySubgroups.idCard && (
-                    <div style={{ paddingLeft: '8px' }}>
+                    <div className="nested-submenu-container">
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'idcard-print' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('idcard-print'); }}
                       >
-                        ID Card Print
+                        <Printer size={14} /> ID Card Print
                       </div>
                       <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'idcard-sample' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('idcard-sample'); }}
                       >
-                        ID Card Sample
+                        <Printer size={14} /> ID Card Sample
                       </div>
                     </div>
                   )}
@@ -1516,16 +1516,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAccountSubgroups(prev => ({ ...prev, report: !prev.report }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <FileText size={13} color="#8b4570" /> Account Report
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <FileText size={14} color="#8b4570" /> Account Report
                       </span>
-                      <span>{accountSubgroups.report ? '▾' : '▸'}</span>
+                      {accountSubgroups.report ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {accountSubgroups.report && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-expense-date' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-expense-date'); }}>Expense Date wise</div>
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-expense-head' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-expense-head'); }}>Expense Head wise</div>
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'report-extra-income' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('report-extra-income'); }}>Extra Income Report</div>
@@ -1547,16 +1547,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAccountSubgroups(prev => ({ ...prev, bank: !prev.bank }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Building size={13} color="#dc2626" /> Manage Bank
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Building size={14} color="#dc2626" /> Manage Bank
                       </span>
-                      <span>{accountSubgroups.bank ? '▾' : '▸'}</span>
+                      {accountSubgroups.bank ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {accountSubgroups.bank && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-deposit' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-deposit'); }}>Deposit</div>
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-withdraw' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-withdraw'); }}>Withdraw</div>
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'bank-report-withdraw' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('bank-report-withdraw'); }}>Withdraw Report</div>
@@ -1571,16 +1571,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAccountSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Settings size={13} color="#0284c7" /> Account Setting
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Settings size={14} color="#0284c7" /> Account Setting
                       </span>
-                      <span>{accountSubgroups.setting ? '▾' : '▸'}</span>
+                      {accountSubgroups.setting ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {accountSubgroups.setting && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-income-mode' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-income-mode'); }}>Income Mode</div>
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-expense-mode' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-expense-mode'); }}>Expense Mode</div>
                         <div className={`nested-submenu-item ${activeView === 'account' && accountSubView === 'setting-add-bank' ? 'active' : ''}`} onClick={() => { setActiveView('account'); setAccountSubView('setting-add-bank'); }}>Add Bank</div>
@@ -1608,16 +1608,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, classTable: !prev.classTable }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Clock size={13} color="#ea580c" /> Class time Table
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Clock size={14} color="#ea580c" /> Class time Table
                       </span>
-                      <span>{timetableSubgroups.classTable ? '▾' : '▸'}</span>
+                      {timetableSubgroups.classTable ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {timetableSubgroups.classTable && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-teacher-subject' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-teacher-subject'); }}>Teacher Subject</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-assign-subject' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-assign-subject'); }}>Assign subject</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'cls-apply-break' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('cls-apply-break'); }}>Apply Break</div>
@@ -1632,16 +1632,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, report: !prev.report }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <FileText size={13} color="#8b4570" /> Time Table Report
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <FileText size={14} color="#8b4570" /> Time Table Report
                       </span>
-                      <span>{timetableSubgroups.report ? '▾' : '▸'}</span>
+                      {timetableSubgroups.report ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {timetableSubgroups.report && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'report-class-routine' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('report-class-routine'); }}>Class Routin</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'report-teacher-routine' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('report-teacher-routine'); }}>Teacher Routine</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'report-substitute-chart' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('report-substitute-chart'); }}>Substitute Chart</div>
@@ -1654,16 +1654,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Settings size={13} color="#00696b" /> Time Table Setting
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Settings size={14} color="#2563eb" /> Time Table Setting
                       </span>
-                      <span>{timetableSubgroups.setting ? '▾' : '▸'}</span>
+                      {timetableSubgroups.setting ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {timetableSubgroups.setting && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'setting-add-exam' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('setting-add-exam'); }}>Add Exam</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'setting-create-period' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('setting-create-period'); }}>Create Period</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'setting-app-sync' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('setting-app-sync'); }}>App Time Table</div>
@@ -1676,16 +1676,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, bell: !prev.bell }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Bell size={13} color="#059669" /> Bell System
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Bell size={14} color="#059669" /> Bell System
                       </span>
-                      <span>{timetableSubgroups.bell ? '▾' : '▸'}</span>
+                      {timetableSubgroups.bell ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {timetableSubgroups.bell && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'bell-add-period' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('bell-add-period'); }}>Add Period</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'bell-assign' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('bell-assign'); }}>Assign Bell</div>
                         <div className={`nested-submenu-item ${activeView === 'timetable' && timetableSubView === 'bell-add-sound' ? 'active' : ''}`} onClick={() => { setActiveView('timetable'); setTimetableSubView('bell-add-sound'); }}>Add sound</div>
@@ -1705,16 +1705,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, mark: !prev.mark }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <CalendarCheck size={13} color="#16a34a" /> Mark Attendance
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <CalendarCheck size={14} color="#16a34a" /> Mark Attendance
                       </span>
-                      <span>{attendanceSubgroups.mark ? '▾' : '▸'}</span>
+                      {attendanceSubgroups.mark ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {attendanceSubgroups.mark && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'mark-student' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('mark-student'); }}>Mark Student</div>
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'mark-faculty' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('mark-faculty'); }}>Mark Faculty</div>
                       </div>
@@ -1726,16 +1726,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, facultyReport: !prev.facultyReport }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <FileText size={13} color="#ea580c" /> Faculty Report
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <FileText size={14} color="#ea580c" /> Faculty Report
                       </span>
-                      <span>{attendanceSubgroups.facultyReport ? '▾' : '▸'}</span>
+                      {attendanceSubgroups.facultyReport ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {attendanceSubgroups.facultyReport && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-single' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-single'); }}>Single Day</div>
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-month' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-month'); }}>Month Wise</div>
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'faculty-report-date' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('faculty-report-date'); }}>Date wise</div>
@@ -1750,16 +1750,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, studentReport: !prev.studentReport }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Users size={13} color="#00696b" /> Student Report
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Users size={14} color="#2563eb" /> Student Report
                       </span>
-                      <span>{attendanceSubgroups.studentReport ? '▾' : '▸'}</span>
+                      {attendanceSubgroups.studentReport ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {attendanceSubgroups.studentReport && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-month' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-month'); }}>Month Report</div>
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-class' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-class'); }}>Class Attendance</div>
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'student-report-overall' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('student-report-overall'); }}>overall class</div>
@@ -1774,16 +1774,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, holiday: !prev.holiday }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Calendar size={13} color="#dc2626" /> Mark Holiday
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Calendar size={14} color="#dc2626" /> Mark Holiday
                       </span>
-                      <span>{attendanceSubgroups.holiday ? '▾' : '▸'}</span>
+                      {attendanceSubgroups.holiday ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {attendanceSubgroups.holiday && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'holiday-student' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('holiday-student'); }}>Student Holiday</div>
                         <div className={`nested-submenu-item ${activeView === 'attendance' && attendanceSubView === 'holiday-faculty' ? 'active' : ''}`} onClick={() => { setActiveView('attendance'); setAttendanceSubView('holiday-faculty'); }}>Faculty Holiday</div>
                       </div>
@@ -1844,16 +1844,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, marks: !prev.marks }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Award size={13} color="#00696b" /> Marks
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Award size={14} color="#2563eb" /> Marks
                       </span>
-                      <span>{examSubgroups.marks ? '▾' : '▸'}</span>
+                      {examSubgroups.marks ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {examSubgroups.marks && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-entry' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-entry'); }}>Add Marks</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-excel' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-excel'); }}>Excel Upload</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'marks-admitcard' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('marks-admitcard'); }}>Admit Card</div>
@@ -1876,16 +1876,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, result: !prev.result }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <FileText size={13} color="#16a34a" /> Exam Result
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <FileText size={14} color="#16a34a" /> Exam Result
                       </span>
-                      <span>{examSubgroups.result ? '▾' : '▸'}</span>
+                      {examSubgroups.result ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {examSubgroups.result && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'result-generate' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('result-generate'); }}>Exam Result</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'result-publish' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('result-publish'); }}>Publish Result</div>
                       </div>
@@ -1897,16 +1897,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, report: !prev.report }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <BarChart3 size={13} color="#8b4570" /> Exam Report
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <BarChart3 size={14} color="#8b4570" /> Exam Report
                       </span>
-                      <span>{examSubgroups.report ? '▾' : '▸'}</span>
+                      {examSubgroups.report ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {examSubgroups.report && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-exam-wise' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-exam-wise'); }}>Exam Wise</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-term-wise' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-term-wise'); }}>Term Wise</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'report-cross-list' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('report-cross-list'); }}>Cross List</div>
@@ -1922,16 +1922,16 @@ export default function App() {
                     <div
                       className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
-                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
+                      style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#94a3b8', fontSize: '11.5px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Settings size={13} color="#0284c7" /> Exam Setting
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Settings size={14} color="#0284c7" /> Exam Setting
                       </span>
-                      <span>{examSubgroups.setting ? '▾' : '▸'}</span>
+                      {examSubgroups.setting ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
 
                     {examSubgroups.setting && (
-                      <div className="nested-subgroup-content" style={{ paddingLeft: '12px' }}>
+                      <div className="nested-submenu-container">
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-exam-term' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-exam-term'); }}>Add Exam Name / Term</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-grading' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-grading'); }}>Grading System</div>
                         <div className={`nested-submenu-item ${activeView === 'examination' && examSubView === 'setting-subjects' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('setting-subjects'); }}>Add Subject</div>
@@ -1958,7 +1958,7 @@ export default function App() {
 
               {selectedModule === 'reception' && (
                 <>
-                  <div className="menu-label">Front Office</div>
+                  <div className="menu-label">Front Office Module</div>
                   <div className={`menu-item ${foSubView === 'fo-enquiry-list' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-enquiry-list'); }}>
                     <FileText size={15} /><span>Enquiry List</span>
                   </div>
@@ -1968,18 +1968,22 @@ export default function App() {
                   <div className={`menu-item ${foSubView === 'fo-phone-call' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-phone-call'); }}>
                     <Phone size={15} /><span>Phone Call Log</span>
                   </div>
+                  <div className={`menu-item ${foSubView === 'fo-complain' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-complain'); }}>
+                    <AlertTriangle size={15} /><span>Complain Register</span>
+                  </div>
                   <div className={`menu-item ${foSubView === 'fo-followup' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-followup'); }}>
                     <Bell size={15} /><span>Follow-Up Tracker</span>
                   </div>
                   <div className="menu-subgroup-header" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
-                    <Mail size={14} /><span>Postal Register</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: foSubgroups.postal ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <Mail size={14} /><span>Postal Register</span>
+                    {foSubgroups.postal ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {foSubgroups.postal && <>
                     <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-receive' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-receive'); }}>
-                      <span>Receive</span>
+                      <FileText size={13} /><span>Receive</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-dispatch' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-dispatch'); }}>
-                      <span>Dispatch</span>
+                      <Send size={13} /><span>Dispatch</span>
                     </div>
                   </>}
                 </>
@@ -2004,17 +2008,18 @@ export default function App() {
                     <Calendar size={15} /><span>Holiday Calendar</span>
                   </div>
                   <div className="menu-subgroup-header" onClick={() => setHrSubgroups(p => ({ ...p, leave: !p.leave }))}>
-                    <ClipboardList size={14} /><span>Leave Management</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: hrSubgroups.leave ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <ClipboardList size={14} /><span>Leave Management</span>
+                    {hrSubgroups.leave ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {hrSubgroups.leave && <>
                     <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-apply' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-apply'); }}>
-                      <span>Apply Leave</span>
+                      <FileText size={13} /><span>Apply Leave</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-approve' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-approve'); }}>
-                      <span>Leave Approval</span>
+                      <CheckCircle size={13} /><span>Leave Approval</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-type' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-type'); }}>
-                      <span>Leave Types</span>
+                      <Tag size={13} /><span>Leave Types</span>
                     </div>
                   </>}
                 </>
@@ -2028,7 +2033,7 @@ export default function App() {
                     { id: 'cert-transfer' as CertificateSubView, label: 'Transfer Certificate', icon: <FileText size={15} /> },
                     { id: 'cert-character' as CertificateSubView, label: 'Character Certificate', icon: <Star size={15} /> },
                     { id: 'cert-migration' as CertificateSubView, label: 'Migration Certificate', icon: <ArrowRight size={15} /> },
-                    { id: 'cert-sports' as CertificateSubView, label: 'Sports Certificate', icon: <Star size={15} /> },
+                    { id: 'cert-sports' as CertificateSubView, label: 'Sports Certificate', icon: <Trophy size={15} /> },
                     { id: 'cert-marksheet-duplicate' as CertificateSubView, label: 'Duplicate Marksheet', icon: <FileText size={15} /> },
                     { id: 'cert-design' as CertificateSubView, label: 'Template Designer', icon: <Settings size={15} /> },
                   ].map(item => (
@@ -2055,14 +2060,15 @@ export default function App() {
                     <GraduationCap size={15} /><span>Syllabus Tracker</span>
                   </div>
                   <div className="menu-subgroup-header" onClick={() => setAcademicSubgroups(p => ({ ...p, homework: !p.homework }))}>
-                    <FileText size={14} /><span>Homework</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: academicSubgroups.homework ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <FileText size={14} /><span>Homework</span>
+                    {academicSubgroups.homework ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {academicSubgroups.homework && <>
                     <div className={`menu-item menu-item--sub ${academicSubView === 'academic-homework' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-homework'); }}>
-                      <span>Assign Homework</span>
+                      <FileText size={13} /><span>Assign Homework</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${academicSubView === 'academic-homework-report' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-homework-report'); }}>
-                      <span>Submission Report</span>
+                      <BarChart3 size={13} /><span>Submission Report</span>
                     </div>
                   </>}
                 </>
@@ -2087,14 +2093,15 @@ export default function App() {
                     <Bell size={15} /><span>Follow-Up Tracker</span>
                   </div>
                   <div className="menu-subgroup-header" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
-                    <Mail size={14} /><span>Postal Register</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: foSubgroups.postal ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <Mail size={14} /><span>Postal Register</span>
+                    {foSubgroups.postal ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {foSubgroups.postal && <>
                     <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-receive' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-receive'); }}>
-                      <span>Receive</span>
+                      <FileText size={13} /><span>Receive</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-dispatch' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-dispatch'); }}>
-                      <span>Dispatch</span>
+                      <Send size={13} /><span>Dispatch</span>
                     </div>
                   </>}
                 </>
@@ -2104,17 +2111,18 @@ export default function App() {
                 <>
                   <div className="menu-label">SMS Communication</div>
                   <div className="menu-subgroup-header" onClick={() => setSmsSubgroups(p => ({ ...p, send: !p.send }))}>
-                    <Send size={14} /><span>Send SMS</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: smsSubgroups.send ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <Send size={14} /><span>Send SMS</span>
+                    {smsSubgroups.send ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {smsSubgroups.send && <>
                     <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-student' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-student'); }}>
-                      <span>To Students/Parents</span>
+                      <Users size={13} /><span>To Students/Parents</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-staff' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-staff'); }}>
-                      <span>To Staff</span>
+                      <UserPlus size={13} /><span>To Staff</span>
                     </div>
                     <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-custom' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-custom'); }}>
-                      <span>Custom Bulk SMS</span>
+                      <MessageSquare size={13} /><span>Custom Bulk SMS</span>
                     </div>
                   </>}
                   <div className={`menu-item ${smsSubView === 'sms-notice-board' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-notice-board'); }}>
@@ -2274,7 +2282,8 @@ export default function App() {
                 <>
                   <div className="menu-label">Master Settings</div>
                   <div className="menu-subgroup-header" onClick={() => setMasterSubgroups(p => ({ ...p, school: !p.school }))}>
-                    <Settings size={14} /><span>School Setup</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: masterSubgroups.school ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <Settings size={14} /><span>School Setup</span>
+                    {masterSubgroups.school ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {masterSubgroups.school && <>
                     {[
@@ -2287,12 +2296,13 @@ export default function App() {
                       { id: 'master-gallery' as MasterSubView, label: 'Photo Gallery' },
                     ].map(item => (
                       <div key={item.id} className={`menu-item menu-item--sub ${masterSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('master'); setMasterSubView(item.id); }}>
-                        <span>{item.label}</span>
+                        <FileText size={13} /><span>{item.label}</span>
                       </div>
                     ))}
                   </>}
                   <div className="menu-subgroup-header" onClick={() => setMasterSubgroups(p => ({ ...p, people: !p.people }))}>
-                    <Users size={14} /><span>People Setup</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: masterSubgroups.people ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                    <Users size={14} /><span>People Setup</span>
+                    {masterSubgroups.people ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {masterSubgroups.people && <>
                     {[
@@ -2302,7 +2312,7 @@ export default function App() {
                       { id: 'master-permissions' as MasterSubView, label: 'Role Permissions' },
                     ].map(item => (
                       <div key={item.id} className={`menu-item menu-item--sub ${masterSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('master'); setMasterSubView(item.id); }}>
-                        <span>{item.label}</span>
+                        <Tag size={13} /><span>{item.label}</span>
                       </div>
                     ))}
                   </>}

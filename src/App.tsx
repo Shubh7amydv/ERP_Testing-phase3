@@ -8,8 +8,7 @@ import {
   CalendarDays, Ticket, CreditCard,
   Terminal, ShieldAlert, CalendarCheck, FileText,
   MessageSquare, Package, Bus, Building, DoorOpen, Trophy,
-  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell, Star, RefreshCw, PlusCircle,
-  Mail, Phone, Tag, Layers, ArrowRight, Send, AlertCircle, Video, Shield, Check
+  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell, Star, RefreshCw, PlusCircle
 } from 'lucide-react';
 import { api } from './api';
 import { LibraryView, HostelView, TransportView, AccountsView, PermissionsView } from './NewModules';
@@ -20,16 +19,6 @@ import { AccountModule, type AccountSubView } from './AccountModule';
 import { TimeTableModule, type TimeTableSubView } from './TimeTableModule';
 import { AttendanceModule, type AttendanceSubView } from './AttendanceModule';
 import { ExaminationModule, type ExaminationSubView } from './ExaminationModule';
-import { 
-  HRModule, type HRSubView,
-  CertificateModule, type CertificateSubView,
-  AcademicModule, type AcademicSubView,
-  FrontOfficeModule, type FrontOfficeSubView,
-  SendSMSModule, type SendSMSSubView,
-  PayrollModule, type PayrollSubView,
-  LibraryModule, type LibrarySubView,
-  MasterModule, type MasterSubView
-} from './RemainingModules';
 
 // Types
 interface Student {
@@ -485,22 +474,6 @@ export default function App() {
     report: true,
     setting: true
   });
-  // Remaining module sub-views
-  const [hrSubView, setHrSubView] = useState<HRSubView>('hr-staff-list');
-  const [hrSubgroups, setHrSubgroups] = useState<Record<string, boolean>>({ leave: true });
-  const [certSubView, setCertSubView] = useState<CertificateSubView>('cert-bonafide');
-  const [academicSubView, setAcademicSubView] = useState<AcademicSubView>('academic-subject');
-  const [academicSubgroups, setAcademicSubgroups] = useState<Record<string, boolean>>({ homework: true });
-  const [foSubView, setFoSubView] = useState<FrontOfficeSubView>('fo-enquiry-list');
-  const [foSubgroups, setFoSubgroups] = useState<Record<string, boolean>>({ postal: true });
-  const [smsSubView, setSmsSubView] = useState<SendSMSSubView>('sms-send-student');
-  const [smsSubgroups, setSmsSubgroups] = useState<Record<string, boolean>>({ send: true });
-  const [payrollSubView, setPayrollSubView] = useState<PayrollSubView>('payroll-generate');
-  const [payrollSubgroups, setPayrollSubgroups] = useState<Record<string, boolean>>({ payroll: true });
-  const [librarySubView, setLibrarySubView] = useState<LibrarySubView>('lib-book-list');
-  const [librarySubgroups, setLibrarySubgroups] = useState<Record<string, boolean>>({ books: true });
-  const [masterSubView, setMasterSubView] = useState<MasterSubView>('master-class');
-  const [masterSubgroups, setMasterSubgroups] = useState<Record<string, boolean>>({ school: true, people: true });
 
   // Editing state
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
@@ -555,7 +528,7 @@ export default function App() {
     };
 
     setStudents(prev => [...prev, newStudent]);
-    
+
     // Sync with backend API
     const apiPayload = {
       first_name: formName.split(' ')[0],
@@ -587,7 +560,7 @@ export default function App() {
     }).catch(err => {
       console.warn('API Sync unavailable, relying on local sandbox state:', err);
     });
-    
+
     // Auto insert tuition fee
     const newFee: FeeRecord = {
       id: Date.now(),
@@ -610,7 +583,7 @@ export default function App() {
     setSystemLogs(prev => [newLog, ...prev]);
 
     addToast('Student Registered', `${formName} added. ID: ${generatedId}`, 'success');
-    
+
     // Reset Form
     setFormName('');
     setFormRoll('');
@@ -866,7 +839,7 @@ export default function App() {
     });
 
     addToast('School Added', `${schoolName} successfully registered!`, 'success');
-    
+
     // Reset fields
     setSchoolName('');
     setSchoolCode('');
@@ -889,24 +862,24 @@ export default function App() {
           <form className="erp-card-body" onSubmit={handleLoginSubmit} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div className="form-group">
               <label style={{ color: '#475569', fontWeight: 700 }}>Email Address</label>
-              <input 
-                type="email" 
-                className="erp-input" 
-                placeholder="e.g. hardik@gmail.com" 
-                value={emailInput} 
-                onChange={e => setEmailInput(e.target.value)} 
-                required 
+              <input
+                type="email"
+                className="erp-input"
+                placeholder="e.g. hardik@gmail.com"
+                value={emailInput}
+                onChange={e => setEmailInput(e.target.value)}
+                required
               />
             </div>
             <div className="form-group">
               <label style={{ color: '#475569', fontWeight: 700 }}>Password</label>
-              <input 
-                type="password" 
-                className="erp-input" 
-                placeholder="••••••••" 
-                value={passwordInput} 
-                onChange={e => setPasswordInput(e.target.value)} 
-                required 
+              <input
+                type="password"
+                className="erp-input"
+                placeholder="••••••••"
+                value={passwordInput}
+                onChange={e => setPasswordInput(e.target.value)}
+                required
               />
             </div>
             <button type="submit" className="erp-btn btn-primary" style={{ width: '100%', height: '38px', fontSize: '13px', marginTop: '8px' }}>
@@ -1016,13 +989,13 @@ export default function App() {
               <ShieldAlert size={15} />
               <span>School Onboarding</span>
             </div>
-            <div 
-              className="menu-item" 
-              onClick={() => { 
-                setIsLoggedIn(false); 
-                setIsSuperAdminUser(false); 
-                setEmailInput(''); 
-                setPasswordInput(''); 
+            <div
+              className="menu-item"
+              onClick={() => {
+                setIsLoggedIn(false);
+                setIsSuperAdminUser(false);
+                setEmailInput('');
+                setPasswordInput('');
               }}
               style={{ marginTop: 'auto', borderLeft: '3px solid #ef4444' }}
             >
@@ -1058,30 +1031,30 @@ export default function App() {
                 <form className="erp-card-body" onSubmit={handleSchoolOnboard} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div>
                     <label className="form-label">School Name *</label>
-                    <input 
-                      type="text" 
-                      className="erp-input" 
-                      placeholder="e.g. Delhi Public School" 
+                    <input
+                      type="text"
+                      className="erp-input"
+                      placeholder="e.g. Delhi Public School"
                       value={schoolName}
                       onChange={e => setSchoolName(e.target.value)}
-                      required 
+                      required
                     />
                   </div>
                   <div>
                     <label className="form-label">Unique School Code *</label>
-                    <input 
-                      type="text" 
-                      className="erp-input" 
-                      placeholder="e.g. DPS001" 
+                    <input
+                      type="text"
+                      className="erp-input"
+                      placeholder="e.g. DPS001"
                       value={schoolCode}
                       onChange={e => setSchoolCode(e.target.value)}
-                      required 
+                      required
                     />
                   </div>
                   <div>
                     <label className="form-label">Affiliation Board</label>
-                    <select 
-                      className="erp-input" 
+                    <select
+                      className="erp-input"
                       value={schoolAff}
                       onChange={e => setSchoolAff(e.target.value)}
                     >
@@ -1093,9 +1066,9 @@ export default function App() {
                   </div>
                   <div>
                     <label className="form-label">Campus Address</label>
-                    <textarea 
-                      className="erp-input" 
-                      placeholder="Enter full physical address..." 
+                    <textarea
+                      className="erp-input"
+                      placeholder="Enter full physical address..."
                       value={schoolAddr}
                       onChange={e => setSchoolAddr(e.target.value)}
                       style={{ height: '60px', resize: 'none' }}
@@ -1213,7 +1186,7 @@ export default function App() {
             </>
           ) : (
             <>
-              <div 
+              <div
                 className="back-to-modules-btn"
                 onClick={() => {
                   setSelectedModule(null);
@@ -1229,7 +1202,7 @@ export default function App() {
                   <div className="menu-label">Student Management</div>
                   <div>
                     {/* 1.1 Admission Group */}
-                    <div 
+                    <div
                       className="nested-submenu-header"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1242,13 +1215,13 @@ export default function App() {
                     </div>
                     {studentSubgroups.admission && (
                       <div style={{ paddingLeft: '8px' }}>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-admission-make' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-admission-make')}
                         >
                           <UserPlus size={11} /> Make Admission
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-admission-view' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-admission-view')}
                         >
@@ -1258,7 +1231,7 @@ export default function App() {
                     )}
 
                     {/* 1.2 Update Record Group */}
-                    <div 
+                    <div
                       className="nested-submenu-header"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1271,43 +1244,43 @@ export default function App() {
                     </div>
                     {studentSubgroups.updateRecord && (
                       <div style={{ paddingLeft: '8px' }}>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-record' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-record')}
                         >
                           <ClipboardList size={11} /> Student Record
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-roll' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-roll')}
                         >
                           <Clock size={11} /> Create Roll Number
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-photo' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-photo')}
                         >
                           <Users size={11} /> Update Photo
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-blocked' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-blocked')}
                         >
                           <ShieldAlert size={11} /> Blocked Students
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-inactive' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-inactive')}
                         >
                           <AlertTriangle size={11} /> Inactive Students
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-aadhar' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-aadhar')}
                         >
                           <CreditCard size={11} /> Update Aadhar
                         </div>
-                        <div 
+                        <div
                           className={`nested-submenu-item ${activeView === 'student-update-data' ? 'active' : ''}`}
                           onClick={() => setActiveView('student-update-data')}
                         >
@@ -1317,7 +1290,7 @@ export default function App() {
                     )}
 
                     {/* 1.3 Identity Card */}
-                    <div 
+                    <div
                       className={`nested-submenu-item ${activeView === 'student-idcard' ? 'active' : ''}`}
                       onClick={() => setActiveView('student-idcard')}
                       style={{ marginTop: '6px', fontWeight: 600, color: activeView === 'student-idcard' ? '#38bdf8' : '#cbd5e1' }}
@@ -1326,7 +1299,7 @@ export default function App() {
                     </div>
 
                     {/* 1.4 Student Report Group */}
-                    <div 
+                    <div
                       className="nested-submenu-header"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1361,7 +1334,7 @@ export default function App() {
                   <div className="menu-label">Faculty Module</div>
 
                   {/* 1. Staff Subgroup */}
-                  <div 
+                  <div
                     className="nested-submenu-header"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -1374,19 +1347,19 @@ export default function App() {
                   </div>
                   {facultySubgroups.staff && (
                     <div style={{ paddingLeft: '8px' }}>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'view-staff' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('view-staff'); }}
                       >
                         View Staff
                       </div>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'add-staff' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('add-staff'); }}
                       >
                         Add Staff
                       </div>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'department' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('department'); }}
                       >
@@ -1396,7 +1369,7 @@ export default function App() {
                   )}
 
                   {/* 2. Faculty Report Subgroup */}
-                  <div 
+                  <div
                     className="nested-submenu-header"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -1409,13 +1382,13 @@ export default function App() {
                   </div>
                   {facultySubgroups.facultyReport && (
                     <div style={{ paddingLeft: '8px' }}>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'report-details' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('report-details'); }}
                       >
                         Staff Details
                       </div>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'report-inactive' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('report-inactive'); }}
                       >
@@ -1425,7 +1398,7 @@ export default function App() {
                   )}
 
                   {/* 3. Activity Report Subgroup */}
-                  <div 
+                  <div
                     className="nested-submenu-header"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -1438,13 +1411,13 @@ export default function App() {
                   </div>
                   {facultySubgroups.activityReport && (
                     <div style={{ paddingLeft: '8px' }}>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'activity-teacher' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('activity-teacher'); }}
                       >
                         Teacher Wise
                       </div>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'activity-class' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('activity-class'); }}
                       >
@@ -1454,7 +1427,7 @@ export default function App() {
                   )}
 
                   {/* 4. Staff ID Card Subgroup */}
-                  <div 
+                  <div
                     className="nested-submenu-header"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -1467,13 +1440,13 @@ export default function App() {
                   </div>
                   {facultySubgroups.idCard && (
                     <div style={{ paddingLeft: '8px' }}>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'idcard-print' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('idcard-print'); }}
                       >
                         ID Card Print
                       </div>
-                      <div 
+                      <div
                         className={`nested-submenu-item ${activeView === 'faculty' && facultySubView === 'idcard-sample' ? 'active' : ''}`}
                         onClick={() => { setActiveView('faculty'); setFacultySubView('idcard-sample'); }}
                       >
@@ -1502,8 +1475,8 @@ export default function App() {
 
                   {/* 3. Account Report (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAccountSubgroups(prev => ({ ...prev, report: !prev.report }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1533,8 +1506,8 @@ export default function App() {
 
                   {/* 4. Manage Bank (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAccountSubgroups(prev => ({ ...prev, bank: !prev.bank }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1557,8 +1530,8 @@ export default function App() {
 
                   {/* 5. Account Setting (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAccountSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1594,8 +1567,8 @@ export default function App() {
 
                   {/* 2. Class time Table (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, classTable: !prev.classTable }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1618,8 +1591,8 @@ export default function App() {
 
                   {/* 3. Time Table Report (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, report: !prev.report }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1640,8 +1613,8 @@ export default function App() {
 
                   {/* 4. Time Table Setting (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1662,8 +1635,8 @@ export default function App() {
 
                   {/* 5. Bell System (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setTimetableSubgroups(prev => ({ ...prev, bell: !prev.bell }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1691,8 +1664,8 @@ export default function App() {
 
                   {/* 1. Mark Attendance (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, mark: !prev.mark }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1712,8 +1685,8 @@ export default function App() {
 
                   {/* 2. Faculty Report (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, facultyReport: !prev.facultyReport }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1736,8 +1709,8 @@ export default function App() {
 
                   {/* 3. Student Report (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, studentReport: !prev.studentReport }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1760,8 +1733,8 @@ export default function App() {
 
                   {/* 4. Mark Holiday (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setAttendanceSubgroups(prev => ({ ...prev, holiday: !prev.holiday }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1830,8 +1803,8 @@ export default function App() {
 
                   {/* 1. Marks Management (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, marks: !prev.marks }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1862,8 +1835,8 @@ export default function App() {
 
                   {/* 3. Exam Result (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, result: !prev.result }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1883,8 +1856,8 @@ export default function App() {
 
                   {/* 4. Exam Report (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, report: !prev.report }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1908,8 +1881,8 @@ export default function App() {
 
                   {/* 5. Exam Setting (Collapsible) */}
                   <div>
-                    <div 
-                      className="nested-subgroup-header" 
+                    <div
+                      className="nested-subgroup-header"
                       onClick={() => setExamSubgroups(prev => ({ ...prev, setting: !prev.setting }))}
                       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}
                     >
@@ -1947,173 +1920,60 @@ export default function App() {
 
               {selectedModule === 'reception' && (
                 <>
-                  <div className="menu-label">Front Office</div>
-                  <div className={`menu-item ${foSubView === 'fo-enquiry-list' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-enquiry-list'); }}>
-                    <FileText size={15} /><span>Enquiry List</span>
+                  <div className="menu-label">Reception Module</div>
+                  <div className={`menu-item active`} onClick={() => setActiveView('reception')}>
+                    <DoorOpen size={15} />
+                    <span>Visitor Log</span>
                   </div>
-                  <div className={`menu-item ${foSubView === 'fo-visitor-book' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-visitor-book'); }}>
-                    <Users size={15} /><span>Visitor Book</span>
-                  </div>
-                  <div className={`menu-item ${foSubView === 'fo-phone-call' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-phone-call'); }}>
-                    <Phone size={15} /><span>Phone Call Log</span>
-                  </div>
-                  <div className={`menu-item ${foSubView === 'fo-followup' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-followup'); }}>
-                    <Bell size={15} /><span>Follow-Up Tracker</span>
-                  </div>
-                  {/* Postal */}
-                  <div className="menu-subgroup-header" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
-                    <Mail size={14} /><span>Postal Register</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: foSubgroups.postal ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-                  </div>
-                  {foSubgroups.postal && <>
-                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-receive' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-receive'); }}>
-                      <span>Receive</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-dispatch' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-dispatch'); }}>
-                      <span>Dispatch</span>
-                    </div>
-                  </>}
                 </>
               )}
 
               {selectedModule === 'hr' && (
                 <>
-                  <div className="menu-label">HR & Staff Module</div>
-                  <div className={`menu-item ${hrSubView === 'hr-staff-list' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-staff-list'); }}>
-                    <Users size={15} /><span>Staff List</span>
+                  <div className="menu-label">HR Module</div>
+                  <div className={`menu-item active`} onClick={() => setActiveView('hr')}>
+                    <ClipboardList size={15} />
+                    <span>Staff Registry</span>
                   </div>
-                  <div className={`menu-item ${hrSubView === 'hr-add-staff' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-add-staff'); }}>
-                    <UserPlus size={15} /><span>Add Staff</span>
-                  </div>
-                  <div className={`menu-item ${hrSubView === 'hr-department' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-department'); }}>
-                    <Building size={15} /><span>Departments</span>
-                  </div>
-                  <div className={`menu-item ${hrSubView === 'hr-designation' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-designation'); }}>
-                    <Tag size={15} /><span>Designations</span>
-                  </div>
-                  <div className={`menu-item ${hrSubView === 'hr-holiday' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-holiday'); }}>
-                    <Calendar size={15} /><span>Holiday Calendar</span>
-                  </div>
-                  {/* Leave */}
-                  <div className="menu-subgroup-header" onClick={() => setHrSubgroups(p => ({ ...p, leave: !p.leave }))}>
-                    <ClipboardList size={14} /><span>Leave Management</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: hrSubgroups.leave ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-                  </div>
-                  {hrSubgroups.leave && <>
-                    <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-apply' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-apply'); }}>
-                      <span>Apply Leave</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-approve' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-approve'); }}>
-                      <span>Leave Approval</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-type' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-type'); }}>
-                      <span>Leave Types</span>
-                    </div>
-                  </>}
                 </>
               )}
 
               {selectedModule === 'certificate' && (
                 <>
                   <div className="menu-label">Certificate Module</div>
-                  {[
-                    { id: 'cert-bonafide' as CertificateSubView, label: 'Bonafide Certificate', icon: <Award size={15} /> },
-                    { id: 'cert-transfer' as CertificateSubView, label: 'Transfer Certificate', icon: <FileText size={15} /> },
-                    { id: 'cert-character' as CertificateSubView, label: 'Character Certificate', icon: <Star size={15} /> },
-                    { id: 'cert-migration' as CertificateSubView, label: 'Migration Certificate', icon: <ArrowRight size={15} /> },
-                    { id: 'cert-sports' as CertificateSubView, label: 'Sports Certificate', icon: <Star size={15} /> },
-                    { id: 'cert-marksheet-duplicate' as CertificateSubView, label: 'Duplicate Marksheet', icon: <FileText size={15} /> },
-                    { id: 'cert-design' as CertificateSubView, label: 'Template Designer', icon: <Settings size={15} /> },
-                  ].map(item => (
-                    <div key={item.id} className={`menu-item ${certSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('certificate'); setCertSubView(item.id); }}>
-                      {item.icon}<span>{item.label}</span>
-                    </div>
-                  ))}
+                  <div className={`menu-item active`} onClick={() => setActiveView('certificate')}>
+                    <Award size={15} />
+                    <span>Certificates list</span>
+                  </div>
                 </>
               )}
 
               {selectedModule === 'academic' && (
                 <>
                   <div className="menu-label">Academic Module</div>
-                  <div className={`menu-item ${academicSubView === 'academic-subject' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-subject'); }}>
-                    <BookOpen size={15} /><span>Subject Master</span>
+                  <div className={`menu-item active`} onClick={() => setActiveView('academic')}>
+                    <GraduationCap size={15} />
+                    <span>Academic Config</span>
                   </div>
-                  <div className={`menu-item ${academicSubView === 'academic-chapter' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-chapter'); }}>
-                    <Layers size={15} /><span>Chapter & Topics</span>
-                  </div>
-                  <div className={`menu-item ${academicSubView === 'academic-lesson-plan' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-lesson-plan'); }}>
-                    <ClipboardList size={15} /><span>Lesson Plan</span>
-                  </div>
-                  <div className={`menu-item ${academicSubView === 'academic-syllabus' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-syllabus'); }}>
-                    <GraduationCap size={15} /><span>Syllabus Tracker</span>
-                  </div>
-                  {/* Homework */}
-                  <div className="menu-subgroup-header" onClick={() => setAcademicSubgroups(p => ({ ...p, homework: !p.homework }))}>
-                    <FileText size={14} /><span>Homework</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: academicSubgroups.homework ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-                  </div>
-                  {academicSubgroups.homework && <>
-                    <div className={`menu-item menu-item--sub ${academicSubView === 'academic-homework' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-homework'); }}>
-                      <span>Assign Homework</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${academicSubView === 'academic-homework-report' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-homework-report'); }}>
-                      <span>Submission Report</span>
-                    </div>
-                  </>}
                 </>
               )}
 
               {selectedModule === 'frontoffice' && (
                 <>
-                  <div className="menu-label">Front Office Module</div>
-                  <div className={`menu-item ${foSubView === 'fo-enquiry-list' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-enquiry-list'); }}>
-                    <FileText size={15} /><span>Enquiry List</span>
+                  <div className="menu-label">Front Office</div>
+                  <div className={`menu-item active`} onClick={() => setActiveView('frontoffice')}>
+                    <Contact size={15} />
+                    <span>Office Enquiries</span>
                   </div>
-                  <div className={`menu-item ${foSubView === 'fo-visitor-book' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-visitor-book'); }}>
-                    <Users size={15} /><span>Visitor Book</span>
-                  </div>
-                  <div className={`menu-item ${foSubView === 'fo-phone-call' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-phone-call'); }}>
-                    <Phone size={15} /><span>Phone Call Log</span>
-                  </div>
-                  <div className={`menu-item ${foSubView === 'fo-followup' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-followup'); }}>
-                    <Bell size={15} /><span>Follow-Up Tracker</span>
-                  </div>
-                  <div className="menu-subgroup-header" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
-                    <Mail size={14} /><span>Postal Register</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: foSubgroups.postal ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-                  </div>
-                  {foSubgroups.postal && <>
-                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-receive' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-receive'); }}>
-                      <span>Receive</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-dispatch' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-dispatch'); }}>
-                      <span>Dispatch</span>
-                    </div>
-                  </>}
                 </>
               )}
 
               {selectedModule === 'sendsms' && (
                 <>
-                  <div className="menu-label">SMS Communication</div>
-                  <div className="menu-subgroup-header" onClick={() => setSmsSubgroups(p => ({ ...p, send: !p.send }))}>
-                    <Send size={14} /><span>Send SMS</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: smsSubgroups.send ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-                  </div>
-                  {smsSubgroups.send && <>
-                    <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-student' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-student'); }}>
-                      <span>To Students/Parents</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-staff' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-staff'); }}>
-                      <span>To Staff</span>
-                    </div>
-                    <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-custom' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-custom'); }}>
-                      <span>Custom Bulk SMS</span>
-                    </div>
-                  </>}
-                  <div className={`menu-item ${smsSubView === 'sms-template' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-template'); }}>
-                    <FileText size={15} /><span>SMS Templates</span>
-                  </div>
-                  <div className={`menu-item ${smsSubView === 'sms-log' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-log'); }}>
-                    <ClipboardList size={15} /><span>SMS Log</span>
-                  </div>
-                  <div className={`menu-item ${smsSubView === 'sms-balance' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-balance'); }}>
-                    <BarChart3 size={15} /><span>SMS Balance</span>
+                  <div className="menu-label">Send SMS Module</div>
+                  <div className={`menu-item active`} onClick={() => setActiveView('sendsms')}>
+                    <MessageSquare size={15} />
+                    <span>SMS Logs</span>
                   </div>
                 </>
               )}
@@ -2122,34 +1982,18 @@ export default function App() {
                 <>
                   <div className="menu-label">Hostel Module</div>
                   <div className={`menu-item active`} onClick={() => setActiveView('hostel')}>
-                    <Building size={15} /><span>Room Allotment</span>
-                  </div>
-                  <div className={`menu-item`} onClick={() => setActiveView('hostel')}>
-                    <Users size={15} /><span>Hostel Students</span>
-                  </div>
-                  <div className={`menu-item`} onClick={() => setActiveView('hostel')}>
-                    <IndianRupee size={15} /><span>Hostel Fees</span>
-                  </div>
-                  <div className={`menu-item`} onClick={() => setActiveView('hostel')}>
-                    <BarChart3 size={15} /><span>Hostel Report</span>
+                    <Building size={15} />
+                    <span>Hostel Console</span>
                   </div>
                 </>
               )}
 
               {selectedModule === 'econtent' && (
                 <>
-                  <div className="menu-label">E-Content Module</div>
+                  <div className="menu-label">Econtent Module</div>
                   <div className={`menu-item active`} onClick={() => setActiveView('econtent')}>
-                    <Video size={15} /><span>Add Content</span>
-                  </div>
-                  <div className={`menu-item`} onClick={() => setActiveView('econtent')}>
-                    <BookOpen size={15} /><span>Content Library</span>
-                  </div>
-                  <div className={`menu-item`} onClick={() => setActiveView('econtent')}>
-                    <FileText size={15} /><span>Homework Upload</span>
-                  </div>
-                  <div className={`menu-item`} onClick={() => setActiveView('econtent')}>
-                    <Check size={15} /><span>Submissions</span>
+                    <BookOpen size={15} />
+                    <span>Lecture videos</span>
                   </div>
                 </>
               )}
@@ -2157,23 +2001,9 @@ export default function App() {
               {selectedModule === 'payroll' && (
                 <>
                   <div className="menu-label">Payroll Module</div>
-                  <div className={`menu-item ${payrollSubView === 'payroll-salary-structure' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-salary-structure'); }}>
-                    <Settings size={15} /><span>Salary Structure</span>
-                  </div>
-                  <div className={`menu-item ${payrollSubView === 'payroll-generate' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-generate'); }}>
-                    <IndianRupee size={15} /><span>Generate Payroll</span>
-                  </div>
-                  <div className={`menu-item ${payrollSubView === 'payroll-slip' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-slip'); }}>
-                    <FileText size={15} /><span>Salary Slips</span>
-                  </div>
-                  <div className={`menu-item ${payrollSubView === 'payroll-advance' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-advance'); }}>
-                    <DollarSign size={15} /><span>Advance Salary</span>
-                  </div>
-                  <div className={`menu-item ${payrollSubView === 'payroll-pf-esi' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-pf-esi'); }}>
-                    <Shield size={15} /><span>PF / ESI</span>
-                  </div>
-                  <div className={`menu-item ${payrollSubView === 'payroll-report' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-report'); }}>
-                    <BarChart3 size={15} /><span>Payroll Report</span>
+                  <div className={`menu-item active`} onClick={() => setActiveView('payroll')}>
+                    <DollarSign size={15} />
+                    <span>Payroll Accounts</span>
                   </div>
                 </>
               )}
@@ -2181,67 +2011,20 @@ export default function App() {
               {selectedModule === 'library' && (
                 <>
                   <div className="menu-label">Library Module</div>
-                  <div className={`menu-item ${librarySubView === 'lib-add-book' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-add-book'); }}>
-                    <PlusCircle size={15} /><span>Add Book</span>
-                  </div>
-                  <div className={`menu-item ${librarySubView === 'lib-book-list' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-book-list'); }}>
-                    <BookOpen size={15} /><span>Book Catalog</span>
-                  </div>
-                  <div className={`menu-item ${librarySubView === 'lib-issue-book' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-issue-book'); }}>
-                    <ArrowRight size={15} /><span>Issue Book</span>
-                  </div>
-                  <div className={`menu-item ${librarySubView === 'lib-return-book' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-return-book'); }}>
-                    <Check size={15} /><span>Return Book</span>
-                  </div>
-                  <div className={`menu-item ${librarySubView === 'lib-due-books' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-due-books'); }}>
-                    <AlertCircle size={15} /><span>Overdue Books</span>
-                  </div>
-                  <div className={`menu-item ${librarySubView === 'lib-member' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-member'); }}>
-                    <Users size={15} /><span>Library Members</span>
-                  </div>
-                  <div className={`menu-item ${librarySubView === 'lib-report' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-report'); }}>
-                    <BarChart3 size={15} /><span>Library Report</span>
+                  <div className={`menu-item active`} onClick={() => setActiveView('library')}>
+                    <BookOpen size={15} />
+                    <span>Book Catalog</span>
                   </div>
                 </>
               )}
 
               {selectedModule === 'master' && (
                 <>
-                  <div className="menu-label">Master Settings</div>
-                  {/* School Config */}
-                  <div className="menu-subgroup-header" onClick={() => setMasterSubgroups(p => ({ ...p, school: !p.school }))}>
-                    <Settings size={14} /><span>School Setup</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: masterSubgroups.school ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  <div className="menu-label">Master Module</div>
+                  <div className={`menu-item active`} onClick={() => setActiveView('master')}>
+                    <Settings size={15} />
+                    <span>Master Permissions</span>
                   </div>
-                  {masterSubgroups.school && <>
-                    {[
-                      { id: 'master-class' as MasterSubView, label: 'Class / Grade' },
-                      { id: 'master-section' as MasterSubView, label: 'Section / Division' },
-                      { id: 'master-subject' as MasterSubView, label: 'Subject' },
-                      { id: 'master-session' as MasterSubView, label: 'Academic Session' },
-                      { id: 'master-house' as MasterSubView, label: 'School House' },
-                      { id: 'master-id-card' as MasterSubView, label: 'ID Card Template' },
-                      { id: 'master-gallery' as MasterSubView, label: 'Photo Gallery' },
-                    ].map(item => (
-                      <div key={item.id} className={`menu-item menu-item--sub ${masterSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('master'); setMasterSubView(item.id); }}>
-                        <span>{item.label}</span>
-                      </div>
-                    ))}
-                  </>}
-                  {/* People Config */}
-                  <div className="menu-subgroup-header" onClick={() => setMasterSubgroups(p => ({ ...p, people: !p.people }))}>
-                    <Users size={14} /><span>People Setup</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: masterSubgroups.people ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
-                  </div>
-                  {masterSubgroups.people && <>
-                    {[
-                      { id: 'master-category' as MasterSubView, label: 'Category (Gen/OBC)' },
-                      { id: 'master-religion' as MasterSubView, label: 'Religion' },
-                      { id: 'master-caste' as MasterSubView, label: 'Caste / Community' },
-                    ].map(item => (
-                      <div key={item.id} className={`menu-item menu-item--sub ${masterSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('master'); setMasterSubView(item.id); }}>
-                        <span>{item.label}</span>
-                      </div>
-                    ))}
-                  </>}
                 </>
               )}
             </>
@@ -2253,7 +2036,7 @@ export default function App() {
           <div className="user-details" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
               <div className="user-name">{activeRole}</div>
-              <button 
+              <button
                 type="button"
                 onClick={() => {
                   setIsLoggedIn(false);
@@ -2331,8 +2114,8 @@ export default function App() {
 
               <div className="modules-grid">
                 {/* 1. STUDENT */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('student');
                     setActiveView('student-admission-view');
@@ -2343,8 +2126,8 @@ export default function App() {
                 </div>
 
                 {/* 2. TRANSPORT */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('transport');
                     setActiveView('transport');
@@ -2355,8 +2138,8 @@ export default function App() {
                 </div>
 
                 {/* 3. INVENTORY */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('inventory');
                     setActiveView('inventory');
@@ -2367,8 +2150,8 @@ export default function App() {
                 </div>
 
                 {/* 4. AI PROGRAM */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('aiprogram');
                     setActiveView('aiprogram');
@@ -2379,8 +2162,8 @@ export default function App() {
                 </div>
 
                 {/* 5. FACULTY */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('faculty');
                     setActiveView('faculty');
@@ -2391,8 +2174,8 @@ export default function App() {
                 </div>
 
                 {/* 6. EXAMINATION */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('examination');
                     setActiveView('examination');
@@ -2403,8 +2186,8 @@ export default function App() {
                 </div>
 
                 {/* 7. RECEPTION */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('reception');
                     setActiveView('reception');
@@ -2415,8 +2198,8 @@ export default function App() {
                 </div>
 
                 {/* 8. HR */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('hr');
                     setActiveView('hr');
@@ -2427,8 +2210,8 @@ export default function App() {
                 </div>
 
                 {/* 9. ACCOUNT */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('account');
                     setActiveView('account');
@@ -2439,8 +2222,8 @@ export default function App() {
                 </div>
 
                 {/* 10. CERTIFICATE */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('certificate');
                     setActiveView('certificate');
@@ -2451,8 +2234,8 @@ export default function App() {
                 </div>
 
                 {/* 11. ACADEMIC */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('academic');
                     setActiveView('academic');
@@ -2463,8 +2246,8 @@ export default function App() {
                 </div>
 
                 {/* 12. FRONT OFFICE */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('frontoffice');
                     setActiveView('frontoffice');
@@ -2475,8 +2258,8 @@ export default function App() {
                 </div>
 
                 {/* 13. TIME TABLE */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('timetable');
                     setActiveView('timetable');
@@ -2487,8 +2270,8 @@ export default function App() {
                 </div>
 
                 {/* 14. SEND SMS */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('sendsms');
                     setActiveView('sendsms');
@@ -2499,8 +2282,8 @@ export default function App() {
                 </div>
 
                 {/* 15. HOSTEL */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('hostel');
                     setActiveView('hostel');
@@ -2511,8 +2294,8 @@ export default function App() {
                 </div>
 
                 {/* 16. ECONTENT */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('econtent');
                     setActiveView('econtent');
@@ -2523,8 +2306,8 @@ export default function App() {
                 </div>
 
                 {/* 17. ATTENDANCE */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('attendance');
                     setActiveView('attendance');
@@ -2535,8 +2318,8 @@ export default function App() {
                 </div>
 
                 {/* 18. PAYROLL */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('payroll');
                     setActiveView('payroll');
@@ -2547,8 +2330,8 @@ export default function App() {
                 </div>
 
                 {/* 19. LIBRARY */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('library');
                     setActiveView('library');
@@ -2559,8 +2342,8 @@ export default function App() {
                 </div>
 
                 {/* 20. MASTER */}
-                <div 
-                  className="module-card" 
+                <div
+                  className="module-card"
                   onClick={() => {
                     setSelectedModule('master');
                     setActiveView('master');
@@ -2625,10 +2408,10 @@ export default function App() {
 
                   {/* Master 2-Column Dashboard Grid */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1.2fr', gap: '20px', alignItems: 'start' }}>
-                    
+
                     {/* LEFT COLUMN */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                      
+
                       {/* Quick Actions Panel */}
                       <div className="erp-card" style={{ border: '1px solid rgba(37, 99, 235, 0.12)', boxShadow: '0 4px 12px rgba(0,0,0,0.01)' }}>
                         <div className="erp-card-header" style={{ backgroundColor: '#f8fafc' }}>
@@ -2678,28 +2461,28 @@ export default function App() {
                             <svg viewBox="0 0 500 150" width="100%" height="100%">
                               <defs>
                                 <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3"/>
-                                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0"/>
+                                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
+                                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
                                 </linearGradient>
                                 <linearGradient id="greenGrad" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.3"/>
-                                  <stop offset="100%" stopColor="#10b981" stopOpacity="0"/>
+                                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+                                  <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
                                 </linearGradient>
                               </defs>
                               <line x1="50" y1="20" x2="480" y2="20" stroke="#f1f5f9" strokeWidth="1" />
                               <line x1="50" y1="65" x2="480" y2="65" stroke="#f1f5f9" strokeWidth="1" />
                               <line x1="50" y1="110" x2="480" y2="110" stroke="#f1f5f9" strokeWidth="1" />
-                              
+
                               <path d="M 50,110 L 120,80 L 190,95 L 260,60 L 330,45 L 400,30 L 470,25 L 470,110 Z" fill="url(#blueGrad)" />
                               <path d="M 50,110 L 120,80 L 190,95 L 260,60 L 330,45 L 400,30 L 470,25" fill="none" stroke="#2563eb" strokeWidth="2.5" />
-                              
+
                               <path d="M 50,105 L 120,90 L 190,75 L 260,85 L 330,55 L 400,40 L 470,30 L 470,110 Z" fill="url(#greenGrad)" />
                               <path d="M 50,105 L 120,90 L 190,75 L 260,85 L 330,55 L 400,40 L 470,30" fill="none" stroke="#10b981" strokeWidth="2.5" />
-                              
+
                               <circle cx="260" cy="60" r="3.5" fill="#2563eb" />
                               <circle cx="400" cy="30" r="3.5" fill="#2563eb" />
                               <circle cx="470" cy="25" r="3.5" fill="#2563eb" />
-                              
+
                               <circle cx="260" cy="85" r="3.5" fill="#10b981" />
                               <circle cx="400" cy="40" r="3.5" fill="#10b981" />
                               <circle cx="470" cy="30" r="3.5" fill="#10b981" />
@@ -2759,7 +2542,7 @@ export default function App() {
 
                     {/* RIGHT COLUMN */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                      
+
                       {/* School Insights Card */}
                       <div className="erp-card">
                         <div className="erp-card-header">
@@ -2839,10 +2622,10 @@ export default function App() {
                         <div className="erp-card-body" style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                           {systemLogs.map(log => (
                             <div key={log.id} style={{ display: 'flex', gap: '10px', fontSize: '12px', borderBottom: '1px solid #f1f5f9', paddingBottom: '8px' }}>
-                              <div style={{ 
-                                width: '6px', 
-                                height: '6px', 
-                                borderRadius: '50%', 
+                              <div style={{
+                                width: '6px',
+                                height: '6px',
+                                borderRadius: '50%',
                                 backgroundColor: log.type === 'success' ? '#10b981' : log.type === 'warning' ? '#f59e0b' : '#3b82f6',
                                 marginTop: '6px'
                               }}></div>
@@ -2892,7 +2675,7 @@ export default function App() {
               )}
 
               {activeRole !== 'Admin' && (
-                <RoleDashboard 
+                <RoleDashboard
                   activeRole={activeRole}
                   students={students}
                   teachers={teachers}
@@ -2939,28 +2722,28 @@ export default function App() {
                     <svg viewBox="0 0 500 120" width="100%" height="100%">
                       <defs>
                         <linearGradient id="blueGradHuge" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35"/>
-                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0"/>
+                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
                         </linearGradient>
                         <linearGradient id="greenGradHuge" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.35"/>
-                          <stop offset="100%" stopColor="#10b981" stopOpacity="0"/>
+                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.35" />
+                          <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
                         </linearGradient>
                       </defs>
                       <line x1="40" y1="10" x2="480" y2="10" stroke="#e2e8f0" strokeWidth="1" />
                       <line x1="40" y1="50" x2="480" y2="50" stroke="#e2e8f0" strokeWidth="1" />
                       <line x1="40" y1="90" x2="480" y2="90" stroke="#e2e8f0" strokeWidth="1" />
-                      
+
                       <path d="M 40,90 L 110,65 L 180,78 L 250,50 L 320,38 L 390,26 L 460,20 L 460,90 Z" fill="url(#blueGradHuge)" />
                       <path d="M 40,90 L 110,65 L 180,78 L 250,50 L 320,38 L 390,26 L 460,20" fill="none" stroke="#2563eb" strokeWidth="3" />
-                      
+
                       <path d="M 40,85 L 110,72 L 180,60 L 250,68 L 320,44 L 390,32 L 460,24 L 460,90 Z" fill="url(#greenGradHuge)" />
                       <path d="M 40,85 L 110,72 L 180,60 L 250,68 L 320,44 L 390,32 L 460,24" fill="none" stroke="#10b981" strokeWidth="3" />
-                      
+
                       <circle cx="250" cy="50" r="4" fill="#2563eb" />
                       <circle cx="390" cy="26" r="4" fill="#2563eb" />
                       <circle cx="460" cy="20" r="4" fill="#2563eb" />
-                      
+
                       <circle cx="250" cy="68" r="4" fill="#10b981" />
                       <circle cx="390" cy="32" r="4" fill="#10b981" />
                       <circle cx="460" cy="24" r="4" fill="#10b981" />
@@ -3051,9 +2834,9 @@ export default function App() {
                 <div className="erp-card-body" style={{ padding: '12px' }}>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <div style={{ flex: 1, minWidth: '200px', position: 'relative' }}>
-                      <input 
-                        type="text" 
-                        placeholder="Search name, admission id, mobile..." 
+                      <input
+                        type="text"
+                        placeholder="Search name, admission id, mobile..."
                         style={{ width: '100%', paddingLeft: '32px' }}
                         value={sSearch}
                         onChange={(e) => {
@@ -3136,15 +2919,15 @@ export default function App() {
                           <td><span className={`erp-badge ${getStatusClass(st.status)}`}>{st.status}</span></td>
                           <td>
                             <div style={{ display: 'flex', gap: '6px' }}>
-                              <button 
-                                className="erp-btn btn-outline" 
+                              <button
+                                className="erp-btn btn-outline"
                                 style={{ height: '26px', padding: '0 8px', fontSize: '10px' }}
                                 onClick={() => setSelectedStudent(st)}
                               >
                                 <Contact size={11} /> ID Card
                               </button>
-                              <button 
-                                className="erp-btn btn-outline" 
+                              <button
+                                className="erp-btn btn-outline"
                                 style={{ height: '26px', padding: '0 8px', fontSize: '10px', borderColor: '#fee2e2', color: '#ef4444' }}
                                 onClick={() => deleteStudent(st.id)}
                               >
@@ -3164,16 +2947,16 @@ export default function App() {
                     Showing {indexOfFirstRecord + 1} to {Math.min(indexOfLastRecord, filteredStudents.length)} of {filteredStudents.length} records
                   </span>
                   <div style={{ display: 'flex', gap: '8px' }}>
-                    <button 
-                      className="erp-btn btn-outline" 
+                    <button
+                      className="erp-btn btn-outline"
                       style={{ height: '30px', padding: '0 12px' }}
                       disabled={currentPage === 1}
                       onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                     >
                       <ChevronLeft size={14} /> Prev
                     </button>
-                    <button 
-                      className="erp-btn btn-outline" 
+                    <button
+                      className="erp-btn btn-outline"
                       style={{ height: '30px', padding: '0 12px' }}
                       disabled={currentPage === totalPages}
                       onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
@@ -3205,10 +2988,10 @@ export default function App() {
                     <div className="form-grid">
                       <div className="form-group col-span-2">
                         <label>Student Name *</label>
-                        <input 
-                          type="text" 
-                          required 
-                          placeholder="Full Name" 
+                        <input
+                          type="text"
+                          required
+                          placeholder="Full Name"
                           value={formName}
                           onChange={(e) => setFormName(e.target.value)}
                         />
@@ -3310,20 +3093,20 @@ export default function App() {
 
                       <div className="form-group col-span-2">
                         <label>Father's Name *</label>
-                        <input 
-                          type="text" 
-                          required 
-                          placeholder="Father Name" 
+                        <input
+                          type="text"
+                          required
+                          placeholder="Father Name"
                           value={formFather}
                           onChange={(e) => setFormFather(e.target.value)}
                         />
                       </div>
                       <div className="form-group col-span-2">
                         <label>Phone Number *</label>
-                        <input 
-                          type="tel" 
-                          required 
-                          placeholder="10 digit phone" 
+                        <input
+                          type="tel"
+                          required
+                          placeholder="10 digit phone"
                           value={formPhone}
                           onChange={(e) => setFormPhone(e.target.value)}
                         />
@@ -3358,9 +3141,9 @@ export default function App() {
                 <div className="erp-card-body" style={{ padding: '12px' }}>
                   <div style={{ display: 'flex', gap: '15px' }}>
                     <div style={{ flex: 1, position: 'relative' }}>
-                      <input 
-                        type="text" 
-                        placeholder="Search student, father name, roll..." 
+                      <input
+                        type="text"
+                        placeholder="Search student, father name, roll..."
                         style={{ width: '100%', height: '32px' }}
                         value={rSearch}
                         onChange={(e) => setRSearch(e.target.value)}
@@ -3408,7 +3191,7 @@ export default function App() {
                   </span>
                 </div>
                 <div className="erp-card-body">
-                  
+
                   {reportTab === 'photos' && (
                     <div className="table-container">
                       <table className="erp-table">
@@ -3444,8 +3227,8 @@ export default function App() {
                               <td>{st.fatherName}</td>
                               <td>
                                 <div className="file-upload-cell">
-                                  <input 
-                                    type="file" 
+                                  <input
+                                    type="file"
                                     accept="image/*"
                                     className="file-upload-input"
                                     onChange={(e) => handlePhotoUpload(st.id, e)}
@@ -3552,13 +3335,13 @@ export default function App() {
 
               {/* Sub-view toggle */}
               <div className="tabs-row" style={{ marginBottom: '20px' }}>
-                <button 
+                <button
                   className={`erp-tab ${feeViewTab === 'installments' ? 'active' : ''}`}
                   onClick={() => setFeeViewTab('installments')}
                 >
                   General Installments Ledger
                 </button>
-                <button 
+                <button
                   className={`erp-tab ${feeViewTab === 'monthly' ? 'active' : ''}`}
                   onClick={() => setFeeViewTab('monthly')}
                 >
@@ -3572,9 +3355,9 @@ export default function App() {
                   <div className="erp-card">
                     <div className="erp-card-body" style={{ padding: '12px' }}>
                       <div style={{ display: 'flex', gap: '15px' }}>
-                        <input 
-                          type="text" 
-                          placeholder="Search fee type..." 
+                        <input
+                          type="text"
+                          placeholder="Search fee type..."
                           style={{ flex: 1, height: '32px' }}
                           value={fSearch}
                           onChange={(e) => setFSearch(e.target.value)}
@@ -3628,16 +3411,16 @@ export default function App() {
                               <td><span className={`erp-badge ${getStatusClass(f.status)}`}>{f.status}</span></td>
                               <td>
                                 <div style={{ display: 'flex', gap: '6px' }}>
-                                  <button 
-                                    className="erp-btn btn-outline" 
+                                  <button
+                                    className="erp-btn btn-outline"
                                     style={{ height: '26px', padding: '0 8px', fontSize: '10px' }}
                                     onClick={() => addToast('Receipt Print', `Printing receipt for record ID: ${f.id}`, 'success')}
                                   >
                                     <Receipt size={11} style={{ marginRight: '3px' }} /> Receipt
                                   </button>
                                   {f.status !== 'Paid' && (
-                                    <button 
-                                      className="erp-btn btn-primary" 
+                                    <button
+                                      className="erp-btn btn-primary"
                                       style={{ height: '26px', padding: '0 8px', fontSize: '10px', backgroundColor: '#15803d' }}
                                       onClick={() => processPayment(f.id)}
                                     >
@@ -3658,169 +3441,169 @@ export default function App() {
               {/* TAB 2: Student Month-wise Collector ("Collect in One Hand") */}
               {feeViewTab === 'monthly' && (
                 <>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', alignItems: 'start' }}>
-                  {/* Select Student Panel */}
-                  <div className="erp-card">
-                    <div className="erp-card-header">
-                      <span className="erp-card-title">Select Student</span>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px', alignItems: 'start' }}>
+                    {/* Select Student Panel */}
+                    <div className="erp-card">
+                      <div className="erp-card-header">
+                        <span className="erp-card-title">Select Student</span>
+                      </div>
+                      <div className="erp-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <div className="form-group">
+                          <label>Student Name</label>
+                          <select
+                            value={selectedFeeStudentId}
+                            onChange={(e) => {
+                              setSelectedFeeStudentId(e.target.value);
+                              setCheckedMonths([]);
+                            }}
+                          >
+                            {students.filter(s => s.status === 'Approved').map(s => (
+                              <option key={s.id} value={s.id}>{s.name} ({s.class})</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Display Selected Student Info */}
+                        {(() => {
+                          const activeSt = students.find(s => s.id === selectedFeeStudentId);
+                          return activeSt ? (
+                            <div style={{ border: '1px solid var(--color-border)', padding: '12px', borderRadius: '6px', backgroundColor: '#faf9f6', fontSize: '12px' }}>
+                              <div style={{ marginBottom: '6px' }}><strong>ID:</strong> {activeSt.id}</div>
+                              <div style={{ marginBottom: '6px' }}><strong>Father Name:</strong> {activeSt.fatherName}</div>
+                              <div style={{ marginBottom: '6px' }}><strong>Contact:</strong> {activeSt.phone}</div>
+                              <div><strong>Admitted Class:</strong> {activeSt.class} ({activeSt.section})</div>
+                            </div>
+                          ) : null;
+                        })()}
+                      </div>
                     </div>
-                    <div className="erp-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                      <div className="form-group">
-                        <label>Student Name</label>
-                        <select 
-                          value={selectedFeeStudentId} 
-                          onChange={(e) => {
-                            setSelectedFeeStudentId(e.target.value);
-                            setCheckedMonths([]);
-                          }}
-                        >
-                          {students.filter(s => s.status === 'Approved').map(s => (
-                            <option key={s.id} value={s.id}>{s.name} ({s.class})</option>
-                          ))}
-                        </select>
+
+                    {/* Monthly Ledger and Checkout checklist */}
+                    <div className="erp-card">
+                      <div className="erp-card-header">
+                        <span className="erp-card-title">Month-by-month Ledger billing</span>
+                      </div>
+                      <div className="table-container">
+                        <table className="erp-table">
+                          <thead>
+                            <tr>
+                              <th style={{ width: '40px' }}>Select</th>
+                              <th>Billing Month</th>
+                              <th>Installment (₹)</th>
+                              <th>Due Date</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {(studentMonthlyFees.find(sf => sf.studentId === selectedFeeStudentId)?.months || [
+                              { month: "April", amount: 3000, status: "Pending", dueDate: "2026-04-10" },
+                              { month: "May", amount: 3000, status: "Pending", dueDate: "2026-05-10" },
+                              { month: "June", amount: 3000, status: "Pending", dueDate: "2026-06-10" },
+                              { month: "July", amount: 3000, status: "Pending", dueDate: "2026-07-10" }
+                            ]).map((m, i) => (
+                              <tr key={i}>
+                                <td>
+                                  <input
+                                    type="checkbox"
+                                    disabled={m.status === 'Paid'}
+                                    checked={checkedMonths.includes(m.month)}
+                                    onChange={() => handleMonthCheck(m.month)}
+                                    style={{ cursor: 'pointer' }}
+                                  />
+                                </td>
+                                <td><strong>{m.month} Billing</strong></td>
+                                <td><strong>₹{m.amount}</strong></td>
+                                <td>{m.dueDate}</td>
+                                <td><span className={`erp-badge ${getStatusClass(m.status)}`}>{m.status}</span></td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
 
-                      {/* Display Selected Student Info */}
-                      {(() => {
-                        const activeSt = students.find(s => s.id === selectedFeeStudentId);
-                        return activeSt ? (
-                          <div style={{ border: '1px solid var(--color-border)', padding: '12px', borderRadius: '6px', backgroundColor: '#faf9f6', fontSize: '12px' }}>
-                            <div style={{ marginBottom: '6px' }}><strong>ID:</strong> {activeSt.id}</div>
-                            <div style={{ marginBottom: '6px' }}><strong>Father Name:</strong> {activeSt.fatherName}</div>
-                            <div style={{ marginBottom: '6px' }}><strong>Contact:</strong> {activeSt.phone}</div>
-                            <div><strong>Admitted Class:</strong> {activeSt.class} ({activeSt.section})</div>
+                      {/* Checkout Box */}
+                      {checkedMonths.length > 0 && (
+                        <div style={{ padding: '16px', borderTop: '1px solid var(--color-border)', backgroundColor: '#f0fdf4', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <strong style={{ color: '#166534', fontSize: '13px' }}>
+                              LUMP SUM CHECKOUT: {checkedMonths.join(', ')}
+                            </strong>
+                            <div style={{ fontSize: '11px', color: '#15803d', marginTop: '2px' }}>
+                              Collect <strong>{checkedMonths.length} months</strong> in one transaction
+                            </div>
                           </div>
-                        ) : null;
-                      })()}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            <strong style={{ fontSize: '16px', color: '#166534' }}>
+                              ₹{checkedMonths.length * 3000}
+                            </strong>
+                            <button
+                              className="erp-btn btn-finalize"
+                              style={{ backgroundColor: '#166534', border: 'none' }}
+                              onClick={processMultimonthPayment}
+                            >
+                              <CreditCard size={13} style={{ marginRight: '5px' }} /> Collect Payment
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* Monthly Ledger and Checkout checklist */}
-                  <div className="erp-card">
+                  <div className="erp-card" style={{ marginTop: '20px' }}>
                     <div className="erp-card-header">
-                      <span className="erp-card-title">Month-by-month Ledger billing</span>
+                      <span className="erp-card-title">Detailed Payment History Ledger (Month-Wise Show)</span>
                     </div>
                     <div className="table-container">
                       <table className="erp-table">
                         <thead>
                           <tr>
-                            <th style={{ width: '40px' }}>Select</th>
-                            <th>Billing Month</th>
-                            <th>Installment (₹)</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
+                            <th>Txn ID</th>
+                            <th>Student Name</th>
+                            <th>Class</th>
+                            <th>Paid Month</th>
+                            <th>Paid Date</th>
+                            <th>Amount (₹)</th>
+                            <th>Mode</th>
+                            <th>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {(studentMonthlyFees.find(sf => sf.studentId === selectedFeeStudentId)?.months || [
-                            { month: "April", amount: 3000, status: "Pending", dueDate: "2026-04-10" },
-                            { month: "May", amount: 3000, status: "Pending", dueDate: "2026-05-10" },
-                            { month: "June", amount: 3000, status: "Pending", dueDate: "2026-06-10" },
-                            { month: "July", amount: 3000, status: "Pending", dueDate: "2026-07-10" }
-                          ]).map((m, i) => (
-                            <tr key={i}>
-                              <td>
-                                <input 
-                                  type="checkbox" 
-                                  disabled={m.status === 'Paid'}
-                                  checked={checkedMonths.includes(m.month)}
-                                  onChange={() => handleMonthCheck(m.month)}
-                                  style={{ cursor: 'pointer' }}
-                                />
+                          {feePaymentHistory.length === 0 ? (
+                            <tr>
+                              <td colSpan={8} style={{ textAlign: 'center', padding: '20px', color: '#64748b' }}>
+                                No transactions recorded.
                               </td>
-                              <td><strong>{m.month} Billing</strong></td>
-                              <td><strong>₹{m.amount}</strong></td>
-                              <td>{m.dueDate}</td>
-                              <td><span className={`erp-badge ${getStatusClass(m.status)}`}>{m.status}</span></td>
                             </tr>
-                          ))}
+                          ) : (
+                            feePaymentHistory.map((txn) => (
+                              <tr key={txn.id}>
+                                <td style={{ fontFamily: 'monospace', fontWeight: 600 }}>{txn.id}</td>
+                                <td><strong>{txn.studentName}</strong> <span style={{ fontSize: '10.5px', color: '#64748b' }}>({txn.studentId})</span></td>
+                                <td>{txn.class}</td>
+                                <td>
+                                  <span className="erp-badge" style={{ backgroundColor: '#e0f2fe', color: '#0369a1', borderColor: '#bae6fd' }}>
+                                    {txn.month} Fee
+                                  </span>
+                                </td>
+                                <td>{txn.date}</td>
+                                <td><strong>₹{txn.amount}</strong></td>
+                                <td><span style={{ fontSize: '11px', color: '#475569', fontWeight: 600 }}>{txn.paymentMethod}</span></td>
+                                <td>
+                                  <button
+                                    className="erp-btn btn-outline"
+                                    style={{ height: '24px', padding: '0 8px', fontSize: '10px' }}
+                                    onClick={() => addToast('Receipt Print', `Printing receipt for transaction ID: ${txn.id}`, 'success')}
+                                  >
+                                    <Receipt size={11} style={{ marginRight: '3px' }} /> Print
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          )}
                         </tbody>
                       </table>
                     </div>
-
-                    {/* Checkout Box */}
-                    {checkedMonths.length > 0 && (
-                      <div style={{ padding: '16px', borderTop: '1px solid var(--color-border)', backgroundColor: '#f0fdf4', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div>
-                          <strong style={{ color: '#166534', fontSize: '13px' }}>
-                            LUMP SUM CHECKOUT: {checkedMonths.join(', ')}
-                          </strong>
-                          <div style={{ fontSize: '11px', color: '#15803d', marginTop: '2px' }}>
-                            Collect <strong>{checkedMonths.length} months</strong> in one transaction
-                          </div>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                          <strong style={{ fontSize: '16px', color: '#166534' }}>
-                            ₹{checkedMonths.length * 3000}
-                          </strong>
-                          <button 
-                            className="erp-btn btn-finalize" 
-                            style={{ backgroundColor: '#166534', border: 'none' }}
-                            onClick={processMultimonthPayment}
-                          >
-                            <CreditCard size={13} style={{ marginRight: '5px' }} /> Collect Payment
-                          </button>
-                        </div>
-                      </div>
-                    )}
                   </div>
-                </div>
-
-                <div className="erp-card" style={{ marginTop: '20px' }}>
-                  <div className="erp-card-header">
-                    <span className="erp-card-title">Detailed Payment History Ledger (Month-Wise Show)</span>
-                  </div>
-                  <div className="table-container">
-                    <table className="erp-table">
-                      <thead>
-                        <tr>
-                          <th>Txn ID</th>
-                          <th>Student Name</th>
-                          <th>Class</th>
-                          <th>Paid Month</th>
-                          <th>Paid Date</th>
-                          <th>Amount (₹)</th>
-                          <th>Mode</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {feePaymentHistory.length === 0 ? (
-                          <tr>
-                            <td colSpan={8} style={{ textAlign: 'center', padding: '20px', color: '#64748b' }}>
-                              No transactions recorded.
-                            </td>
-                          </tr>
-                        ) : (
-                          feePaymentHistory.map((txn) => (
-                            <tr key={txn.id}>
-                              <td style={{ fontFamily: 'monospace', fontWeight: 600 }}>{txn.id}</td>
-                              <td><strong>{txn.studentName}</strong> <span style={{ fontSize: '10.5px', color: '#64748b' }}>({txn.studentId})</span></td>
-                              <td>{txn.class}</td>
-                              <td>
-                                <span className="erp-badge" style={{ backgroundColor: '#e0f2fe', color: '#0369a1', borderColor: '#bae6fd' }}>
-                                  {txn.month} Fee
-                                </span>
-                              </td>
-                              <td>{txn.date}</td>
-                              <td><strong>₹{txn.amount}</strong></td>
-                              <td><span style={{ fontSize: '11px', color: '#475569', fontWeight: 600 }}>{txn.paymentMethod}</span></td>
-                              <td>
-                                <button 
-                                  className="erp-btn btn-outline" 
-                                  style={{ height: '24px', padding: '0 8px', fontSize: '10px' }}
-                                  onClick={() => addToast('Receipt Print', `Printing receipt for transaction ID: ${txn.id}`, 'success')}
-                                >
-                                  <Receipt size={11} style={{ marginRight: '3px' }} /> Print
-                                </button>
-                              </td>
-                            </tr>
-                          ))
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
                 </>
               )}
             </div>
@@ -3845,10 +3628,10 @@ export default function App() {
                     <form onSubmit={handleGatepassSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       <div className="form-group">
                         <label>Student Name</label>
-                        <input 
-                          type="text" 
-                          placeholder="Search Student" 
-                          value={gpStudent} 
+                        <input
+                          type="text"
+                          placeholder="Search Student"
+                          value={gpStudent}
                           onChange={(e) => setGpStudent(e.target.value)}
                         />
                       </div>
@@ -3863,19 +3646,19 @@ export default function App() {
                       </div>
                       <div className="form-group">
                         <label>Reason for Permit</label>
-                        <input 
-                          type="text" 
-                          placeholder="e.g. Sickness, Parent Visit" 
-                          value={gpReason} 
+                        <input
+                          type="text"
+                          placeholder="e.g. Sickness, Parent Visit"
+                          value={gpReason}
                           onChange={(e) => setGpReason(e.target.value)}
                         />
                       </div>
                       <div className="form-group">
                         <label>Expected Departure Time</label>
-                        <input 
-                          type="text" 
-                          placeholder="e.g. 11:30 AM" 
-                          value={gpTime} 
+                        <input
+                          type="text"
+                          placeholder="e.g. 11:30 AM"
+                          value={gpTime}
                           onChange={(e) => setGpTime(e.target.value)}
                         />
                       </div>
@@ -3940,27 +3723,27 @@ export default function App() {
                     <form onSubmit={handleActivitySubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       <div className="form-group">
                         <label>Event Title</label>
-                        <input 
-                          type="text" 
-                          placeholder="e.g. Science Fair" 
-                          value={actTitle} 
+                        <input
+                          type="text"
+                          placeholder="e.g. Science Fair"
+                          value={actTitle}
                           onChange={(e) => setActTitle(e.target.value)}
                         />
                       </div>
                       <div className="form-group">
                         <label>Scheduled Date</label>
-                        <input 
-                          type="date" 
-                          value={actDate} 
+                        <input
+                          type="date"
+                          value={actDate}
                           onChange={(e) => setActDate(e.target.value)}
                         />
                       </div>
                       <div className="form-group">
                         <label>Event Coordinator</label>
-                        <input 
-                          type="text" 
-                          placeholder="Coordinator Name" 
-                          value={actCoordinator} 
+                        <input
+                          type="text"
+                          placeholder="Coordinator Name"
+                          value={actCoordinator}
                           onChange={(e) => setActCoordinator(e.target.value)}
                         />
                       </div>
@@ -4094,7 +3877,7 @@ export default function App() {
 
           {/* VIEW: LIBRARY CATALOG */}
           {activeView === 'library' && (
-            <LibraryModule initialSubView={librarySubView} onNavigateSubView={(sv) => setLibrarySubView(sv)} />
+            <LibraryView books={books} setBooks={setBooks} students={students} />
           )}
 
           {/* VIEW: HOSTEL WARDEN */}
@@ -4104,10 +3887,10 @@ export default function App() {
 
           {/* VIEW: TRANSPORT FLEET */}
           {activeView === 'transport' && (
-            <TransportView 
-              transportRoutes={transportRoutes} 
-              setTransportRoutes={setTransportRoutes} 
-              students={students} 
+            <TransportView
+              transportRoutes={transportRoutes}
+              setTransportRoutes={setTransportRoutes}
+              students={students}
               setStudents={setStudents}
             />
           )}
@@ -4124,36 +3907,31 @@ export default function App() {
 
           {/* VIEW: ATTENDANCE */}
           {activeView === 'attendance' && (
-            <AttendanceModule 
-              initialSubView={attendanceSubView} 
-              onNavigateSubView={(sv) => setAttendanceSubView(sv)} 
+            <AttendanceModule
+              initialSubView={attendanceSubView}
+              onNavigateSubView={(sv) => setAttendanceSubView(sv)}
             />
           )}
 
           {/* VIEW: TIMETABLE */}
           {activeView === 'timetable' && (
-            <TimeTableModule 
-              initialSubView={timetableSubView} 
-              onNavigateSubView={(sv) => setTimetableSubView(sv)} 
+            <TimeTableModule
+              initialSubView={timetableSubView}
+              onNavigateSubView={(sv) => setTimetableSubView(sv)}
             />
           )}
 
           {/* VIEW: EXAMINATION */}
           {activeView === 'examination' && (
-            <ExaminationModule 
-              initialSubView={examSubView} 
-              onNavigateSubView={(sv) => setExamSubView(sv)} 
+            <ExaminationModule
+              initialSubView={examSubView}
+              onNavigateSubView={(sv) => setExamSubView(sv)}
             />
           )}
 
           {/* VIEW: HR & STAFF */}
           {activeView === 'hr' && (
-            <HRModule initialSubView={hrSubView} onNavigateSubView={(sv) => setHrSubView(sv)} />
-          )}
-
-          {/* VIEW: SEND SMS */}
-          {activeView === 'sendsms' && (
-            <SendSMSModule initialSubView={smsSubView} onNavigateSubView={(sv) => setSmsSubView(sv)} />
+            <HRView />
           )}
 
           {/* VIEW: COMMUNICATION */}
@@ -4172,17 +3950,17 @@ export default function App() {
 
           {/* FACULTY MODULE VIEW */}
           {activeView === 'faculty' && (
-            <FacultyModule 
-              initialSubView={facultySubView} 
-              onNavigateSubView={(sv) => setFacultySubView(sv)} 
+            <FacultyModule
+              initialSubView={facultySubView}
+              onNavigateSubView={(sv) => setFacultySubView(sv)}
             />
           )}
 
           {/* ACCOUNT MODULE VIEW */}
           {activeView === 'account' && (
-            <AccountModule 
-              initialSubView={accountSubView} 
-              onNavigateSubView={(sv) => setAccountSubView(sv)} 
+            <AccountModule
+              initialSubView={accountSubView}
+              onNavigateSubView={(sv) => setAccountSubView(sv)}
             />
           )}
 
@@ -4194,42 +3972,57 @@ export default function App() {
             ['Generate Progress AI Summary', 'Predictive Performance Analytics', 'Automated Grading Assistant']
           )}
 
-          {/* VIEW: RECEPTION / FRONT OFFICE */}
-          {activeView === 'reception' && (
-            <FrontOfficeModule initialSubView={foSubView} onNavigateSubView={(sv) => setFoSubView(sv)} />
+          {/* PLACEHOLDER: RECEPTION */}
+          {activeView === 'reception' && renderPlaceholderView(
+            'Reception',
+            'Visitor pass management, dial logs and dispatch records.',
+            <DoorOpen size={22} />,
+            ['Visitor Pass Registry', 'Phone Call Log', 'Postal Dispatch Records']
           )}
 
-          {/* VIEW: CERTIFICATE */}
-          {activeView === 'certificate' && (
-            <CertificateModule initialSubView={certSubView} onNavigateSubView={(sv) => setCertSubView(sv)} />
+          {/* PLACEHOLDER: CERTIFICATE */}
+          {activeView === 'certificate' && renderPlaceholderView(
+            'Certificate',
+            'Configure, generate and print certificates and admit cards.',
+            <Award size={22} />,
+            ['Generate Transfer Certificate (TC)', 'Generate Character Certificate', 'Admit Card Generator']
           )}
 
-          {/* VIEW: ACADEMIC */}
-          {activeView === 'academic' && (
-            <AcademicModule initialSubView={academicSubView} onNavigateSubView={(sv) => setAcademicSubView(sv)} />
+          {/* PLACEHOLDER: ACADEMIC */}
+          {activeView === 'academic' && renderPlaceholderView(
+            'Academic',
+            'Manage academic session parameters, subjects catalogs and class schedules.',
+            <GraduationCap size={22} />,
+            ['Academic Session Config', 'Subjects Catalog', 'Classroom Allocation Grid']
           )}
 
-          {/* VIEW: FRONT OFFICE */}
-          {activeView === 'frontoffice' && (
-            <FrontOfficeModule initialSubView={foSubView} onNavigateSubView={(sv) => setFoSubView(sv)} />
+          {/* PLACEHOLDER: FRONT OFFICE */}
+          {activeView === 'frontoffice' && renderPlaceholderView(
+            'Front Office',
+            'Track client enquiries, complaints registers and calendar schedules.',
+            <Contact size={22} />,
+            ['Admission Enquiry Log', 'Complaints Register', 'Office Schedule Calendar']
           )}
 
-          {/* VIEW: ECONTENT - placeholder until EContentModule is built */}
+          {/* PLACEHOLDER: ECONTENT */}
           {activeView === 'econtent' && renderPlaceholderView(
-            'E-Content',
+            'Econtent',
             'Upload syllabus files, class e-lectures and homework registers.',
             <BookOpen size={22} />,
             ['Upload Syllabus Docs', 'Lecture Videos Links', 'Class Assignment Sheets']
           )}
 
-          {/* VIEW: PAYROLL */}
-          {activeView === 'payroll' && (
-            <PayrollModule initialSubView={payrollSubView} onNavigateSubView={(sv) => setPayrollSubView(sv)} />
+          {/* PLACEHOLDER: PAYROLL */}
+          {activeView === 'payroll' && renderPlaceholderView(
+            'Payroll',
+            'Employee payslips generator, bonus schedules and deductions.',
+            <DollarSign size={22} />,
+            ['Salary Structure Template', 'Payslip Generation', 'Bonus & Deduction Registry']
           )}
 
-          {/* VIEW: MASTER SETTINGS */}
+          {/* PLACEHOLDER: MASTER */}
           {activeView === 'master' && (
-            <MasterModule initialSubView={masterSubView} onNavigateSubView={(sv) => setMasterSubView(sv)} />
+            <PermissionsView rolePermissions={rolePermissions} setRolePermissions={setRolePermissions} />
           )}
 
 
@@ -4291,7 +4084,7 @@ export default function App() {
                 api.createAdmission(currentSchoolId, payload).then(res => {
                   setStudents(prev => [res, ...prev]);
                   addToast('Admission Success', `${res.name} has been successfully admitted!`, 'success');
-                  
+
                   // Reset form fields
                   setFormName('');
                   setFormAadhar('');
@@ -4310,7 +4103,7 @@ export default function App() {
                 });
               }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  
+
                   {/* Step 1: Personal Info */}
                   <div className="erp-card">
                     <div className="erp-card-header">
@@ -4571,9 +4364,9 @@ export default function App() {
                 <div className="erp-card-body" style={{ padding: '12px' }}>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                     <div style={{ flex: 1, minWidth: '200px', position: 'relative' }}>
-                      <input 
-                        type="text" 
-                        placeholder="Search name, admission id, mobile..." 
+                      <input
+                        type="text"
+                        placeholder="Search name, admission id, mobile..."
                         style={{ width: '100%', paddingLeft: '32px' }}
                         value={sSearch}
                         onChange={(e) => {
@@ -4644,14 +4437,14 @@ export default function App() {
                               <span className={`erp-badge badge-approved`}>{std.status}</span>
                             </td>
                             <td>
-                              <button 
+                              <button
                                 className="erp-btn btn-outline"
                                 style={{ height: '26px', padding: '0 8px', fontSize: '11px', marginRight: '4px' }}
                                 onClick={() => setSelectedStudent(std)}
                               >
                                 ID Card
                               </button>
-                              <button 
+                              <button
                                 className="erp-btn btn-outline"
                                 style={{ height: '26px', padding: '0 8px', fontSize: '11px', color: '#ef4444', borderColor: '#fca5a5' }}
                                 onClick={() => {
@@ -4793,7 +4586,7 @@ export default function App() {
                               <td>{std.sssmid || 'N/A'}</td>
                               <td>{std.aadhar}</td>
                               <td>
-                                <button 
+                                <button
                                   className="erp-btn btn-outline"
                                   style={{ height: '24px', padding: '0 8px', fontSize: '11px' }}
                                   onClick={() => {
@@ -4857,7 +4650,7 @@ export default function App() {
                   <h2 className="view-title">Batch Create Roll Numbers</h2>
                   <span className="view-subtitle">Generate or edit academic rolls for students class-wise</span>
                 </div>
-                <button 
+                <button
                   className="erp-btn btn-finalize"
                   onClick={() => {
                     const updates = Object.keys(batchRollNo).map(id => ({
@@ -4895,8 +4688,8 @@ export default function App() {
                           <td>{std.class} ({std.section})</td>
                           <td><strong>{std.rollNo || 'N/A'}</strong></td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '80px', height: '28px', padding: '2px 8px' }}
                               placeholder="New Roll"
                               value={batchRollNo[std.id] !== undefined ? batchRollNo[std.id] : (std.rollNo || '')}
@@ -4928,14 +4721,14 @@ export default function App() {
                     <div className="avatar-square" style={{ width: '60px', height: '60px', borderRadius: '8px', fontSize: '18px' }}>
                       {std.photoUrl ? (
                         <img src="/assets/hero.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      ) : std.name.substring(0,2).toUpperCase()}
+                      ) : std.name.substring(0, 2).toUpperCase()}
                     </div>
                     <div style={{ flex: 1 }}>
                       <h4 style={{ margin: '0 0 4px 0', fontSize: '14px', color: '#1e293b' }}>{std.name}</h4>
                       <span style={{ fontSize: '11px', color: '#64748b', display: 'block', marginBottom: '8px' }}>ID: {std.admissionNo} | {std.class}</span>
-                      <input 
-                        type="file" 
-                        style={{ fontSize: '10px' }} 
+                      <input
+                        type="file"
+                        style={{ fontSize: '10px' }}
                         onChange={e => {
                           const filename = e.target.value.split('\\').pop() || '';
                           api.updateAdmission(std.id, { photoUrl: '/assets/hero.png' }).then(res => {
@@ -4987,7 +4780,7 @@ export default function App() {
                             )}
                           </td>
                           <td>
-                            <button 
+                            <button
                               className={`erp-btn ${std.status === 'Blocked' ? 'btn-finalize' : 'btn-outline'}`}
                               style={{ height: '26px', padding: '0 10px', fontSize: '11px' }}
                               onClick={() => {
@@ -5046,7 +4839,7 @@ export default function App() {
                             )}
                           </td>
                           <td>
-                            <button 
+                            <button
                               className={`erp-btn ${std.status === 'Inactive' ? 'btn-finalize' : 'btn-outline'}`}
                               style={{ height: '26px', padding: '0 10px', fontSize: '11px' }}
                               onClick={() => {
@@ -5077,7 +4870,7 @@ export default function App() {
                   <h2 className="view-title">Update Aadhar Numbers</h2>
                   <span className="view-subtitle">Direct grid mapping to edit student Aadhar records</span>
                 </div>
-                <button 
+                <button
                   className="erp-btn btn-finalize"
                   onClick={() => {
                     const updates = Object.keys(batchAadhar).map(id => ({
@@ -5113,8 +4906,8 @@ export default function App() {
                           <td>{std.class} ({std.section})</td>
                           <td style={{ fontFamily: 'monospace' }}>{std.aadhar || 'Pending'}</td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '180px', height: '28px', padding: '2px 8px' }}
                               placeholder="12-digit no."
                               value={batchAadhar[std.id] !== undefined ? batchAadhar[std.id] : std.aadhar}
@@ -5138,7 +4931,7 @@ export default function App() {
                   <h2 className="view-title">Update Student Parameters Matrix</h2>
                   <span className="view-subtitle">Bulk grid spreadsheet to modify PEN, APAAR ID, SSSMID, and metrics</span>
                 </div>
-                <button 
+                <button
                   className="erp-btn btn-finalize"
                   onClick={() => {
                     const updates = students.map(std => {
@@ -5148,7 +4941,7 @@ export default function App() {
                       if (batchDataSSSMID[std.id] !== undefined) upd.sssmid = batchDataSSSMID[std.id];
                       if (batchDataHeight[std.id] !== undefined) upd.height = batchDataHeight[std.id];
                       if (batchDataWeight[std.id] !== undefined) upd.weight = batchDataWeight[std.id];
-                      
+
                       return {
                         id: std.id,
                         fields: upd
@@ -5196,40 +4989,40 @@ export default function App() {
                         <tr key={std.id}>
                           <td><strong>{std.name}</strong></td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '120px', height: '26px' }}
                               value={batchDataPEN[std.id] !== undefined ? batchDataPEN[std.id] : (std.pen || '')}
                               onChange={e => setBatchDataPEN(prev => ({ ...prev, [std.id]: e.target.value }))}
                             />
                           </td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '150px', height: '26px' }}
                               value={batchDataAPAAR[std.id] !== undefined ? batchDataAPAAR[std.id] : (std.apaarId || '')}
                               onChange={e => setBatchDataAPAAR(prev => ({ ...prev, [std.id]: e.target.value }))}
                             />
                           </td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '120px', height: '26px' }}
                               value={batchDataSSSMID[std.id] !== undefined ? batchDataSSSMID[std.id] : (std.sssmid || '')}
                               onChange={e => setBatchDataSSSMID(prev => ({ ...prev, [std.id]: e.target.value }))}
                             />
                           </td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '60px', height: '26px' }}
                               value={batchDataHeight[std.id] !== undefined ? batchDataHeight[std.id] : (std.height || '')}
                               onChange={e => setBatchDataHeight(prev => ({ ...prev, [std.id]: e.target.value }))}
                             />
                           </td>
                           <td>
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               style={{ width: '60px', height: '26px' }}
                               value={batchDataWeight[std.id] !== undefined ? batchDataWeight[std.id] : (std.weight || '')}
                               onChange={e => setBatchDataWeight(prev => ({ ...prev, [std.id]: e.target.value }))}
@@ -5261,7 +5054,7 @@ export default function App() {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px', maxHeight: '400px', overflowY: 'auto' }}>
                     {students.map(std => (
-                      <div 
+                      <div
                         key={std.id}
                         onClick={() => setSelectedStudent(std)}
                         style={{
@@ -5292,11 +5085,11 @@ export default function App() {
                           <div className="id-card-photo-box">
                             {selectedStudent.photoUrl ? (
                               <img src={selectedStudent.photoUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            ) : selectedStudent.name.substring(0,2).toUpperCase()}
+                            ) : selectedStudent.name.substring(0, 2).toUpperCase()}
                           </div>
                           <div className="id-card-details">
                             <h4>{selectedStudent.name}</h4>
-                            <div className="id-card-detail-row"><strong>ID:</strong> {selectedStudent.id.substring(0,8)}</div>
+                            <div className="id-card-detail-row"><strong>ID:</strong> {selectedStudent.id.substring(0, 8)}</div>
                             <div className="id-card-detail-row"><strong>Class:</strong> {selectedStudent.class} ({selectedStudent.section})</div>
                             <div className="id-card-detail-row"><strong>Roll No:</strong> {selectedStudent.rollNo || 'N/A'}</div>
                             <div className="id-card-detail-row"><strong>Blood:</strong> {selectedStudent.blood}</div>
@@ -5305,8 +5098,8 @@ export default function App() {
                         </div>
                         <div className="id-card-footer">ACADEMIC SESSION: 2026 - 2027</div>
                       </div>
-                      <button 
-                        className="erp-btn btn-primary" 
+                      <button
+                        className="erp-btn btn-primary"
                         style={{ marginTop: '20px', width: '100%' }}
                         onClick={() => window.print()}
                       >
@@ -5794,14 +5587,14 @@ export default function App() {
         <div className="modal-overlay">
           <div className="modal-content">
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '8px' }}>
-              <button 
-                onClick={() => setSelectedStudent(null)} 
+              <button
+                onClick={() => setSelectedStudent(null)}
                 style={{ background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 <X size={16} />
               </button>
             </div>
-            
+
             <div className="id-card-layout">
               <div className="id-card-header">
                 <h3>DETTROIN ERP</h3>
@@ -5840,9 +5633,9 @@ export default function App() {
             </div>
 
             <div style={{ display: 'flex', gap: '10px', marginTop: '16px' }}>
-              <button 
-                className="erp-btn btn-primary" 
-                style={{ flex: 1 }} 
+              <button
+                className="erp-btn btn-primary"
+                style={{ flex: 1 }}
                 onClick={() => {
                   window.print();
                   setSelectedStudent(null);

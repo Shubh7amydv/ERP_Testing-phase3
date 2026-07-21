@@ -2406,242 +2406,242 @@ export default function App() {
               <div className="modules-grid">
                 {/* 1. STUDENT */}
                 <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-student"
                   onClick={() => {
                     setSelectedModule('student');
                     setActiveView('student-admission-view');
                   }}
                 >
-                  <div className="module-card-icon"><Users size={20} /></div>
-                  <h3 className="module-card-title">Student</h3>
+                  <GraduationCap size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Student</span>
                 </div>
 
-                {/* 2. TRANSPORT */}
+                {/* 2. FACULTY */}
                 <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('transport');
-                    setActiveView('transport');
-                  }}
-                >
-                  <div className="module-card-icon"><Bus size={20} /></div>
-                  <h3 className="module-card-title">Transport</h3>
-                </div>
-
-                {/* 3. INVENTORY */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('inventory');
-                    setActiveView('inventory');
-                  }}
-                >
-                  <div className="module-card-icon"><Package size={20} /></div>
-                  <h3 className="module-card-title">Inventory</h3>
-                </div>
-
-                {/* 4. AI PROGRAM */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('aiprogram');
-                    setActiveView('aiprogram');
-                  }}
-                >
-                  <div className="module-card-icon"><Trophy size={20} /></div>
-                  <h3 className="module-card-title">AI Program</h3>
-                </div>
-
-                {/* 5. FACULTY */}
-                <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-faculty"
                   onClick={() => {
                     setSelectedModule('faculty');
                     setActiveView('faculty');
                   }}
                 >
-                  <div className="module-card-icon"><ClipboardList size={20} /></div>
-                  <h3 className="module-card-title">Faculty</h3>
+                  <Users size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Faculty</span>
                 </div>
 
-                {/* 6. EXAMINATION */}
+                {/* 3. ACCOUNT */}
                 <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('examination');
-                    setActiveView('examination');
-                  }}
-                >
-                  <div className="module-card-icon"><FileText size={20} /></div>
-                  <h3 className="module-card-title">Examination</h3>
-                </div>
-
-                {/* 7. RECEPTION */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('reception');
-                    setActiveView('reception');
-                  }}
-                >
-                  <div className="module-card-icon"><DoorOpen size={20} /></div>
-                  <h3 className="module-card-title">Reception</h3>
-                </div>
-
-                {/* 8. HR */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('hr');
-                    setActiveView('hr');
-                  }}
-                >
-                  <div className="module-card-icon"><ClipboardList size={20} /></div>
-                  <h3 className="module-card-title">HR</h3>
-                </div>
-
-                {/* 9. ACCOUNT */}
-                <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-account"
                   onClick={() => {
                     setSelectedModule('account');
                     setActiveView('account');
                   }}
                 >
-                  <div className="module-card-icon"><CreditCard size={20} /></div>
-                  <h3 className="module-card-title">Account</h3>
+                  <IndianRupee size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Account</span>
                 </div>
 
-                {/* 10. CERTIFICATE */}
+                {/* 4. TIMETABLE */}
                 <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('certificate');
-                    setActiveView('certificate');
-                  }}
-                >
-                  <div className="module-card-icon"><Award size={20} /></div>
-                  <h3 className="module-card-title">Certificate</h3>
-                </div>
-
-                {/* 11. ACADEMIC */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('academic');
-                    setActiveView('academic');
-                  }}
-                >
-                  <div className="module-card-icon"><GraduationCap size={20} /></div>
-                  <h3 className="module-card-title">Academic</h3>
-                </div>
-
-                {/* 12. FRONT OFFICE */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('frontoffice');
-                    setActiveView('frontoffice');
-                  }}
-                >
-                  <div className="module-card-icon"><Contact size={20} /></div>
-                  <h3 className="module-card-title">Front Office</h3>
-                </div>
-
-                {/* 13. TIME TABLE */}
-                <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-timetable"
                   onClick={() => {
                     setSelectedModule('timetable');
                     setActiveView('timetable');
                   }}
                 >
-                  <div className="module-card-icon"><Clock size={20} /></div>
-                  <h3 className="module-card-title">Time Table</h3>
+                  <Calendar size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Timetable</span>
                 </div>
 
-                {/* 14. SEND SMS */}
+                {/* 5. ATTENDANCE */}
                 <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('sendsms');
-                    setActiveView('sendsms');
-                  }}
-                >
-                  <div className="module-card-icon"><MessageSquare size={20} /></div>
-                  <h3 className="module-card-title">Send SMS</h3>
-                </div>
-
-                {/* 15. HOSTEL */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('hostel');
-                    setActiveView('hostel');
-                  }}
-                >
-                  <div className="module-card-icon"><Building size={20} /></div>
-                  <h3 className="module-card-title">Hostel</h3>
-                </div>
-
-                {/* 16. ECONTENT */}
-                <div
-                  className="module-card"
-                  onClick={() => {
-                    setSelectedModule('econtent');
-                    setActiveView('econtent');
-                  }}
-                >
-                  <div className="module-card-icon"><BookOpen size={20} /></div>
-                  <h3 className="module-card-title">Econtent</h3>
-                </div>
-
-                {/* 17. ATTENDANCE */}
-                <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-attendance"
                   onClick={() => {
                     setSelectedModule('attendance');
                     setActiveView('attendance');
                   }}
                 >
-                  <div className="module-card-icon"><CalendarCheck size={20} /></div>
-                  <h3 className="module-card-title">Attendance</h3>
+                  <CalendarCheck size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Attendance</span>
                 </div>
 
-                {/* 18. PAYROLL */}
+                {/* 6. TRANSPORT */}
                 <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-transport"
+                  onClick={() => {
+                    setSelectedModule('transport');
+                    setActiveView('transport');
+                  }}
+                >
+                  <Bus size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Transport</span>
+                </div>
+
+                {/* 7. EXAMINATION */}
+                <div
+                  className="module-card-vibrant card-bg-examination"
+                  onClick={() => {
+                    setSelectedModule('examination');
+                    setActiveView('examination');
+                  }}
+                >
+                  <Award size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Examination</span>
+                </div>
+
+                {/* 8. CERTIFICATE */}
+                <div
+                  className="module-card-vibrant card-bg-certificate"
+                  onClick={() => {
+                    setSelectedModule('certificate');
+                    setActiveView('certificate');
+                  }}
+                >
+                  <FileText size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Certificate</span>
+                </div>
+
+                {/* 9. SEND SMS */}
+                <div
+                  className="module-card-vibrant card-bg-sendsms"
+                  onClick={() => {
+                    setSelectedModule('sendsms');
+                    setActiveView('sendsms');
+                  }}
+                >
+                  <MessageSquare size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Send SMS</span>
+                </div>
+
+                {/* 10. PAYROLL */}
+                <div
+                  className="module-card-vibrant card-bg-payroll"
                   onClick={() => {
                     setSelectedModule('payroll');
                     setActiveView('payroll');
                   }}
                 >
-                  <div className="module-card-icon"><DollarSign size={20} /></div>
-                  <h3 className="module-card-title">Payroll</h3>
+                  <DollarSign size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Payroll</span>
                 </div>
 
-                {/* 19. LIBRARY */}
+                {/* 11. INVENTORY */}
                 <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-inventory"
+                  onClick={() => {
+                    setSelectedModule('inventory');
+                    setActiveView('inventory');
+                  }}
+                >
+                  <Package size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Inventory</span>
+                </div>
+
+                {/* 12. RECEPTION */}
+                <div
+                  className="module-card-vibrant card-bg-reception"
+                  onClick={() => {
+                    setSelectedModule('reception');
+                    setActiveView('reception');
+                  }}
+                >
+                  <Phone size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Reception</span>
+                </div>
+
+                {/* 13. ACADEMIC */}
+                <div
+                  className="module-card-vibrant card-bg-academic"
+                  onClick={() => {
+                    setSelectedModule('academic');
+                    setActiveView('academic');
+                  }}
+                >
+                  <BookOpen size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Academic</span>
+                </div>
+
+                {/* 14. HOSTEL */}
+                <div
+                  className="module-card-vibrant card-bg-hostel"
+                  onClick={() => {
+                    setSelectedModule('hostel');
+                    setActiveView('hostel');
+                  }}
+                >
+                  <Building size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Hostel</span>
+                </div>
+
+                {/* 15. LIBRARY */}
+                <div
+                  className="module-card-vibrant card-bg-library"
                   onClick={() => {
                     setSelectedModule('library');
                     setActiveView('library');
                   }}
                 >
-                  <div className="module-card-icon"><BookOpen size={20} /></div>
-                  <h3 className="module-card-title">Library</h3>
+                  <BookOpen size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Library</span>
+                </div>
+
+                {/* 16. AI PROGRAM */}
+                <div
+                  className="module-card-vibrant card-bg-aiprogram"
+                  onClick={() => {
+                    setSelectedModule('aiprogram');
+                    setActiveView('aiprogram');
+                  }}
+                >
+                  <Trophy size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">AI Program</span>
+                </div>
+
+                {/* 17. HR */}
+                <div
+                  className="module-card-vibrant card-bg-hr"
+                  onClick={() => {
+                    setSelectedModule('hr');
+                    setActiveView('hr');
+                  }}
+                >
+                  <Users size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">HR</span>
+                </div>
+
+                {/* 18. FRONT OFFICE */}
+                <div
+                  className="module-card-vibrant card-bg-frontoffice"
+                  onClick={() => {
+                    setSelectedModule('frontoffice');
+                    setActiveView('frontoffice');
+                  }}
+                >
+                  <DoorOpen size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Front Office</span>
+                </div>
+
+                {/* 19. ECONTENT */}
+                <div
+                  className="module-card-vibrant card-bg-econtent"
+                  onClick={() => {
+                    setSelectedModule('econtent');
+                    setActiveView('econtent');
+                  }}
+                >
+                  <Video size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Econtent</span>
                 </div>
 
                 {/* 20. MASTER */}
                 <div
-                  className="module-card"
+                  className="module-card-vibrant card-bg-master"
                   onClick={() => {
                     setSelectedModule('master');
                     setActiveView('master');
                   }}
                 >
-                  <div className="module-card-icon"><Settings size={20} /></div>
-                  <h3 className="module-card-title">Master</h3>
+                  <Settings size={44} color="#ffffff" />
+                  <span className="module-card-vibrant-title">Master</span>
                 </div>
               </div>
             </div>

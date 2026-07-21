@@ -1280,86 +1280,96 @@ input[type="text"]::placeholder {
 }
 
 .modules-grid-header {
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     color: #ffffff;
-    padding: 30px 24px;
-    border-radius: 12px;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-sm);
+    padding: 24px 28px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .modules-grid-title {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 26px;
+    font-weight: 800;
     margin: 0;
     letter-spacing: -0.5px;
 }
 
 .modules-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1400px) {
+    .modules-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .modules-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
     .modules-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 640px) {
-    .modules-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.module-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 24px;
+.module-card-vibrant {
+    border-radius: 16px;
+    padding: 30px 16px 22px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    min-height: 120px;
     text-align: center;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    min-height: 140px;
+    user-select: none;
+    border: none;
 }
 
-.module-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
-    border-color: #3b82f6;
-    background: #f8fafc;
+.module-card-vibrant:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+    filter: brightness(1.08);
 }
 
-.module-card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background-color: #eff6ff;
-    color: #2563eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-    transition: all 0.2s ease;
-}
-
-.module-card:hover .module-card-icon {
-    background-color: #2563eb;
-    color: #ffffff;
-}
-
-.module-card-title {
-    font-size: 14.5px;
+.module-card-vibrant-title {
+    font-size: 15px;
     font-weight: 700;
-    color: #1e293b;
-    margin: 0;
+    color: #ffffff;
+    margin-top: 14px;
+    letter-spacing: -0.2px;
 }
+
+/* Individual Module Card Color Themes matching Reference Image */
+.card-bg-student { background-color: #ff3b30 !important; }
+.card-bg-faculty { background-color: #0070f3 !important; }
+.card-bg-account { background-color: #10b981 !important; }
+.card-bg-timetable { background-color: #f59e0b !important; }
+.card-bg-attendance { background-color: #881337 !important; }
+.card-bg-transport { background-color: #0f172a !important; }
+.card-bg-examination { background-color: #475569 !important; }
+.card-bg-certificate { background-color: #4f46e5 !important; }
+.card-bg-sendsms { background-color: #06b6d4 !important; }
+.card-bg-payroll { background-color: #ec4899 !important; }
+.card-bg-inventory { background-color: #27272a !important; }
+.card-bg-reception { background-color: #0284c7 !important; }
+.card-bg-academic { background-color: #ea580c !important; }
+.card-bg-hostel { background-color: #0c4a6e !important; }
+.card-bg-library { background-color: #14532d !important; }
+.card-bg-aiprogram { background-color: #374151 !important; }
+.card-bg-hr { background-color: #2563eb !important; }
+.card-bg-frontoffice { background-color: #059669 !important; }
+.card-bg-econtent { background-color: #eab308 !important; }
+.card-bg-master { background-color: #7f1d1d !important; }
 
 .back-to-modules-btn {
     display: flex;

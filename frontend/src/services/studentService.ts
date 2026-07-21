@@ -44,15 +44,16 @@ export interface PaginatedResponse<T> {
 export const studentService = {
   // 1. Auth: Login
   async login(email: string, password: string) {
-    const data = await apiClient<{ access_token: string; refresh_token?: string; user?: any }>(
+    const data = await apiClient<{ access?: string; access_token?: string; refresh?: string; user?: any }>(
       '/api/auth/login/',
       {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       }
     );
-    if (data?.access_token) {
-      localStorage.setItem('access_token', data.access_token);
+    const token = data?.access || data?.access_token;
+    if (token) {
+      localStorage.setItem('access_token', token);
     }
     return data;
   },

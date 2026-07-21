@@ -534,8 +534,17 @@ export default function App() {
 
   // Sync Live Students Data from Backend API at http://localhost:8000
   useEffect(() => {
-    studentService.getAdmissions({ limit: 50 })
-      .then(res => {
+    const ensureAuthAndFetch = async () => {
+      if (!localStorage.getItem('access_token')) {
+        try {
+          await studentService.login('admin@example.com', 'password123');
+          console.log('Backend authenticated automatically as admin@example.com');
+        } catch (authErr) {
+          console.warn('Backend login attempt info:', authErr);
+        }
+      }
+      try {
+        const res = await studentService.getAdmissions({ limit: 50 });
         const rawList = Array.isArray(res) ? res : ((res as any)?.data?.admissions || (res as any)?.data || res?.results || []);
         const mappedStudents: Student[] = rawList.map((item: any) => ({
           id: item.id || item.admission_no,
@@ -556,10 +565,12 @@ export default function App() {
         }));
         setStudents(mappedStudents);
         console.log('Live student records fetched from Django backend:', mappedStudents);
-      })
-      .catch(err => {
+      } catch (err: any) {
         console.log('Backend API connection info:', err?.message);
-      });
+      }
+    };
+
+    ensureAuthAndFetch();
   }, []);
 
   // Admission Submit

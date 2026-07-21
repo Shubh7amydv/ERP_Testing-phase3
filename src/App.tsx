@@ -8,7 +8,8 @@ import {
   CalendarDays, Ticket, CreditCard,
   Terminal, ShieldAlert, CalendarCheck, FileText,
   MessageSquare, Package, Bus, Building, DoorOpen, Trophy,
-  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell, Star, RefreshCw, PlusCircle
+  BarChart3, GraduationCap, IndianRupee, ClipboardList, TrendingDown, UserCheck, Bell, Star, RefreshCw, PlusCircle,
+  Mail, Phone, Tag, Layers, ArrowRight, Send, AlertCircle, Video, Shield, Check
 } from 'lucide-react';
 import { api } from './api';
 import { LibraryView, HostelView, TransportView, AccountsView, PermissionsView } from './NewModules';
@@ -19,6 +20,16 @@ import { AccountModule, type AccountSubView } from './AccountModule';
 import { TimeTableModule, type TimeTableSubView } from './TimeTableModule';
 import { AttendanceModule, type AttendanceSubView } from './AttendanceModule';
 import { ExaminationModule, type ExaminationSubView } from './ExaminationModule';
+import { 
+  HRModule, type HRSubView,
+  CertificateModule, type CertificateSubView,
+  AcademicModule, type AcademicSubView,
+  FrontOfficeModule, type FrontOfficeSubView,
+  SendSMSModule, type SendSMSSubView,
+  PayrollModule, type PayrollSubView,
+  LibraryModule, type LibrarySubView,
+  MasterModule, type MasterSubView
+} from './RemainingModules';
 
 // Types
 interface Student {
@@ -474,6 +485,22 @@ export default function App() {
     report: true,
     setting: true
   });
+  // Remaining module sub-views
+  const [hrSubView, setHrSubView] = useState<HRSubView>('hr-staff-list');
+  const [hrSubgroups, setHrSubgroups] = useState<Record<string, boolean>>({ leave: true });
+  const [certSubView, setCertSubView] = useState<CertificateSubView>('cert-bonafide');
+  const [academicSubView, setAcademicSubView] = useState<AcademicSubView>('academic-subject');
+  const [academicSubgroups, setAcademicSubgroups] = useState<Record<string, boolean>>({ homework: true });
+  const [foSubView, setFoSubView] = useState<FrontOfficeSubView>('fo-enquiry-list');
+  const [foSubgroups, setFoSubgroups] = useState<Record<string, boolean>>({ postal: true });
+  const [smsSubView, setSmsSubView] = useState<SendSMSSubView>('sms-send-student');
+  const [smsSubgroups, setSmsSubgroups] = useState<Record<string, boolean>>({ send: true });
+  const [payrollSubView, setPayrollSubView] = useState<PayrollSubView>('payroll-generate');
+  const [payrollSubgroups, setPayrollSubgroups] = useState<Record<string, boolean>>({ payroll: true });
+  const [librarySubView, setLibrarySubView] = useState<LibrarySubView>('lib-book-list');
+  const [librarySubgroups, setLibrarySubgroups] = useState<Record<string, boolean>>({ books: true });
+  const [masterSubView, setMasterSubView] = useState<MasterSubView>('master-class');
+  const [masterSubgroups, setMasterSubgroups] = useState<Record<string, boolean>>({ school: true, people: true });
 
   // Editing state
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
@@ -1920,60 +1947,173 @@ export default function App() {
 
               {selectedModule === 'reception' && (
                 <>
-                  <div className="menu-label">Reception Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('reception')}>
-                    <DoorOpen size={15} />
-                    <span>Visitor Log</span>
+                  <div className="menu-label">Front Office</div>
+                  <div className={`menu-item ${foSubView === 'fo-enquiry-list' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-enquiry-list'); }}>
+                    <FileText size={15} /><span>Enquiry List</span>
                   </div>
+                  <div className={`menu-item ${foSubView === 'fo-visitor-book' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-visitor-book'); }}>
+                    <Users size={15} /><span>Visitor Book</span>
+                  </div>
+                  <div className={`menu-item ${foSubView === 'fo-phone-call' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-phone-call'); }}>
+                    <Phone size={15} /><span>Phone Call Log</span>
+                  </div>
+                  <div className={`menu-item ${foSubView === 'fo-followup' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-followup'); }}>
+                    <Bell size={15} /><span>Follow-Up Tracker</span>
+                  </div>
+                  {/* Postal */}
+                  <div className="menu-subgroup-header" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
+                    <Mail size={14} /><span>Postal Register</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: foSubgroups.postal ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  </div>
+                  {foSubgroups.postal && <>
+                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-receive' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-receive'); }}>
+                      <span>Receive</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-dispatch' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-dispatch'); }}>
+                      <span>Dispatch</span>
+                    </div>
+                  </>}
                 </>
               )}
 
               {selectedModule === 'hr' && (
                 <>
-                  <div className="menu-label">HR Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('hr')}>
-                    <ClipboardList size={15} />
-                    <span>Staff Registry</span>
+                  <div className="menu-label">HR & Staff Module</div>
+                  <div className={`menu-item ${hrSubView === 'hr-staff-list' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-staff-list'); }}>
+                    <Users size={15} /><span>Staff List</span>
                   </div>
+                  <div className={`menu-item ${hrSubView === 'hr-add-staff' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-add-staff'); }}>
+                    <UserPlus size={15} /><span>Add Staff</span>
+                  </div>
+                  <div className={`menu-item ${hrSubView === 'hr-department' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-department'); }}>
+                    <Building size={15} /><span>Departments</span>
+                  </div>
+                  <div className={`menu-item ${hrSubView === 'hr-designation' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-designation'); }}>
+                    <Tag size={15} /><span>Designations</span>
+                  </div>
+                  <div className={`menu-item ${hrSubView === 'hr-holiday' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-holiday'); }}>
+                    <Calendar size={15} /><span>Holiday Calendar</span>
+                  </div>
+                  {/* Leave */}
+                  <div className="menu-subgroup-header" onClick={() => setHrSubgroups(p => ({ ...p, leave: !p.leave }))}>
+                    <ClipboardList size={14} /><span>Leave Management</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: hrSubgroups.leave ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  </div>
+                  {hrSubgroups.leave && <>
+                    <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-apply' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-apply'); }}>
+                      <span>Apply Leave</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-approve' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-approve'); }}>
+                      <span>Leave Approval</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${hrSubView === 'hr-leave-type' ? 'active' : ''}`} onClick={() => { setActiveView('hr'); setHrSubView('hr-leave-type'); }}>
+                      <span>Leave Types</span>
+                    </div>
+                  </>}
                 </>
               )}
 
               {selectedModule === 'certificate' && (
                 <>
                   <div className="menu-label">Certificate Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('certificate')}>
-                    <Award size={15} />
-                    <span>Certificates list</span>
-                  </div>
+                  {[
+                    { id: 'cert-bonafide' as CertificateSubView, label: 'Bonafide Certificate', icon: <Award size={15} /> },
+                    { id: 'cert-transfer' as CertificateSubView, label: 'Transfer Certificate', icon: <FileText size={15} /> },
+                    { id: 'cert-character' as CertificateSubView, label: 'Character Certificate', icon: <Star size={15} /> },
+                    { id: 'cert-migration' as CertificateSubView, label: 'Migration Certificate', icon: <ArrowRight size={15} /> },
+                    { id: 'cert-sports' as CertificateSubView, label: 'Sports Certificate', icon: <Star size={15} /> },
+                    { id: 'cert-marksheet-duplicate' as CertificateSubView, label: 'Duplicate Marksheet', icon: <FileText size={15} /> },
+                    { id: 'cert-design' as CertificateSubView, label: 'Template Designer', icon: <Settings size={15} /> },
+                  ].map(item => (
+                    <div key={item.id} className={`menu-item ${certSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('certificate'); setCertSubView(item.id); }}>
+                      {item.icon}<span>{item.label}</span>
+                    </div>
+                  ))}
                 </>
               )}
 
               {selectedModule === 'academic' && (
                 <>
                   <div className="menu-label">Academic Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('academic')}>
-                    <GraduationCap size={15} />
-                    <span>Academic Config</span>
+                  <div className={`menu-item ${academicSubView === 'academic-subject' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-subject'); }}>
+                    <BookOpen size={15} /><span>Subject Master</span>
                   </div>
+                  <div className={`menu-item ${academicSubView === 'academic-chapter' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-chapter'); }}>
+                    <Layers size={15} /><span>Chapter & Topics</span>
+                  </div>
+                  <div className={`menu-item ${academicSubView === 'academic-lesson-plan' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-lesson-plan'); }}>
+                    <ClipboardList size={15} /><span>Lesson Plan</span>
+                  </div>
+                  <div className={`menu-item ${academicSubView === 'academic-syllabus' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-syllabus'); }}>
+                    <GraduationCap size={15} /><span>Syllabus Tracker</span>
+                  </div>
+                  {/* Homework */}
+                  <div className="menu-subgroup-header" onClick={() => setAcademicSubgroups(p => ({ ...p, homework: !p.homework }))}>
+                    <FileText size={14} /><span>Homework</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: academicSubgroups.homework ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  </div>
+                  {academicSubgroups.homework && <>
+                    <div className={`menu-item menu-item--sub ${academicSubView === 'academic-homework' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-homework'); }}>
+                      <span>Assign Homework</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${academicSubView === 'academic-homework-report' ? 'active' : ''}`} onClick={() => { setActiveView('academic'); setAcademicSubView('academic-homework-report'); }}>
+                      <span>Submission Report</span>
+                    </div>
+                  </>}
                 </>
               )}
 
               {selectedModule === 'frontoffice' && (
                 <>
-                  <div className="menu-label">Front Office</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('frontoffice')}>
-                    <Contact size={15} />
-                    <span>Office Enquiries</span>
+                  <div className="menu-label">Front Office Module</div>
+                  <div className={`menu-item ${foSubView === 'fo-enquiry-list' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-enquiry-list'); }}>
+                    <FileText size={15} /><span>Enquiry List</span>
                   </div>
+                  <div className={`menu-item ${foSubView === 'fo-visitor-book' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-visitor-book'); }}>
+                    <Users size={15} /><span>Visitor Book</span>
+                  </div>
+                  <div className={`menu-item ${foSubView === 'fo-phone-call' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-phone-call'); }}>
+                    <Phone size={15} /><span>Phone Call Log</span>
+                  </div>
+                  <div className={`menu-item ${foSubView === 'fo-followup' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-followup'); }}>
+                    <Bell size={15} /><span>Follow-Up Tracker</span>
+                  </div>
+                  <div className="menu-subgroup-header" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
+                    <Mail size={14} /><span>Postal Register</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: foSubgroups.postal ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  </div>
+                  {foSubgroups.postal && <>
+                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-receive' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-receive'); }}>
+                      <span>Receive</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${foSubView === 'fo-postal-dispatch' ? 'active' : ''}`} onClick={() => { setActiveView('frontoffice'); setFoSubView('fo-postal-dispatch'); }}>
+                      <span>Dispatch</span>
+                    </div>
+                  </>}
                 </>
               )}
 
               {selectedModule === 'sendsms' && (
                 <>
-                  <div className="menu-label">Send SMS Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('sendsms')}>
-                    <MessageSquare size={15} />
-                    <span>SMS Logs</span>
+                  <div className="menu-label">SMS Communication</div>
+                  <div className="menu-subgroup-header" onClick={() => setSmsSubgroups(p => ({ ...p, send: !p.send }))}>
+                    <Send size={14} /><span>Send SMS</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: smsSubgroups.send ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  </div>
+                  {smsSubgroups.send && <>
+                    <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-student' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-student'); }}>
+                      <span>To Students/Parents</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-staff' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-staff'); }}>
+                      <span>To Staff</span>
+                    </div>
+                    <div className={`menu-item menu-item--sub ${smsSubView === 'sms-send-custom' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-send-custom'); }}>
+                      <span>Custom Bulk SMS</span>
+                    </div>
+                  </>}
+                  <div className={`menu-item ${smsSubView === 'sms-template' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-template'); }}>
+                    <FileText size={15} /><span>SMS Templates</span>
+                  </div>
+                  <div className={`menu-item ${smsSubView === 'sms-log' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-log'); }}>
+                    <ClipboardList size={15} /><span>SMS Log</span>
+                  </div>
+                  <div className={`menu-item ${smsSubView === 'sms-balance' ? 'active' : ''}`} onClick={() => { setActiveView('sendsms'); setSmsSubView('sms-balance'); }}>
+                    <BarChart3 size={15} /><span>SMS Balance</span>
                   </div>
                 </>
               )}
@@ -1982,18 +2122,34 @@ export default function App() {
                 <>
                   <div className="menu-label">Hostel Module</div>
                   <div className={`menu-item active`} onClick={() => setActiveView('hostel')}>
-                    <Building size={15} />
-                    <span>Hostel Console</span>
+                    <Building size={15} /><span>Room Allotment</span>
+                  </div>
+                  <div className={`menu-item`} onClick={() => setActiveView('hostel')}>
+                    <Users size={15} /><span>Hostel Students</span>
+                  </div>
+                  <div className={`menu-item`} onClick={() => setActiveView('hostel')}>
+                    <IndianRupee size={15} /><span>Hostel Fees</span>
+                  </div>
+                  <div className={`menu-item`} onClick={() => setActiveView('hostel')}>
+                    <BarChart3 size={15} /><span>Hostel Report</span>
                   </div>
                 </>
               )}
 
               {selectedModule === 'econtent' && (
                 <>
-                  <div className="menu-label">Econtent Module</div>
+                  <div className="menu-label">E-Content Module</div>
                   <div className={`menu-item active`} onClick={() => setActiveView('econtent')}>
-                    <BookOpen size={15} />
-                    <span>Lecture videos</span>
+                    <Video size={15} /><span>Add Content</span>
+                  </div>
+                  <div className={`menu-item`} onClick={() => setActiveView('econtent')}>
+                    <BookOpen size={15} /><span>Content Library</span>
+                  </div>
+                  <div className={`menu-item`} onClick={() => setActiveView('econtent')}>
+                    <FileText size={15} /><span>Homework Upload</span>
+                  </div>
+                  <div className={`menu-item`} onClick={() => setActiveView('econtent')}>
+                    <Check size={15} /><span>Submissions</span>
                   </div>
                 </>
               )}
@@ -2001,9 +2157,23 @@ export default function App() {
               {selectedModule === 'payroll' && (
                 <>
                   <div className="menu-label">Payroll Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('payroll')}>
-                    <DollarSign size={15} />
-                    <span>Payroll Accounts</span>
+                  <div className={`menu-item ${payrollSubView === 'payroll-salary-structure' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-salary-structure'); }}>
+                    <Settings size={15} /><span>Salary Structure</span>
+                  </div>
+                  <div className={`menu-item ${payrollSubView === 'payroll-generate' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-generate'); }}>
+                    <IndianRupee size={15} /><span>Generate Payroll</span>
+                  </div>
+                  <div className={`menu-item ${payrollSubView === 'payroll-slip' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-slip'); }}>
+                    <FileText size={15} /><span>Salary Slips</span>
+                  </div>
+                  <div className={`menu-item ${payrollSubView === 'payroll-advance' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-advance'); }}>
+                    <DollarSign size={15} /><span>Advance Salary</span>
+                  </div>
+                  <div className={`menu-item ${payrollSubView === 'payroll-pf-esi' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-pf-esi'); }}>
+                    <Shield size={15} /><span>PF / ESI</span>
+                  </div>
+                  <div className={`menu-item ${payrollSubView === 'payroll-report' ? 'active' : ''}`} onClick={() => { setActiveView('payroll'); setPayrollSubView('payroll-report'); }}>
+                    <BarChart3 size={15} /><span>Payroll Report</span>
                   </div>
                 </>
               )}
@@ -2011,20 +2181,67 @@ export default function App() {
               {selectedModule === 'library' && (
                 <>
                   <div className="menu-label">Library Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('library')}>
-                    <BookOpen size={15} />
-                    <span>Book Catalog</span>
+                  <div className={`menu-item ${librarySubView === 'lib-add-book' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-add-book'); }}>
+                    <PlusCircle size={15} /><span>Add Book</span>
+                  </div>
+                  <div className={`menu-item ${librarySubView === 'lib-book-list' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-book-list'); }}>
+                    <BookOpen size={15} /><span>Book Catalog</span>
+                  </div>
+                  <div className={`menu-item ${librarySubView === 'lib-issue-book' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-issue-book'); }}>
+                    <ArrowRight size={15} /><span>Issue Book</span>
+                  </div>
+                  <div className={`menu-item ${librarySubView === 'lib-return-book' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-return-book'); }}>
+                    <Check size={15} /><span>Return Book</span>
+                  </div>
+                  <div className={`menu-item ${librarySubView === 'lib-due-books' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-due-books'); }}>
+                    <AlertCircle size={15} /><span>Overdue Books</span>
+                  </div>
+                  <div className={`menu-item ${librarySubView === 'lib-member' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-member'); }}>
+                    <Users size={15} /><span>Library Members</span>
+                  </div>
+                  <div className={`menu-item ${librarySubView === 'lib-report' ? 'active' : ''}`} onClick={() => { setActiveView('library'); setLibrarySubView('lib-report'); }}>
+                    <BarChart3 size={15} /><span>Library Report</span>
                   </div>
                 </>
               )}
 
               {selectedModule === 'master' && (
                 <>
-                  <div className="menu-label">Master Module</div>
-                  <div className={`menu-item active`} onClick={() => setActiveView('master')}>
-                    <Settings size={15} />
-                    <span>Master Permissions</span>
+                  <div className="menu-label">Master Settings</div>
+                  {/* School Config */}
+                  <div className="menu-subgroup-header" onClick={() => setMasterSubgroups(p => ({ ...p, school: !p.school }))}>
+                    <Settings size={14} /><span>School Setup</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: masterSubgroups.school ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
                   </div>
+                  {masterSubgroups.school && <>
+                    {[
+                      { id: 'master-class' as MasterSubView, label: 'Class / Grade' },
+                      { id: 'master-section' as MasterSubView, label: 'Section / Division' },
+                      { id: 'master-subject' as MasterSubView, label: 'Subject' },
+                      { id: 'master-session' as MasterSubView, label: 'Academic Session' },
+                      { id: 'master-house' as MasterSubView, label: 'School House' },
+                      { id: 'master-id-card' as MasterSubView, label: 'ID Card Template' },
+                      { id: 'master-gallery' as MasterSubView, label: 'Photo Gallery' },
+                    ].map(item => (
+                      <div key={item.id} className={`menu-item menu-item--sub ${masterSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('master'); setMasterSubView(item.id); }}>
+                        <span>{item.label}</span>
+                      </div>
+                    ))}
+                  </>}
+                  {/* People Config */}
+                  <div className="menu-subgroup-header" onClick={() => setMasterSubgroups(p => ({ ...p, people: !p.people }))}>
+                    <Users size={14} /><span>People Setup</span><ChevronDown size={12} style={{ marginLeft: 'auto', transform: masterSubgroups.people ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.2s' }} />
+                  </div>
+                  {masterSubgroups.people && <>
+                    {[
+                      { id: 'master-category' as MasterSubView, label: 'Category (Gen/OBC)' },
+                      { id: 'master-religion' as MasterSubView, label: 'Religion' },
+                      { id: 'master-caste' as MasterSubView, label: 'Caste / Community' },
+                    ].map(item => (
+                      <div key={item.id} className={`menu-item menu-item--sub ${masterSubView === item.id ? 'active' : ''}`} onClick={() => { setActiveView('master'); setMasterSubView(item.id); }}>
+                        <span>{item.label}</span>
+                      </div>
+                    ))}
+                  </>}
                 </>
               )}
             </>
@@ -3877,7 +4094,7 @@ export default function App() {
 
           {/* VIEW: LIBRARY CATALOG */}
           {activeView === 'library' && (
-            <LibraryView books={books} setBooks={setBooks} students={students} />
+            <LibraryModule initialSubView={librarySubView} onNavigateSubView={(sv) => setLibrarySubView(sv)} />
           )}
 
           {/* VIEW: HOSTEL WARDEN */}
@@ -3931,7 +4148,12 @@ export default function App() {
 
           {/* VIEW: HR & STAFF */}
           {activeView === 'hr' && (
-            <HRView />
+            <HRModule initialSubView={hrSubView} onNavigateSubView={(sv) => setHrSubView(sv)} />
+          )}
+
+          {/* VIEW: SEND SMS */}
+          {activeView === 'sendsms' && (
+            <SendSMSModule initialSubView={smsSubView} onNavigateSubView={(sv) => setSmsSubView(sv)} />
           )}
 
           {/* VIEW: COMMUNICATION */}
@@ -3972,57 +4194,42 @@ export default function App() {
             ['Generate Progress AI Summary', 'Predictive Performance Analytics', 'Automated Grading Assistant']
           )}
 
-          {/* PLACEHOLDER: RECEPTION */}
-          {activeView === 'reception' && renderPlaceholderView(
-            'Reception',
-            'Visitor pass management, dial logs and dispatch records.',
-            <DoorOpen size={22} />,
-            ['Visitor Pass Registry', 'Phone Call Log', 'Postal Dispatch Records']
+          {/* VIEW: RECEPTION / FRONT OFFICE */}
+          {activeView === 'reception' && (
+            <FrontOfficeModule initialSubView={foSubView} onNavigateSubView={(sv) => setFoSubView(sv)} />
           )}
 
-          {/* PLACEHOLDER: CERTIFICATE */}
-          {activeView === 'certificate' && renderPlaceholderView(
-            'Certificate',
-            'Configure, generate and print certificates and admit cards.',
-            <Award size={22} />,
-            ['Generate Transfer Certificate (TC)', 'Generate Character Certificate', 'Admit Card Generator']
+          {/* VIEW: CERTIFICATE */}
+          {activeView === 'certificate' && (
+            <CertificateModule initialSubView={certSubView} onNavigateSubView={(sv) => setCertSubView(sv)} />
           )}
 
-          {/* PLACEHOLDER: ACADEMIC */}
-          {activeView === 'academic' && renderPlaceholderView(
-            'Academic',
-            'Manage academic session parameters, subjects catalogs and class schedules.',
-            <GraduationCap size={22} />,
-            ['Academic Session Config', 'Subjects Catalog', 'Classroom Allocation Grid']
+          {/* VIEW: ACADEMIC */}
+          {activeView === 'academic' && (
+            <AcademicModule initialSubView={academicSubView} onNavigateSubView={(sv) => setAcademicSubView(sv)} />
           )}
 
-          {/* PLACEHOLDER: FRONT OFFICE */}
-          {activeView === 'frontoffice' && renderPlaceholderView(
-            'Front Office',
-            'Track client enquiries, complaints registers and calendar schedules.',
-            <Contact size={22} />,
-            ['Admission Enquiry Log', 'Complaints Register', 'Office Schedule Calendar']
+          {/* VIEW: FRONT OFFICE */}
+          {activeView === 'frontoffice' && (
+            <FrontOfficeModule initialSubView={foSubView} onNavigateSubView={(sv) => setFoSubView(sv)} />
           )}
 
-          {/* PLACEHOLDER: ECONTENT */}
+          {/* VIEW: ECONTENT - placeholder until EContentModule is built */}
           {activeView === 'econtent' && renderPlaceholderView(
-            'Econtent',
+            'E-Content',
             'Upload syllabus files, class e-lectures and homework registers.',
             <BookOpen size={22} />,
             ['Upload Syllabus Docs', 'Lecture Videos Links', 'Class Assignment Sheets']
           )}
 
-          {/* PLACEHOLDER: PAYROLL */}
-          {activeView === 'payroll' && renderPlaceholderView(
-            'Payroll',
-            'Employee payslips generator, bonus schedules and deductions.',
-            <DollarSign size={22} />,
-            ['Salary Structure Template', 'Payslip Generation', 'Bonus & Deduction Registry']
+          {/* VIEW: PAYROLL */}
+          {activeView === 'payroll' && (
+            <PayrollModule initialSubView={payrollSubView} onNavigateSubView={(sv) => setPayrollSubView(sv)} />
           )}
 
-          {/* PLACEHOLDER: MASTER */}
+          {/* VIEW: MASTER SETTINGS */}
           {activeView === 'master' && (
-            <PermissionsView rolePermissions={rolePermissions} setRolePermissions={setRolePermissions} />
+            <MasterModule initialSubView={masterSubView} onNavigateSubView={(sv) => setMasterSubView(sv)} />
           )}
 
 

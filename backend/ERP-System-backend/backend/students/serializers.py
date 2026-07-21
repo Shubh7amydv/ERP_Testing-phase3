@@ -31,22 +31,25 @@ def resolve_academic_year(year_str, school=None):
     if int(end_year) != int(start_year) + 1:
         raise serializers.ValidationError('Year must be a consecutive academic year like 2026-2027.')
 
-    if school:
-        academic_year, _ = AcademicYear.objects.get_or_create(
-            school=school,
-            year=year_value,
-            defaults={
-                'start_date': f"{start_year}-04-01",
-                'end_date': f"{end_year}-03-31",
-            }
-        )
-    else:
-        academic_year = AcademicYear.objects.filter(year=year_value).first()
-        if not academic_year:
-            raise serializers.ValidationError(
-                f"AcademicYear '{year_value}' not found. Create it via the school's academic years endpoint first."
+    if not school:
+        from schools.models import School
+        school = School.objects.first()
+        if not school:
+            school = School.objects.create(
+                name='Default School', code='DEFAULT',
+                address='Default Address', city='Default',
+                state='Default', pincode='000000',
+                phone='0000000000', email='admin@default.com',
             )
 
+    academic_year, _ = AcademicYear.objects.get_or_create(
+        school=school,
+        year=year_value,
+        defaults={
+            'start_date': f"{start_year}-04-01",
+            'end_date': f"{end_year}-03-31",
+        }
+    )
     return academic_year
 
 
@@ -205,9 +208,29 @@ class AdmissionSerializer(serializers.ModelSerializer):
         if 'class' in data and 'admission_class' not in data:
             data['admission_class'] = self._normalize_value(data.pop('class'))
         if 'admission_class' in data:
-            data['admission_class'] = self._normalize_value(data['admission_class'])
+            val = str(self._normalize_value(data['admission_class'])).strip()
+            CLASS_MAP = {
+                'Class 1': 'I', '1': 'I', 'I': 'I',
+                'Class 2': 'II', '2': 'II', 'II': 'II',
+                'Class 3': 'III', '3': 'III', 'III': 'III',
+                'Class 4': 'IV', '4': 'IV', 'IV': 'IV',
+                'Class 5': 'V', '5': 'V', 'V': 'V',
+                'Class 6': 'VI', '6': 'VI', 'VI': 'VI',
+                'Class 7': 'VII', '7': 'VII', 'VII': 'VII',
+                'Class 8': 'VIII', '8': 'VIII', 'VIII': 'VIII',
+                'Class 9': 'IX', '9': 'IX', 'IX': 'IX',
+                'Class 10': 'X', '10': 'X', 'X': 'X',
+                'Class 11': 'XI', '11': 'XI', 'XI': 'XI',
+                'Class 12': 'XII', '12': 'XII', 'XII': 'XII',
+                'Nursery': 'NUR', 'NUR': 'NUR',
+                'LKG': 'LKG', 'UKG': 'UKG', 'Play Group': 'PLAY', 'PLAY': 'PLAY'
+            }
+            data['admission_class'] = CLASS_MAP.get(val, val)
+
         if 'section' in data:
-            data['section'] = self._normalize_value(data['section'])
+            val = str(self._normalize_value(data['section'])).replace('Section ', '').strip().upper()
+            data['section'] = val
+
         if 'caste' in data:
             data['caste'] = self._normalize_value(data['caste'])
         if 'house' in data:

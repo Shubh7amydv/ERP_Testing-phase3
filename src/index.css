@@ -1212,6 +1212,68 @@ input[type="text"]::placeholder {
     box-shadow: 0 2px 8px rgba(56, 189, 248, 0.15);
 }
 
+/* Distinct Subsection Background Colors (Replacing text color distinction with background color distinction) */
+.subgroup-header-amber {
+    background: rgba(245, 158, 11, 0.16) !important;
+    border-left: 3px solid #f59e0b !important;
+    color: #ffffff !important;
+}
+.subgroup-header-emerald {
+    background: rgba(16, 185, 129, 0.16) !important;
+    border-left: 3px solid #10b981 !important;
+    color: #ffffff !important;
+}
+.subgroup-header-purple {
+    background: rgba(168, 85, 247, 0.16) !important;
+    border-left: 3px solid #a855f7 !important;
+    color: #ffffff !important;
+}
+.subgroup-header-rose {
+    background: rgba(244, 63, 94, 0.16) !important;
+    border-left: 3px solid #f43f5e !important;
+    color: #ffffff !important;
+}
+.subgroup-header-sky {
+    background: rgba(56, 189, 248, 0.16) !important;
+    border-left: 3px solid #38bdf8 !important;
+    color: #ffffff !important;
+}
+.subgroup-header-indigo {
+    background: rgba(99, 102, 241, 0.16) !important;
+    border-left: 3px solid #6366f1 !important;
+    color: #ffffff !important;
+}
+.subgroup-header-teal {
+    background: rgba(20, 184, 166, 0.16) !important;
+    border-left: 3px solid #14b8a6 !important;
+    color: #ffffff !important;
+}
+.subgroup-header-orange {
+    background: rgba(249, 115, 22, 0.16) !important;
+    border-left: 3px solid #f97316 !important;
+    color: #ffffff !important;
+}
+
+/* Hover effects for subsection headers */
+.subgroup-header-amber:hover { background: rgba(245, 158, 11, 0.28) !important; }
+.subgroup-header-emerald:hover { background: rgba(16, 185, 129, 0.28) !important; }
+.subgroup-header-purple:hover { background: rgba(168, 85, 247, 0.28) !important; }
+.subgroup-header-rose:hover { background: rgba(244, 63, 94, 0.28) !important; }
+.subgroup-header-sky:hover { background: rgba(56, 189, 248, 0.28) !important; }
+.subgroup-header-indigo:hover { background: rgba(99, 102, 241, 0.28) !important; }
+.subgroup-header-teal:hover { background: rgba(20, 184, 166, 0.28) !important; }
+.subgroup-header-orange:hover { background: rgba(249, 115, 22, 0.28) !important; }
+
+/* Subsection Container Left Border Tint Matching Header Accent */
+.subgroup-container-amber { border-left-color: rgba(245, 158, 11, 0.45) !important; }
+.subgroup-container-emerald { border-left-color: rgba(16, 185, 129, 0.45) !important; }
+.subgroup-container-purple { border-left-color: rgba(168, 85, 247, 0.45) !important; }
+.subgroup-container-rose { border-left-color: rgba(244, 63, 94, 0.45) !important; }
+.subgroup-container-sky { border-left-color: rgba(56, 189, 248, 0.45) !important; }
+.subgroup-container-indigo { border-left-color: rgba(99, 102, 241, 0.45) !important; }
+.subgroup-container-teal { border-left-color: rgba(20, 184, 166, 0.45) !important; }
+.subgroup-container-orange { border-left-color: rgba(249, 115, 22, 0.45) !important; }
+
 /* Modules Grid Page */
 .modules-grid-container {
     padding: 24px;

@@ -47,6 +47,7 @@ export async function apiClient<T = any>(endpoint: string, options: RequestOptio
     if (!response.ok) {
       if (response.status === 401) {
         console.warn('API Unauthorized 401 - clearing token');
+        localStorage.removeItem('access_token');
       }
       const errorText = await response.text();
       let errorJson: any = {};

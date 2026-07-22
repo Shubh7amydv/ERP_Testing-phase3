@@ -521,19 +521,24 @@ export default function App() {
   // Sync Live Students Data from Backend API at http://localhost:8000
   useEffect(() => {
     const ensureAuthAndFetch = async () => {
-      if (!localStorage.getItem('access_token')) {
+      const loginAndGetToken = async () => {
         try {
           await studentService.login('admin@example.com', 'Admin@1234');
-          console.log('Backend authenticated automatically as admin@example.com using production credentials');
+          console.log('Backend authenticated automatically using production credentials');
         } catch (authErr) {
           try {
             await studentService.login('admin@example.com', 'password123');
-            console.log('Backend authenticated automatically as admin@example.com using development credentials');
+            console.log('Backend authenticated automatically using development credentials');
           } catch (localAuthErr) {
             console.warn('Backend login attempts failed:', localAuthErr);
           }
         }
+      };
+
+      if (!localStorage.getItem('access_token')) {
+        await loginAndGetToken();
       }
+
       try {
         const res = await studentService.getAdmissions({ limit: 50 });
         const rawList = Array.isArray(res) ? res : ((res as any)?.data?.admissions || (res as any)?.data || res?.results || []);
@@ -557,7 +562,35 @@ export default function App() {
         setStudents(mappedStudents);
         console.log('Live student records fetched from Django backend:', mappedStudents);
       } catch (err: any) {
-        console.log('Backend API connection info:', err?.message);
+        console.log('Backend API connection info, attempting re-auth:', err?.message);
+        if (err?.message?.includes('401') || err?.message?.includes('token') || err?.message?.includes('Unauthorized')) {
+          localStorage.removeItem('access_token');
+          await loginAndGetToken();
+          try {
+            const res = await studentService.getAdmissions({ limit: 50 });
+            const rawList = Array.isArray(res) ? res : ((res as any)?.data?.admissions || (res as any)?.data || res?.results || []);
+            const mappedStudents: Student[] = rawList.map((item: any) => ({
+              id: item.id || item.admission_no,
+              admissionNo: item.admission_no || item.id,
+              name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
+              class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
+              section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
+              gender: item.gender || 'Male',
+              fatherName: item.father_name || 'N/A',
+              phone: item.phone || 'N/A',
+              type: 'New',
+              status: item.status || 'Approved',
+              blood: item.blood_group || 'O+',
+              category: item.category || 'General',
+              caste: item.caste || 'Hinduism',
+              house: item.house || 'Red House',
+              aadhar: item.aadhaar_no || 'N/A',
+            }));
+            setStudents(mappedStudents);
+          } catch (retryErr) {
+            console.error('Retry after token refresh failed:', retryErr);
+          }
+        }
       }
     };
 

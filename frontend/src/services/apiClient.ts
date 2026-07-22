@@ -55,7 +55,13 @@ export async function apiClient<T = any>(endpoint: string, options: RequestOptio
       } catch {
         // non-json response
       }
-      throw new Error(errorJson.detail || errorJson.message || `HTTP ${response.status}: ${response.statusText}`);
+      let errorMsg = errorJson.detail || errorJson.message;
+      if (!errorMsg && typeof errorJson === 'object' && errorJson !== null) {
+        errorMsg = Object.entries(errorJson)
+          .map(([key, val]) => `${key}: ${Array.isArray(val) ? val.join(', ') : val}`)
+          .join(' | ');
+      }
+      throw new Error(errorMsg || `HTTP ${response.status}: ${response.statusText}`);
     }
 
     if (response.status === 204) {

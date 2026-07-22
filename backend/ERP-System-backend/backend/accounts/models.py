@@ -61,13 +61,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         if not self.user_id:
-            from django.db import transaction
-            with transaction.atomic():
-                last_user = User.objects.select_for_update().order_by('user_id').last()
-                if last_user and last_user.user_id:
-                    self.user_id = last_user.user_id + 1
-                else:
-                    self.user_id = 55487
+            last_user = User.objects.order_by('user_id').last()
+            if last_user and last_user.user_id:
+                self.user_id = last_user.user_id + 1
+            else:
+                self.user_id = 55487
         super().save(*args, **kwargs)
 
     def __str__(self):

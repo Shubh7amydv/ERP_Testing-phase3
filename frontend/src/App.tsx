@@ -4337,6 +4337,40 @@ export default function App() {
 
               <form onSubmit={(e) => {
                 e.preventDefault();
+
+                if (!formName.trim()) {
+                  addToast('Validation Error', 'Student Name is required.', 'error');
+                  return;
+                }
+                if (!formDob) {
+                  addToast('Validation Error', 'Date of Birth is required.', 'error');
+                  return;
+                }
+                if (!formAadhar.trim()) {
+                  addToast('Validation Error', 'Aadhar Number is required.', 'error');
+                  return;
+                }
+                if (!formFather.trim()) {
+                  addToast('Validation Error', 'Father\'s Name is required.', 'error');
+                  return;
+                }
+                if (!formMotherName.trim()) {
+                  addToast('Validation Error', 'Mother\'s Name is required.', 'error');
+                  return;
+                }
+                if (!formPhone.trim()) {
+                  addToast('Validation Error', 'Mobile Number is required.', 'error');
+                  return;
+                }
+                if (!formClass) {
+                  addToast('Validation Error', 'Class selection is required.', 'error');
+                  return;
+                }
+                if (!formSection) {
+                  addToast('Validation Error', 'Section selection is required.', 'error');
+                  return;
+                }
+
                 const payload = {
                   name: formName,
                   dob: formDob,
@@ -4442,7 +4476,7 @@ export default function App() {
                       <div className="form-grid">
                         <div className="form-group col-span-2">
                           <label>Student Name *</label>
-                          <input type="text" required placeholder="Full Name" value={formName} onChange={e => setFormName(e.target.value)} />
+                          <input type="text" placeholder="Full Name" value={formName} onChange={e => setFormName(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>Gender *</label>
@@ -4453,7 +4487,7 @@ export default function App() {
                         </div>
                         <div className="form-group">
                           <label>Date of Birth *</label>
-                          <input type="date" required value={formDob} onChange={e => setFormDob(e.target.value)} />
+                          <input type="date" value={formDob} onChange={e => setFormDob(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>Blood Group</label>
@@ -4461,7 +4495,7 @@ export default function App() {
                         </div>
                         <div className="form-group">
                           <label>Student Aadhar *</label>
-                          <input type="text" required placeholder="12 Digit Aadhar No." value={formAadhar} onChange={e => setFormAadhar(e.target.value)} />
+                          <input type="text" placeholder="12 Digit Aadhar No." value={formAadhar} onChange={e => setFormAadhar(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>SSSMID</label>
@@ -4503,7 +4537,7 @@ export default function App() {
                       <div className="form-grid">
                         <div className="form-group col-span-2">
                           <label>Father's Name *</label>
-                          <input type="text" required placeholder="Father's Full Name" value={formFather} onChange={e => setFormFather(e.target.value)} />
+                          <input type="text" placeholder="Father's Full Name" value={formFather} onChange={e => setFormFather(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>Father Occupation</label>
@@ -4520,7 +4554,7 @@ export default function App() {
 
                         <div className="form-group col-span-2">
                           <label>Mother's Name *</label>
-                          <input type="text" required placeholder="Mother's Full Name" value={formMotherName} onChange={e => setFormMotherName(e.target.value)} />
+                          <input type="text" placeholder="Mother's Full Name" value={formMotherName} onChange={e => setFormMotherName(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>Mother Occupation</label>
@@ -4537,7 +4571,7 @@ export default function App() {
 
                         <div className="form-group">
                           <label>Mobile Number *</label>
-                          <input type="tel" required placeholder="Primary Mobile" value={formPhone} onChange={e => setFormPhone(e.target.value)} />
+                          <input type="tel" placeholder="Primary Mobile" value={formPhone} onChange={e => setFormPhone(e.target.value)} />
                         </div>
                         <div className="form-group">
                           <label>Alternate Mobile</label>
@@ -4564,7 +4598,7 @@ export default function App() {
                       <div className="form-grid">
                         <div className="form-group">
                           <label>Class *</label>
-                          <select required value={formClass} onChange={e => setFormClass(e.target.value)}>
+                          <select value={formClass} onChange={e => setFormClass(e.target.value)}>
                             <option value="">Select Class</option>
                             <option value="Class 3">Class 3</option>
                             <option value="Class 4">Class 4</option>
@@ -4574,7 +4608,7 @@ export default function App() {
                         </div>
                         <div className="form-group">
                           <label>Section *</label>
-                          <select required value={formSection} onChange={e => setFormSection(e.target.value)}>
+                          <select value={formSection} onChange={e => setFormSection(e.target.value)}>
                             <option value="">Select Section</option>
                             <option value="Section A">Section A</option>
                             <option value="Section B">Section B</option>

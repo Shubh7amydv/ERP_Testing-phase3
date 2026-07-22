@@ -1,4 +1,4 @@
-// Local Mock Database API client for Dettroin School ERP (Supabase removed)
+import { studentService } from './services/studentService';
 
 export interface Student {
   id: string;
@@ -186,98 +186,138 @@ export const api = {
   // ==========================================
   async getAdmissions(schoolId: string = '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb01'): Promise<Student[]> {
     void schoolId;
-    await delay();
-    const students = getLocalStorageItem<Student[]>('dettroin_students', INITIAL_STUDENTS);
-    return students;
+    try {
+      const res = await studentService.getAdmissions({ limit: 100 });
+      const rawList = Array.isArray(res) ? res : ((res as any)?.data?.admissions || (res as any)?.data || res?.results || []);
+      return rawList.map((item: any) => ({
+        id: item.id || item.admission_no,
+        admissionNo: item.admission_no || item.id,
+        name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
+        class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
+        section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
+        gender: item.gender || 'Male',
+        fatherName: item.father_name || 'N/A',
+        phone: item.phone || 'N/A',
+        type: 'New',
+        status: item.status || 'Approved',
+        blood: item.blood_group || 'O+',
+        category: item.category || 'General',
+        caste: item.caste || 'Hinduism',
+        house: item.house || 'Red House',
+        aadhar: item.aadhaar_no || 'N/A',
+        pen: item.pen_no || '',
+        apaarId: item.apaar_no || '',
+        rollNo: item.roll_number || '',
+      }));
+    } catch (err) {
+      console.warn('Backend API connection info:', err);
+      return [];
+    }
   },
 
   async createAdmission(schoolId: string, student: any): Promise<Student> {
     void schoolId;
-    await delay();
-    const students = getLocalStorageItem<Student[]>('dettroin_students', INITIAL_STUDENTS);
-    const newStudent: Student = {
-      id: student.id || `std_${Math.floor(100000 + Math.random() * 900000)}`,
-      admissionNo: student.admissionNo || student.admission_no || `ADM-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-      name: student.name || `${student.first_name || ''} ${student.last_name || ''}`.trim() || 'Unknown Name',
-      class: student.class || student.admission_class || 'Class 5',
-      section: student.section || 'Section A',
+    const apiPayload = {
+      first_name: student.name ? student.name.split(' ')[0] : (student.first_name || 'Unknown'),
+      last_name: student.name ? student.name.split(' ').slice(1).join(' ') : (student.last_name || ''),
+      phone: student.phone || '9999999999',
+      address: student.shortAddress || "123 School Lane",
+      date_of_birth: student.dob || "2016-01-01",
       gender: student.gender || 'Male',
-      fatherName: student.fatherName || student.father_name || '',
-      phone: student.phone || '',
-      type: student.status === 'Approved' ? 'New' : 'Transfer',
-      status: student.status || 'Approved',
-      blood: student.blood || student.blood_group || 'O+',
+      blood_group: student.blood || "O+",
       category: student.category || 'General',
-      caste: student.caste || 'Hinduism',
-      house: student.house || 'None',
-      aadhar: student.aadhar || student.aadhaar_no || '',
-      photoUrl: student.photoUrl || student.photo_url || undefined,
-
-      // New fields mapping
-      pen: student.pen || '',
-      apaarId: student.apaarId || '',
-      rollNo: student.rollNo || '',
-      fatherOccupation: student.fatherOccupation || '',
-      fatherIncome: student.fatherIncome || '',
-      fatherAadhar: student.fatherAadhar || '',
-      motherName: student.motherName || '',
-      motherOccupation: student.motherOccupation || '',
-      motherIncome: student.motherIncome || '',
-      motherAadhar: student.motherAadhar || '',
-      alternatePhone: student.alternatePhone || '',
-      email: student.email || '',
-      dateOfAdmission: student.dateOfAdmission || '',
-      shortAddress: student.shortAddress || '',
-      password: student.password || 'password123',
-      religion: student.religion || 'Hinduism',
-      busDetail: student.busDetail || '',
-      location: student.location || '',
-      height: student.height || '',
-      weight: student.weight || '',
-      staffWard: student.staffWard || 'No',
-      sssmid: student.sssmid || '',
-      parentsPhoto: student.parentsPhoto || '',
-      penFile: student.penFile || '',
-      tcFile: student.tcFile || '',
-      marksheetFile: student.marksheetFile || '',
-      dobCertificateFile: student.dobCertificateFile || '',
-      studentAadharFile: student.studentAadharFile || '',
-      fatherAadharFile: student.fatherAadharFile || '',
-      motherAadharFile: student.motherAadharFile || ''
+      caste: student.caste || 'General',
+      religion: student.religion || "Hinduism",
+      aadhaar_no: student.aadhar || "123456789012",
+      father_name: student.fatherName || 'Father',
+      father_occupation: student.fatherOccupation || "Business",
+      mother_name: student.motherName || "Mother Name",
+      admission_class: (student.class || '4').replace('Class ', ''),
+      section: (student.section || 'A').replace('Section ', ''),
+      roll_number: student.rollNo || "1",
+      house: student.house || "Red",
+      bus_route: "Route-1",
+      medium: "English",
+      date_of_admission: student.dateOfAdmission || new Date().toISOString().split('T')[0],
+      status: "Approved"
     };
-    students.unshift(newStudent);
-    setLocalStorageItem('dettroin_students', students);
-    return newStudent;
+
+    const res = await studentService.createAdmission(apiPayload);
+    const item = res as any;
+    return {
+      id: item.id || item.admission_no,
+      admissionNo: item.admission_no || item.id,
+      name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
+      class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
+      section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
+      gender: item.gender || 'Male',
+      fatherName: item.father_name || 'N/A',
+      phone: item.phone || 'N/A',
+      type: 'New',
+      status: item.status || 'Approved',
+      blood: item.blood_group || 'O+',
+      category: item.category || 'General',
+      caste: item.caste || 'Hinduism',
+      house: item.house || 'Red House',
+      aadhar: item.aadhaar_no || 'N/A',
+      pen: item.pen_no || '',
+      apaarId: item.apaar_no || '',
+      rollNo: item.roll_number || '',
+    };
   },
 
   async updateAdmission(id: string, updatedFields: Partial<Student>): Promise<Student> {
-    await delay();
-    const students = getLocalStorageItem<Student[]>('dettroin_students', INITIAL_STUDENTS);
-    const index = students.findIndex(s => s.id === id);
-    if (index === -1) throw new Error('Student not found');
-    students[index] = { ...students[index], ...updatedFields };
-    setLocalStorageItem('dettroin_students', students);
-    return students[index];
+    const apiPayload: any = {};
+    if (updatedFields.name) {
+      apiPayload.first_name = updatedFields.name.split(' ')[0];
+      apiPayload.last_name = updatedFields.name.split(' ').slice(1).join(' ') || '';
+    }
+    if (updatedFields.phone) apiPayload.phone = updatedFields.phone;
+    if (updatedFields.status) apiPayload.status = updatedFields.status;
+    if (updatedFields.class) apiPayload.admission_class = updatedFields.class.replace('Class ', '');
+    if (updatedFields.section) apiPayload.section = updatedFields.section.replace('Section ', '');
+
+    const res = await studentService.partialUpdateAdmission(id, apiPayload);
+    const item = res as any;
+    return {
+      id: item.id || item.admission_no,
+      admissionNo: item.admission_no || item.id,
+      name: item.first_name ? `${item.first_name} ${item.last_name || ''}`.trim() : (item.name || 'Student'),
+      class: item.admission_class ? (item.admission_class.startsWith('Class') ? item.admission_class : `Class ${item.admission_class}`) : 'Class 1',
+      section: item.section ? (item.section.startsWith('Section') ? item.section : `Section ${item.section}`) : 'Section A',
+      gender: item.gender || 'Male',
+      fatherName: item.father_name || 'N/A',
+      phone: item.phone || 'N/A',
+      type: 'New',
+      status: item.status || 'Approved',
+      blood: item.blood_group || 'O+',
+      category: item.category || 'General',
+      caste: item.caste || 'Hinduism',
+      house: item.house || 'Red House',
+      aadhar: item.aadhaar_no || 'N/A',
+      pen: item.pen_no || '',
+      apaarId: item.apaar_no || '',
+      rollNo: item.roll_number || '',
+    };
   },
 
   async bulkUpdateAdmissions(updates: { id: string, fields: Partial<Student> }[]): Promise<boolean> {
-    await delay();
-    const students = getLocalStorageItem<Student[]>('dettroin_students', INITIAL_STUDENTS);
-    updates.forEach(u => {
-      const idx = students.findIndex(s => s.id === u.id);
-      if (idx !== -1) {
-        students[idx] = { ...students[idx], ...u.fields };
+    const formatted = updates.map(u => {
+      const payload: any = { id: u.id };
+      if (u.fields.name) {
+        payload.first_name = u.fields.name.split(' ')[0];
+        payload.last_name = u.fields.name.split(' ').slice(1).join(' ') || '';
       }
+      if (u.fields.phone) payload.phone = u.fields.phone;
+      if (u.fields.status) payload.status = u.fields.status;
+      return payload;
     });
-    setLocalStorageItem('dettroin_students', students);
+    await studentService.bulkUpdateAdmissions(formatted);
     return true;
   },
 
   async deleteAdmission(id: string) {
-    await delay();
-    let students = getLocalStorageItem<Student[]>('dettroin_students', INITIAL_STUDENTS);
-    students = students.filter(s => s.id !== id);
-    setLocalStorageItem('dettroin_students', students);
+    await studentService.deleteAdmission(id);
     return true;
   },
 

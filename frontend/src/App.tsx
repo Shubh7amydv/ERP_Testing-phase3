@@ -337,21 +337,7 @@ export default function App() {
     { id: "TXN-2026-106", studentId: "ADM-2026-003", studentName: "Rohan Ghosh", class: "Class 6", month: "April", amount: 3000, date: "2026-04-10", paymentMethod: "Cash" },
   ]);
 
-  // Fetch admissions from backend on load
-  React.useEffect(() => {
-    const loadData = async () => {
-      try {
-        const backendStudents = await api.getAdmissions();
-        if (backendStudents && backendStudents.length > 0) {
-          setStudents(backendStudents);
-          addToast('Admissions Loaded', 'Successfully synchronized data from API.', 'success');
-        }
-      } catch (err) {
-        console.warn('Failed to load from backend API, using local mock data:', err);
-      }
-    };
-    loadData();
-  }, []);
+
 
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);

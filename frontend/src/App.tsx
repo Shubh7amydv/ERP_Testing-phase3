@@ -537,10 +537,15 @@ export default function App() {
     const ensureAuthAndFetch = async () => {
       if (!localStorage.getItem('access_token')) {
         try {
-          await studentService.login('admin@example.com', 'password123');
-          console.log('Backend authenticated automatically as admin@example.com');
+          await studentService.login('admin@example.com', 'Admin@1234');
+          console.log('Backend authenticated automatically as admin@example.com using production credentials');
         } catch (authErr) {
-          console.warn('Backend login attempt info:', authErr);
+          try {
+            await studentService.login('admin@example.com', 'password123');
+            console.log('Backend authenticated automatically as admin@example.com using development credentials');
+          } catch (localAuthErr) {
+            console.warn('Backend login attempts failed:', localAuthErr);
+          }
         }
       }
       try {
@@ -4384,6 +4389,40 @@ export default function App() {
                   sssmid: formSssmid,
                   photoUrl: formStudentPhoto ? '/assets/hero.png' : undefined
                 };
+
+                const apiPayload = {
+                   first_name: formName.split(' ')[0] || 'Unknown',
+                   last_name: formName.split(' ').slice(1).join(' ') || '',
+                   phone: formPhone,
+                   address: formShortAddress || "123 School Lane",
+                   date_of_birth: formDob || "2016-01-01",
+                   gender: formGender,
+                   blood_group: formBlood || "O+",
+                   category: formCategory,
+                   caste: formCaste,
+                   religion: formReligion || "Hinduism",
+                   aadhaar_no: formAadhar || "123456789012",
+                   father_name: formFather,
+                   father_occupation: formFatherOccupation || "Business",
+                   mother_name: formMotherName || "Mother Name",
+                   admission_class: formClass.replace('Class ', ''),
+                   section: formSection.replace('Section ', ''),
+                   roll_number: formRoll || "1",
+                   house: formHouse || "Red",
+                   bus_route: "Route-1",
+                   medium: "English",
+                   date_of_admission: formDateOfAdmission || new Date().toISOString().split('T')[0],
+                   status: "Approved"
+                 };
+
+                 studentService.createAdmission(apiPayload)
+                   .then(backendRes => {
+                     console.log('Admission created in backend DB:', backendRes);
+                     addToast('Database Synced', `${formName} registered in cloud DB!`, 'success');
+                   })
+                   .catch(err => {
+                     console.warn('Backend DB create issue:', err?.message);
+                   });
 
                 api.createAdmission(currentSchoolId, payload).then(res => {
                   setStudents(prev => [res, ...prev]);

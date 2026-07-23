@@ -4382,7 +4382,7 @@ export default function App() {
 
           {/* MASTER VIEW */}
           {activeView === 'master' && (
-            <MasterModule initialSubView={masterSubView} onNavigateSubView={(sv) => setMasterSubView(sv)} />
+            <MasterModule initialSubView={masterSubView} onNavigateSubView={(sv) => setMasterSubView(sv)} schoolId={currentSchoolId} />
           )}
 
 

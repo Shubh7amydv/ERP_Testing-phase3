@@ -1122,7 +1122,7 @@ export function EContentModule({ initialSubView = 'econtent-list', onNavigateSub
 // ===========================================================
 // MASTER SETTINGS MODULE
 // ===========================================================
-export function MasterModule({ initialSubView = 'master-class', onNavigateSubView }: { initialSubView?: MasterSubView; onNavigateSubView?: (sv: MasterSubView) => void }) {
+export function MasterModule({ initialSubView = 'master-class', onNavigateSubView, schoolId: propSchoolId }: { initialSubView?: MasterSubView; onNavigateSubView?: (sv: MasterSubView) => void; schoolId?: string }) {
   const [subView, setSubView] = useState<MasterSubView>(initialSubView);
   const [toast, setToast] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -1138,7 +1138,7 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
   const [sessionEnd, setSessionEnd] = useState('');
   const [sessionIsCurrent, setSessionIsCurrent] = useState(false);
 
-  const schoolId = '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb01';
+  const schoolId = propSchoolId || '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb01';
 
   React.useEffect(() => { setSubView(initialSubView); }, [initialSubView]);
 

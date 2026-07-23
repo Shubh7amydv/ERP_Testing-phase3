@@ -1183,9 +1183,29 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
 
     try {
       if (subView === 'master-class') {
-        await studentService.createClass({ admission_class: newItemName });
+        const CLASS_MAPPING: Record<string, string> = {
+          'nursery': 'NUR', 'nur': 'NUR',
+          'lkg': 'LKG',
+          'ukg': 'UKG',
+          'play group': 'PLAY', 'playgroup': 'PLAY', 'play': 'PLAY',
+          'class 1': 'I', '1': 'I', 'i': 'I',
+          'class 2': 'II', '2': 'II', 'ii': 'II',
+          'class 3': 'III', '3': 'III', 'iii': 'III',
+          'class 4': 'IV', '4': 'IV', 'iv': 'IV',
+          'class 5': 'V', '5': 'V', 'v': 'V',
+          'class 6': 'VI', '6': 'VI', 'vi': 'VI',
+          'class 7': 'VII', '7': 'VII', 'vii': 'VII',
+          'class 8': 'VIII', '8': 'VIII', 'viii': 'VIII',
+          'class 9': 'IX', '9': 'IX', 'ix': 'IX',
+          'class 10': 'X', '10': 'X', 'x': 'X',
+          'class 11': 'XI', '11': 'XI', 'xi': 'XI',
+          'class 12': 'XII', '12': 'XII', 'xii': 'XII'
+        };
+        const normalized = CLASS_MAPPING[newItemName.toLowerCase().trim()] || newItemName;
+        await studentService.createClass({ admission_class: normalized });
       } else if (subView === 'master-section') {
-        await studentService.createSection({ section: newItemName });
+        const normalized = newItemName.replace(/section/i, '').trim().toUpperCase();
+        await studentService.createSection({ section: normalized });
       } else if (subView === 'master-caste') {
         await studentService.createCaste({ caste_name: newItemName });
       } else if (subView === 'master-house') {

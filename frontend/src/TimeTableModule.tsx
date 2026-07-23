@@ -192,7 +192,7 @@ export function TimeTableModule({ initialSubView = 'cls-manage', onNavigateSubVi
       {/* Toast Notification */}
       {toastMessage && (
         <div style={{
-          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#00696b', color: '#ffffff',
+          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#2563eb', color: '#ffffff',
           padding: '12px 20px', borderRadius: '8px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
           display: 'flex', alignItems: 'center', gap: '10px', zIndex: 9999, fontWeight: 600, fontSize: '13px'
         }}>
@@ -205,7 +205,7 @@ export function TimeTableModule({ initialSubView = 'cls-manage', onNavigateSubVi
       <div className="view-header">
         <div>
           <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Clock size={22} color="#00696b" />
+            <Clock size={22} color="#2563eb" />
             Time Table & Automated School Bell Console
           </h2>
           <span className="view-subtitle">
@@ -332,7 +332,7 @@ function AddSubstituteSection({
             Assign substitute teachers for absent staff members to prevent free periods
           </span>
         </div>
-        <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+        <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
           <PlusCircle size={14} /> {showAddForm ? 'Close Form' : 'Assign New Substitute'}
         </button>
       </div>
@@ -380,7 +380,7 @@ function AddSubstituteSection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Confirm Substitution
               </button>
             </div>
@@ -392,15 +392,15 @@ function AddSubstituteSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Absent Teacher</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Period</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Subject</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Substitute Assigned</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Absent Teacher</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Period</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Subject</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Substitute Assigned</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -410,9 +410,9 @@ function AddSubstituteSection({
                   <td style={{ fontWeight: 600, color: '#475569' }}>{sub.date}</td>
                   <td style={{ fontWeight: 800, color: '#dc2626' }}>{sub.absentTeacher}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{sub.className}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>{sub.period}</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>{sub.period}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{sub.subject}</td>
-                  <td style={{ fontWeight: 800, color: '#16a34a' }}>{sub.substituteTeacher}</td>
+                  <td style={{ fontWeight: 800, color: '#10b981' }}>{sub.substituteTeacher}</td>
                   <td style={{ textAlign: 'center' }}>
                     <span className="erp-badge badge-approved">{sub.status}</span>
                   </td>
@@ -499,7 +499,7 @@ function ClassTimeTableSection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Save Allocation
               </button>
             </div>
@@ -510,12 +510,12 @@ function ClassTimeTableSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Teacher Name</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Assigned Subject</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Weekly Quota</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Teacher Name</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Assigned Subject</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Weekly Quota</th>
                 </tr>
               </thead>
               <tbody>
@@ -523,9 +523,9 @@ function ClassTimeTableSection({
                   <tr key={m.id}>
                     <td style={{ fontWeight: 800 }}>{idx + 1}</td>
                     <td style={{ fontWeight: 800, color: '#0f172a' }}>{m.teacherName}</td>
-                    <td style={{ fontWeight: 800, color: '#00696b' }}>{m.className}</td>
+                    <td style={{ fontWeight: 800, color: '#2563eb' }}>{m.className}</td>
                     <td style={{ fontWeight: 700, color: '#0f172a' }}>{m.subject}</td>
-                    <td style={{ fontWeight: 800, color: '#16a34a' }}>{m.weeklyQuota} Periods / Wk</td>
+                    <td style={{ fontWeight: 800, color: '#10b981' }}>{m.weeklyQuota} Periods / Wk</td>
                   </tr>
                 ))}
               </tbody>
@@ -562,10 +562,10 @@ function ClassTimeTableSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, width: '120px' }}>Day / Period</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, width: '120px' }}>Day / Period</th>
                 {periods.map(p => (
-                  <th key={p.id} style={{ backgroundColor: p.isBreak ? '#ea580c' : '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>
+                  <th key={p.id} style={{ backgroundColor: p.isBreak ? '#2563eb' : '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>
                     <div>{p.periodName}</div>
                     <div style={{ fontSize: '10px', opacity: 0.85 }}>{p.startTime} - {p.endTime}</div>
                   </th>
@@ -575,7 +575,7 @@ function ClassTimeTableSection({
             <tbody>
               {days.map(day => (
                 <tr key={day}>
-                  <td style={{ fontWeight: 800, color: '#00696b', backgroundColor: '#f8fafc' }}>{day}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb', backgroundColor: '#f8fafc' }}>{day}</td>
                   {periods.map(p => {
                     if (p.isBreak) {
                       return (
@@ -589,7 +589,7 @@ function ClassTimeTableSection({
                       <td key={p.id} style={{ textAlign: 'center', padding: '10px' }}>
                         {entry ? (
                           <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '6px', padding: '6px' }}>
-                            <div style={{ fontWeight: 800, color: '#16a34a', fontSize: '13px' }}>{entry.subject}</div>
+                            <div style={{ fontWeight: 800, color: '#10b981', fontSize: '13px' }}>{entry.subject}</div>
                             <div style={{ fontSize: '11px', color: '#475569', fontWeight: 600 }}>{entry.teacherName}</div>
                             <div style={{ fontSize: '10px', color: '#94a3b8' }}>{entry.roomNo}</div>
                           </div>
@@ -647,10 +647,10 @@ function TimeTableReportsSection({
           {getTitle()} : (Session: 2026-2027)
         </h3>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => alert('Exporting report...')} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button onClick={() => alert('Exporting report...')} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Download size={14} /> Export
           </button>
-          <button onClick={() => window.print()} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => window.print()} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
             Print
           </button>
         </div>
@@ -660,24 +660,24 @@ function TimeTableReportsSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class / Teacher</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Day</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Period</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Subject</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Faculty Allocated</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Room No</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class / Teacher</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Day</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Period</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Subject</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Faculty Allocated</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Room No</th>
               </tr>
             </thead>
             <tbody>
               {timetableEntries.map((t, idx) => (
                 <tr key={t.id}>
                   <td style={{ fontWeight: 800 }}>{idx + 1}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{t.className}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{t.className}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{t.day}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>Period {t.periodNo}</td>
-                  <td style={{ fontWeight: 800, color: '#16a34a' }}>{t.subject}</td>
+                  <td style={{ fontWeight: 800, color: '#10b981' }}>{t.subject}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{t.teacherName}</td>
                   <td style={{ textAlign: 'center', fontWeight: 600, color: '#475569' }}>{t.roomNo}</td>
                 </tr>
@@ -766,7 +766,7 @@ function TimeTableSettingsSection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Save Exam Slot
               </button>
             </div>
@@ -777,21 +777,21 @@ function TimeTableSettingsSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Exam Title</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Subject</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Timing</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Hall / Room</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Exam Title</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Subject</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Timing</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Hall / Room</th>
                 </tr>
               </thead>
               <tbody>
                 {exams.map(e => (
                   <tr key={e.id}>
                     <td style={{ fontWeight: 800, color: '#0f172a' }}>{e.examTitle}</td>
-                    <td style={{ fontWeight: 800, color: '#00696b' }}>{e.className}</td>
-                    <td style={{ fontWeight: 700, color: '#16a34a' }}>{e.subject}</td>
+                    <td style={{ fontWeight: 800, color: '#2563eb' }}>{e.className}</td>
+                    <td style={{ fontWeight: 700, color: '#10b981' }}>{e.subject}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{e.examDate}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{e.startTime} - {e.endTime}</td>
                     <td style={{ fontWeight: 700, color: '#0f172a' }}>{e.roomNo}</td>
@@ -821,12 +821,12 @@ function TimeTableSettingsSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Period No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Period Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Start Time</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>End Time</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Type</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Period No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Period Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Start Time</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>End Time</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Type</th>
               </tr>
             </thead>
             <tbody>
@@ -834,8 +834,8 @@ function TimeTableSettingsSection({
                 <tr key={p.id}>
                   <td style={{ fontWeight: 800 }}>{p.periodNo || '-'}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{p.periodName}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>{p.startTime}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>{p.endTime}</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>{p.startTime}</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>{p.endTime}</td>
                   <td style={{ textAlign: 'center' }}>
                     <span className={`erp-badge ${p.isBreak ? 'badge-warning' : 'badge-approved'}`}>
                       {p.isBreak ? 'Break Slot' : 'Teaching Period'}
@@ -876,7 +876,7 @@ function BellSystemSection({
     <div>
       <div style={{ marginBottom: '16px' }}>
         <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Bell size={18} color="#00696b" />
+          <Bell size={18} color="#2563eb" />
           Automated School Bell System & Chime Console
         </h3>
         <span style={{ fontSize: '12px', color: '#64748b' }}>
@@ -897,7 +897,7 @@ function BellSystemSection({
                   showToast(`Chime sound "${newSoundInput}" added to library!`);
                   setNewSoundInput('');
                 }}
-                className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}
+                className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}
               >
                 Upload Sound
               </button>
@@ -906,7 +906,7 @@ function BellSystemSection({
               {sounds.map((snd, idx) => (
                 <div key={idx} style={{ backgroundColor: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontWeight: 700, color: '#0f172a', fontSize: '13px' }}>{snd}</span>
-                  <button onClick={() => showToast(`Playing sample sound: ${snd}`)} style={{ backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '11px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <button onClick={() => showToast(`Playing sample sound: ${snd}`)} style={{ backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '11px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Play size={10} /> Test
                   </button>
                 </div>
@@ -919,12 +919,12 @@ function BellSystemSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Period / Event Name</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Automated Trigger Time</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Assigned Chime Sound</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Period / Event Name</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Automated Trigger Time</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Assigned Chime Sound</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -932,8 +932,8 @@ function BellSystemSection({
                   <tr key={b.id}>
                     <td style={{ fontWeight: 800 }}>{idx + 1}</td>
                     <td style={{ fontWeight: 800, color: '#0f172a' }}>{b.periodName}</td>
-                    <td style={{ fontWeight: 800, color: '#00696b' }}>{b.triggerTime}</td>
-                    <td style={{ fontWeight: 700, color: '#16a34a' }}>{b.soundName}</td>
+                    <td style={{ fontWeight: 800, color: '#2563eb' }}>{b.triggerTime}</td>
+                    <td style={{ fontWeight: 700, color: '#10b981' }}>{b.soundName}</td>
                     <td style={{ textAlign: 'center' }}>
                       <span className="erp-badge badge-approved">{b.status}</span>
                     </td>
@@ -962,7 +962,7 @@ function PaginationFooter({ currentCount, totalCount }: { currentCount: number; 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>First</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>‹</span>
-        <div style={{ backgroundColor: '#ff7849', color: '#ffffff', fontWeight: 800, padding: '2px 10px', borderRadius: '4px' }}>1</div>
+        <div style={{ backgroundColor: '#4f46e5', color: '#ffffff', fontWeight: 800, padding: '2px 10px', borderRadius: '4px' }}>1</div>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>›</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>Last</span>
       </div>

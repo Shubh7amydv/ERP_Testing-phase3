@@ -168,7 +168,7 @@ export function AccountModule({ initialSubView = 'manage-income', onNavigateSubV
       {/* Toast Notification */}
       {toastMessage && (
         <div style={{
-          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#00696b', color: '#ffffff',
+          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#2563eb', color: '#ffffff',
           padding: '12px 20px', borderRadius: '8px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
           display: 'flex', alignItems: 'center', gap: '10px', zIndex: 9999, fontWeight: 600, fontSize: '13px'
         }}>
@@ -181,7 +181,7 @@ export function AccountModule({ initialSubView = 'manage-income', onNavigateSubV
       <div className="view-header">
         <div>
           <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <CreditCard size={22} color="#00696b" />
+            <CreditCard size={22} color="#2563eb" />
             Financial Accounts & Fee Ledger Console
           </h2>
           <span className="view-subtitle">
@@ -321,9 +321,9 @@ function ManageIncomeSection({
     <div>
       {/* Metric Stat Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '20px' }}>
-        <div className="erp-card" style={{ padding: '16px', borderLeft: '4px solid #00696b', margin: 0 }}>
+        <div className="erp-card" style={{ padding: '16px', borderLeft: '4px solid #2563eb', margin: 0 }}>
           <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}>TOTAL RECEIVED INCOME</div>
-          <div style={{ fontSize: '24px', fontWeight: 800, color: '#00696b', marginTop: '4px' }}>₹{totalIncome.toLocaleString()}</div>
+          <div style={{ fontSize: '24px', fontWeight: 800, color: '#2563eb', marginTop: '4px' }}>₹{totalIncome.toLocaleString()}</div>
         </div>
         <div className="erp-card" style={{ padding: '16px', borderLeft: '4px solid #0284c7', margin: 0 }}>
           <div style={{ color: '#64748b', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase' }}>INCOME TRANSACTIONS</div>
@@ -345,7 +345,7 @@ function ManageIncomeSection({
                 style={{ width: '100%', paddingLeft: '32px' }}
               />
             </div>
-            <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+            <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
               <PlusCircle size={14} /> {showAddForm ? 'Close Form' : 'Record New Income'}
             </button>
           </div>
@@ -405,7 +405,7 @@ function ManageIncomeSection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Save Income Entry
               </button>
             </div>
@@ -418,33 +418,33 @@ function ManageIncomeSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Receipt No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Category Head</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Payer Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Amount</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Payment Mode</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Bank / Account</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Receipt No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Category Head</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Payer Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Amount</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Payment Mode</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Bank / Account</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((inc, idx) => (
                 <tr key={inc.id}>
                   <td style={{ fontWeight: 800 }}>{idx + 1}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{inc.receiptNo}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{inc.receiptNo}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{inc.date}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{inc.category}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{inc.payerName}</td>
-                  <td style={{ fontWeight: 800, color: '#16a34a' }}>₹{inc.amount.toLocaleString()}</td>
+                  <td style={{ fontWeight: 800, color: '#10b981' }}>₹{inc.amount.toLocaleString()}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{inc.mode}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{inc.bankAccount}</td>
                   <td style={{ textAlign: 'center' }}>
                     <button 
                       onClick={() => alert(`Receipt #${inc.receiptNo}\nAmount: ₹${inc.amount}\nPayer: ${inc.payerName}`)}
-                      style={{ backgroundColor: '#ff7849', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+                      style={{ backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
                     >
                       Print
                     </button>
@@ -551,7 +551,7 @@ function ManageExpenseSection({
                 style={{ width: '100%', paddingLeft: '32px' }}
               />
             </div>
-            <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+            <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
               <PlusCircle size={14} /> {showAddForm ? 'Close Form' : 'Record New Expense'}
             </button>
           </div>
@@ -610,7 +610,7 @@ function ManageExpenseSection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Save Expense Voucher
               </button>
             </div>
@@ -622,16 +622,16 @@ function ManageExpenseSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Voucher No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Category Head</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Payee / Vendor</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Amount</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Payment Mode</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Paid Account</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Voucher No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Category Head</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Payee / Vendor</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Amount</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Payment Mode</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Paid Account</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -648,7 +648,7 @@ function ManageExpenseSection({
                   <td style={{ textAlign: 'center' }}>
                     <button 
                       onClick={() => alert(`Voucher #${exp.voucherNo}\nAmount: ₹${exp.amount}\nPayee: ${exp.payeeName}`)}
-                      style={{ backgroundColor: '#ff7849', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
+                      style={{ backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}
                     >
                       View
                     </button>
@@ -718,14 +718,14 @@ function AccountReportsSection({
         <div style={{ display: 'flex', gap: '10px' }}>
           <button 
             onClick={() => alert('Exporting report as CSV...')} 
-            style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+            style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
           >
             <Download size={14} /> Export
           </button>
 
           <button 
             onClick={() => window.print()} 
-            style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}
+            style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}
           >
             Print
           </button>
@@ -737,8 +737,8 @@ function AccountReportsSection({
         <div className="erp-card" style={{ borderRadius: '0 0 8px 8px', marginTop: 0, padding: '20px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
             <div style={{ backgroundColor: '#f0fdf4', padding: '16px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-              <h4 style={{ color: '#16a34a', margin: 0, fontSize: '16px', fontWeight: 800 }}>TOTAL REVENUE / INCOME</h4>
-              <div style={{ fontSize: '28px', fontWeight: 800, color: '#15803d', marginTop: '6px' }}>₹{totalIncome.toLocaleString()}</div>
+              <h4 style={{ color: '#10b981', margin: 0, fontSize: '16px', fontWeight: 800 }}>TOTAL REVENUE / INCOME</h4>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#047857', marginTop: '6px' }}>₹{totalIncome.toLocaleString()}</div>
             </div>
             <div style={{ backgroundColor: '#fef2f2', padding: '16px', borderRadius: '8px', border: '1px solid #fecaca' }}>
               <h4 style={{ color: '#dc2626', margin: 0, fontSize: '16px', fontWeight: 800 }}>TOTAL EXPENSES</h4>
@@ -747,7 +747,7 @@ function AccountReportsSection({
           </div>
           <div style={{ backgroundColor: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>NET SURPLUS / DEFICIT:</span>
-            <span style={{ fontSize: '24px', fontWeight: 800, color: totalIncome >= totalExpense ? '#16a34a' : '#dc2626' }}>
+            <span style={{ fontSize: '24px', fontWeight: 800, color: totalIncome >= totalExpense ? '#10b981' : '#dc2626' }}>
               ₹{(totalIncome - totalExpense).toLocaleString()}
             </span>
           </div>
@@ -758,26 +758,26 @@ function AccountReportsSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Reference / Ref No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Particulars / Category</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Payer / Payee</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Amount (₹)</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Payment Mode</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Reference / Ref No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Particulars / Category</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Payer / Payee</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Amount (₹)</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Payment Mode</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {incomes.map((inc, idx) => (
                   <tr key={inc.id}>
                     <td style={{ fontWeight: 800 }}>{idx + 1}</td>
-                    <td style={{ fontWeight: 800, color: '#00696b' }}>{inc.receiptNo}</td>
+                    <td style={{ fontWeight: 800, color: '#2563eb' }}>{inc.receiptNo}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{inc.date}</td>
                     <td style={{ fontWeight: 700, color: '#0f172a' }}>{inc.category}</td>
                     <td style={{ fontWeight: 700, color: '#0f172a' }}>{inc.payerName}</td>
-                    <td style={{ fontWeight: 800, color: '#16a34a' }}>₹{inc.amount.toLocaleString()}</td>
+                    <td style={{ fontWeight: 800, color: '#10b981' }}>₹{inc.amount.toLocaleString()}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{inc.mode}</td>
                     <td style={{ textAlign: 'center' }}>
                       <span className="erp-badge badge-approved">{inc.status}</span>
@@ -875,7 +875,7 @@ function ManageBankSection({
               Record bank cash/cheque {isDeposit ? 'deposits' : 'withdrawals'} and generate transaction slips
             </span>
           </div>
-          <button onClick={() => setShowForm(!showForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+          <button onClick={() => setShowForm(!showForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
             <PlusCircle size={14} /> {showForm ? 'Close Form' : `Record New ${isDeposit ? 'Deposit' : 'Withdrawal'}`}
           </button>
         </div>
@@ -916,7 +916,7 @@ function ManageBankSection({
                 </div>
               </div>
               <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-                <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+                <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                   <Check size={14} /> Complete {isDeposit ? 'Deposit' : 'Withdrawal'}
                 </button>
               </div>
@@ -928,29 +928,29 @@ function ManageBankSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Txn No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Bank Name</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Amount (₹)</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Mode</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Txn No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Bank Name</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Amount (₹)</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Mode</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {bankTxns.filter(t => t.type === (isDeposit ? 'Deposit' : 'Withdrawal')).map((t, idx) => (
                   <tr key={t.id}>
                     <td style={{ fontWeight: 800 }}>{idx + 1}</td>
-                    <td style={{ fontWeight: 800, color: '#00696b' }}>{t.transactionNo}</td>
+                    <td style={{ fontWeight: 800, color: '#2563eb' }}>{t.transactionNo}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{t.date}</td>
                     <td style={{ fontWeight: 700, color: '#0f172a' }}>{t.bankName}</td>
-                    <td style={{ fontWeight: 800, color: isDeposit ? '#16a34a' : '#dc2626' }}>₹{t.amount.toLocaleString()}</td>
+                    <td style={{ fontWeight: 800, color: isDeposit ? '#10b981' : '#dc2626' }}>₹{t.amount.toLocaleString()}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{t.mode}</td>
                     <td style={{ fontWeight: 500, color: '#475569' }}>{t.remarks}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <button style={{ backgroundColor: '#ff7849', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                      <button style={{ backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
                         Slip
                       </button>
                     </td>
@@ -979,11 +979,11 @@ function ManageBankSection({
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '20px' }}>
         {bankAccounts.map(b => (
-          <div key={b.id} className="erp-card" style={{ margin: 0, padding: '16px', borderLeft: '4px solid #00696b' }}>
+          <div key={b.id} className="erp-card" style={{ margin: 0, padding: '16px', borderLeft: '4px solid #2563eb' }}>
             <div style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>{b.bankName}</div>
             <div style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a', marginTop: '2px' }}>Acc No: {b.accountNo}</div>
             <div style={{ fontSize: '11px', color: '#94a3b8' }}>Branch: {b.branch} | IFSC: {b.ifscCode}</div>
-            <div style={{ fontSize: '22px', fontWeight: 800, color: '#00696b', marginTop: '10px' }}>₹{b.currentBalance.toLocaleString()}</div>
+            <div style={{ fontSize: '22px', fontWeight: 800, color: '#2563eb', marginTop: '10px' }}>₹{b.currentBalance.toLocaleString()}</div>
           </div>
         ))}
       </div>
@@ -1069,7 +1069,7 @@ function AccountSettingsSection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Add Bank Account
               </button>
             </div>
@@ -1080,13 +1080,13 @@ function AccountSettingsSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>ID</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Bank Name</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Account No</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>IFSC Code</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Current Balance</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>ID</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Bank Name</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Account No</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>IFSC Code</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Current Balance</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -1094,11 +1094,11 @@ function AccountSettingsSection({
                   <tr key={b.id}>
                     <td style={{ fontWeight: 800 }}>{idx + 1}</td>
                     <td style={{ fontWeight: 800, color: '#0f172a' }}>{b.bankName}</td>
-                    <td style={{ fontWeight: 700, color: '#00696b' }}>{b.accountNo}</td>
+                    <td style={{ fontWeight: 700, color: '#2563eb' }}>{b.accountNo}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{b.ifscCode}</td>
-                    <td style={{ fontWeight: 800, color: '#16a34a' }}>₹{b.currentBalance.toLocaleString()}</td>
+                    <td style={{ fontWeight: 800, color: '#10b981' }}>₹{b.currentBalance.toLocaleString()}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <button style={{ backgroundColor: '#ff7849', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                      <button style={{ backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
                         Edit
                       </button>
                     </td>
@@ -1129,12 +1129,12 @@ function AccountSettingsSection({
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Rule Title</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Grace Period</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Fine Amount</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Frequency</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Rule Title</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Grace Period</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Fine Amount</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Frequency</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -1145,7 +1145,7 @@ function AccountSettingsSection({
                     <td style={{ fontWeight: 800, color: '#dc2626' }}>₹{r.fineAmount}</td>
                     <td style={{ fontWeight: 600, color: '#475569' }}>{r.chargeFrequency}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <button onClick={() => showToast('Fine applied to overdue student accounts!')} style={{ backgroundColor: '#ff7849', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                      <button onClick={() => showToast('Fine applied to overdue student accounts!')} style={{ backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', borderRadius: '16px', padding: '4px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
                         Apply Fine
                       </button>
                     </td>
@@ -1183,7 +1183,7 @@ function AccountSettingsSection({
                 showToast(`Payment mode "${newModeInput}" added!`);
                 setNewModeInput('');
               }}
-              className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}
+              className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}
             >
               Add Mode
             </button>
@@ -1216,7 +1216,7 @@ function PaginationFooter({ currentCount, totalCount }: { currentCount: number; 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>First</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>‹</span>
-        <div style={{ backgroundColor: '#ff7849', color: '#ffffff', fontWeight: 800, padding: '2px 10px', borderRadius: '4px' }}>1</div>
+        <div style={{ backgroundColor: '#4f46e5', color: '#ffffff', fontWeight: 800, padding: '2px 10px', borderRadius: '4px' }}>1</div>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>›</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>Last</span>
       </div>

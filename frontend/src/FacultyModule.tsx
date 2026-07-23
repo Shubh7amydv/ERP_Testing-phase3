@@ -691,7 +691,7 @@ export function FacultyModule({ initialSubView = 'view-staff', onNavigateSubView
           position: 'fixed',
           bottom: '24px',
           right: '24px',
-          backgroundColor: '#0d9488',
+          backgroundColor: '#6366f1',
           color: '#ffffff',
           padding: '12px 20px',
           borderRadius: '8px',
@@ -850,7 +850,7 @@ function ViewStaffSection({
               </select>
             </div>
 
-            <button onClick={onNavigateAdd} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+            <button onClick={onNavigateAdd} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
               <UserPlus size={14} /> Add Staff
             </button>
           </div>
@@ -862,15 +862,15 @@ function ViewStaffSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Serial No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Father's Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Department</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Designation</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Contact</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Serial No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Father's Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Department</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Designation</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Contact</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -895,7 +895,7 @@ function ViewStaffSection({
                         <button 
                           onClick={() => onSelectStaffModal(stf)} 
                           style={{
-                            backgroundColor: '#ff7849',
+                            backgroundColor: '#4f46e5',
                             color: '#ffffff',
                             border: 'none',
                             borderRadius: '16px',
@@ -910,7 +910,7 @@ function ViewStaffSection({
                         <button 
                           onClick={() => toggleStatus(stf.id)} 
                           style={{
-                            backgroundColor: '#ff7849',
+                            backgroundColor: '#4f46e5',
                             color: '#ffffff',
                             border: 'none',
                             borderRadius: '16px',
@@ -1230,7 +1230,7 @@ function AddStaffSection({
                   onChange={e => setFormData({ ...formData, photoFileName: e.target.files?.[0]?.name || '' })} 
                 />
               </label>
-              <span style={{ fontSize: '13px', fontWeight: 700, color: formData.photoFileName ? '#16a34a' : '#dc2626' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: formData.photoFileName ? '#10b981' : '#dc2626' }}>
                 {formData.photoFileName || 'No file chosen'}
               </span>
             </div>
@@ -1240,7 +1240,7 @@ function AddStaffSection({
               type="button" 
               onClick={() => alert('Camera preview feature activated!')} 
               style={{
-                backgroundColor: '#ff7849',
+                backgroundColor: '#4f46e5',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '8px',
@@ -1335,7 +1335,7 @@ function AddStaffSection({
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-        <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b', padding: '0 28px', height: '42px', fontSize: '14px' }}>
+        <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb', padding: '0 28px', height: '42px', fontSize: '14px' }}>
           <Check size={16} /> Save & Register Staff Member
         </button>
       </div>
@@ -1386,7 +1386,7 @@ function DepartmentSection({
             Manage school departments and administrative categories
           </span>
         </div>
-        <button onClick={() => setShowAddModal(true)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+        <button onClick={() => setShowAddModal(true)} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
           <PlusCircle size={14} /> Add Department
         </button>
       </div>
@@ -1396,10 +1396,10 @@ function DepartmentSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, width: '100px' }}>ID</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, width: '140px', textAlign: 'center' }}>Action</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, width: '100px' }}>ID</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, width: '140px', textAlign: 'center' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -1411,7 +1411,7 @@ function DepartmentSection({
                     <button 
                       onClick={() => alert(`Edit Department ${dept.name}`)}
                       style={{
-                        backgroundColor: '#ff7849',
+                        backgroundColor: '#4f46e5',
                         color: '#ffffff',
                         border: 'none',
                         borderRadius: '16px',
@@ -1458,7 +1458,7 @@ function DepartmentSection({
                 <button type="button" onClick={() => setShowAddModal(false)} className="erp-btn btn-outline">
                   Cancel
                 </button>
-                <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+                <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                   Save
                 </button>
               </div>
@@ -1513,7 +1513,7 @@ function StaffDetailsReportSection({ staffList }: { staffList: StaffMember[] }) 
           <button 
             onClick={exportCSV} 
             style={{
-              backgroundColor: '#0d9488',
+              backgroundColor: '#6366f1',
               color: '#ffffff',
               border: 'none',
               borderRadius: '6px',
@@ -1532,7 +1532,7 @@ function StaffDetailsReportSection({ staffList }: { staffList: StaffMember[] }) 
           <button 
             onClick={printReport} 
             style={{
-              backgroundColor: '#0d9488',
+              backgroundColor: '#6366f1',
               color: '#ffffff',
               border: 'none',
               borderRadius: '6px',
@@ -1552,19 +1552,19 @@ function StaffDetailsReportSection({ staffList }: { staffList: StaffMember[] }) 
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S. No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>D.O.B.</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Department</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Designation</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Qualification</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Gender</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Subject</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Contact</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date Of Joining</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Father</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Mother</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S. No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>D.O.B.</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Department</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Designation</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Qualification</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Gender</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Subject</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Contact</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date Of Joining</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Father</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Mother</th>
               </tr>
             </thead>
             <tbody>
@@ -1620,14 +1620,14 @@ function InactiveReportSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Father's Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Department</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Designation</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Contact</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Father's Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Department</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Designation</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Contact</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -1653,7 +1653,7 @@ function InactiveReportSection({
                         style={{
                           width: '42px',
                           height: '22px',
-                          backgroundColor: activeToggles[stf.id] ? '#16a34a' : '#cbd5e1',
+                          backgroundColor: activeToggles[stf.id] ? '#10b981' : '#cbd5e1',
                           borderRadius: '12px',
                           border: 'none',
                           cursor: 'pointer',
@@ -1732,7 +1732,7 @@ function TeacherWiseActivitySection({ teacherActivities }: { teacherActivities: 
             </div>
             <div className="erp-card-body" style={{ padding: '16px' }}>
               <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{selected.teacherName}</h4>
-              <p style={{ color: '#00696b', fontSize: '12px', fontWeight: 700, margin: '2px 0 14px 0' }}>{selected.department} Department</p>
+              <p style={{ color: '#2563eb', fontSize: '12px', fontWeight: 700, margin: '2px 0 14px 0' }}>{selected.department} Department</p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '12px' }}>
                 <div style={{ backgroundColor: '#f8fafc', padding: '8px 10px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
@@ -1753,9 +1753,9 @@ function TeacherWiseActivitySection({ teacherActivities }: { teacherActivities: 
                   <div style={{ color: '#64748b', fontSize: '10.5px', fontWeight: 700 }}>SYLLABUS PROGRESS</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
                     <div style={{ flex: 1, backgroundColor: '#e2e8f0', height: '6px', borderRadius: '3px', overflow: 'hidden' }}>
-                      <div style={{ width: `${selected.syllabusCompletionPct}%`, backgroundColor: '#00696b', height: '100%' }} />
+                      <div style={{ width: `${selected.syllabusCompletionPct}%`, backgroundColor: '#2563eb', height: '100%' }} />
                     </div>
-                    <span style={{ color: '#00696b', fontWeight: 800 }}>{selected.syllabusCompletionPct}%</span>
+                    <span style={{ color: '#2563eb', fontWeight: 800 }}>{selected.syllabusCompletionPct}%</span>
                   </div>
                 </div>
               </div>
@@ -1769,11 +1769,11 @@ function TeacherWiseActivitySection({ teacherActivities }: { teacherActivities: 
             <div className="table-container">
               <table className="erp-table">
                 <thead>
-                  <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                    <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                    <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class</th>
-                    <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Lesson / Topic Covered</th>
-                    <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Status</th>
+                  <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                    <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                    <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class</th>
+                    <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Lesson / Topic Covered</th>
+                    <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1836,18 +1836,18 @@ function ClassWiseActivitySection({ classActivities }: { classActivities: ClassA
             </div>
             <div>
               <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>CLASS TEACHER: </span>
-              <strong style={{ fontSize: '14px', color: '#00696b', marginLeft: '4px' }}>{selected.classTeacher}</strong>
+              <strong style={{ fontSize: '14px', color: '#2563eb', marginLeft: '4px' }}>{selected.classTeacher}</strong>
             </div>
           </div>
 
           <div className="table-container">
             <table className="erp-table">
               <thead>
-                <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Subject</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Assigned Faculty</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Periods / Week</th>
-                  <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Syllabus Completion</th>
+                <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Subject</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Assigned Faculty</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Periods / Week</th>
+                  <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Syllabus Completion</th>
                 </tr>
               </thead>
               <tbody>
@@ -1855,13 +1855,13 @@ function ClassWiseActivitySection({ classActivities }: { classActivities: ClassA
                   <tr key={idx}>
                     <td style={{ fontWeight: 800, color: '#0f172a' }}>{st.subject}</td>
                     <td style={{ color: '#334155', fontWeight: 600 }}>{st.teacherName}</td>
-                    <td style={{ color: '#00696b', fontWeight: 800 }}>{st.periodsPerWeek} Periods</td>
+                    <td style={{ color: '#2563eb', fontWeight: 800 }}>{st.periodsPerWeek} Periods</td>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <div style={{ flex: 1, backgroundColor: '#e2e8f0', height: '6px', borderRadius: '3px', overflow: 'hidden' }}>
-                          <div style={{ width: `${st.completionPct}%`, backgroundColor: '#00696b', height: '100%' }} />
+                          <div style={{ width: `${st.completionPct}%`, backgroundColor: '#2563eb', height: '100%' }} />
                         </div>
-                        <span style={{ color: '#00696b', fontSize: '12px', fontWeight: 800 }}>{st.completionPct}%</span>
+                        <span style={{ color: '#2563eb', fontSize: '12px', fontWeight: 800 }}>{st.completionPct}%</span>
                       </div>
                     </td>
                   </tr>
@@ -1913,7 +1913,7 @@ function IDCardPrintSection({ staffList }: { staffList: StaffMember[] }) {
           <button onClick={toggleAll} className="erp-btn btn-outline">
             {selectedIds.length === staffList.length ? 'Deselect All' : 'Select All Staff'}
           </button>
-          <button onClick={handlePrint} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+          <button onClick={handlePrint} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
             <Printer size={14} /> Print {selectedIds.length} Selected Cards
           </button>
         </div>
@@ -1932,7 +1932,7 @@ function IDCardPrintSection({ staffList }: { staffList: StaffMember[] }) {
                 backgroundColor: '#ffffff',
                 borderRadius: '8px',
                 padding: '16px',
-                border: isChecked ? '2px solid #00696b' : '1px solid #e2e8f0',
+                border: isChecked ? '2px solid #2563eb' : '1px solid #e2e8f0',
                 boxShadow: isChecked ? '0 4px 12px rgba(0,105,107,0.15)' : '0 1px 3px rgba(0,0,0,0.02)',
                 transition: 'all 0.15s ease'
               }}
@@ -1940,7 +1940,7 @@ function IDCardPrintSection({ staffList }: { staffList: StaffMember[] }) {
               <div style={{
                 position: 'absolute', top: '10px', right: '10px',
                 width: '20px', height: '20px', borderRadius: '50%',
-                backgroundColor: isChecked ? '#00696b' : '#cbd5e1',
+                backgroundColor: isChecked ? '#2563eb' : '#cbd5e1',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff'
               }}>
                 {isChecked && <Check size={12} />}
@@ -1954,8 +1954,8 @@ function IDCardPrintSection({ staffList }: { staffList: StaffMember[] }) {
                 textAlign: 'center',
                 border: '1px solid #cbd5e1'
               }}>
-                <div style={{ borderBottom: '2px solid #00696b', paddingBottom: '6px', marginBottom: '10px' }}>
-                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#00696b', letterSpacing: '0.5px' }}>
+                <div style={{ borderBottom: '2px solid #2563eb', paddingBottom: '6px', marginBottom: '10px' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#2563eb', letterSpacing: '0.5px' }}>
                     DETTROIN GLOBAL SCHOOL
                   </div>
                   <div style={{ fontSize: '8.5px', fontWeight: 700, color: '#475569', textTransform: 'uppercase' }}>
@@ -1966,11 +1966,11 @@ function IDCardPrintSection({ staffList }: { staffList: StaffMember[] }) {
                 <img 
                   src={stf.photoUrl} 
                   alt={stf.name} 
-                  style={{ width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #00696b', margin: '0 auto 8px' }} 
+                  style={{ width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2563eb', margin: '0 auto 8px' }} 
                 />
 
                 <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>{stf.name}</div>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: '#00696b', margin: '2px 0 6px' }}>{stf.designation}</div>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#2563eb', margin: '2px 0 6px' }}>{stf.designation}</div>
 
                 <div style={{ backgroundColor: '#f8fafc', padding: '6px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', fontSize: '10.5px', textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <div><strong>EMP ID:</strong> {stf.empId}</div>
@@ -2001,7 +2001,7 @@ function IDCardSampleSection({ sampleStaff }: { sampleStaff: StaffMember }) {
   const [showLogo, setShowLogo] = useState(true);
 
   const themeColors = {
-    teal: { bg: '#ffffff', headerBg: '#00696b', headerText: '#ffffff', accent: '#00696b' },
+    teal: { bg: '#ffffff', headerBg: '#2563eb', headerText: '#ffffff', accent: '#2563eb' },
     dark: { bg: '#0f172a', headerBg: '#1e293b', headerText: '#f8fafc', accent: '#38bdf8' },
     emerald: { bg: '#ffffff', headerBg: '#065f46', headerText: '#ffffff', accent: '#059669' },
     crimson: { bg: '#ffffff', headerBg: '#991b1b', headerText: '#ffffff', accent: '#dc2626' }
@@ -2035,7 +2035,7 @@ function IDCardSampleSection({ sampleStaff }: { sampleStaff: StaffMember }) {
               <button 
                 onClick={() => setCardTheme('teal')} 
                 className="erp-btn btn-outline"
-                style={{ height: '32px', fontSize: '11px', backgroundColor: cardTheme === 'teal' ? '#00696b' : '#f8fafc', color: cardTheme === 'teal' ? '#fff' : '#0f172a' }}
+                style={{ height: '32px', fontSize: '11px', backgroundColor: cardTheme === 'teal' ? '#2563eb' : '#f8fafc', color: cardTheme === 'teal' ? '#fff' : '#0f172a' }}
               >
                 Deep Teal
               </button>
@@ -2164,7 +2164,7 @@ function PaginationFooter({ currentCount, totalCount }: { currentCount: number; 
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>First</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>‹</span>
         <div style={{
-          backgroundColor: '#ff7849',
+          backgroundColor: '#4f46e5',
           color: '#ffffff',
           fontWeight: 800,
           padding: '2px 10px',
@@ -2193,10 +2193,10 @@ function StaffModalDetails({ staff, onClose }: { staff: StaffMember; onClose: ()
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', borderBottom: '1px solid #e2e8f0', paddingBottom: '12px' }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            <img src={staff.photoUrl} alt={staff.name} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #00696b' }} />
+            <img src={staff.photoUrl} alt={staff.name} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2563eb' }} />
             <div>
               <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{staff.name}</h3>
-              <div style={{ fontSize: '12px', color: '#00696b', fontWeight: 700, marginTop: '2px' }}>{staff.designation} ({staff.department})</div>
+              <div style={{ fontSize: '12px', color: '#2563eb', fontWeight: 700, marginTop: '2px' }}>{staff.designation} ({staff.department})</div>
             </div>
           </div>
           <button onClick={onClose} className="erp-btn btn-outline" style={{ height: '30px' }}>Close</button>

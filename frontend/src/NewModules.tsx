@@ -273,7 +273,7 @@ export function LibraryView({
                     <td style={{ fontFamily: 'monospace' }}>{b.isbn}</td>
                     <td>{b.category}</td>
                     <td>
-                      <strong style={{ color: b.available > 0 ? '#16a34a' : '#ef4444' }}>
+                      <strong style={{ color: b.available > 0 ? '#10b981' : '#ef4444' }}>
                         {b.available} / {b.quantity}
                       </strong>
                     </td>
@@ -320,7 +320,7 @@ export function LibraryView({
                     </span>
                   </td>
                   <td>
-                    <strong style={{ color: rec.fine > 0 ? '#ef4444' : '#16a34a' }}>
+                    <strong style={{ color: rec.fine > 0 ? '#ef4444' : '#10b981' }}>
                       {rec.fine > 0 ? `₹${rec.fine}` : 'Nil'}
                     </strong>
                   </td>
@@ -329,7 +329,7 @@ export function LibraryView({
                       <button 
                         onClick={() => handleReturnBook(rec.id, rec.bookTitle)}
                         className="erp-btn btn-outline" 
-                        style={{ height: '24px', padding: '0 8px', fontSize: '10.5px', color: '#16a34a', borderColor: '#16a34a' }}
+                        style={{ height: '24px', padding: '0 8px', fontSize: '10.5px', color: '#10b981', borderColor: '#10b981' }}
                       >
                         Mark Returned
                       </button>
@@ -543,7 +543,7 @@ export function HostelView({
                       <button 
                         onClick={() => handlePayHostelBill(bill.id)}
                         className="erp-btn btn-outline" 
-                        style={{ height: '24px', padding: '0 8px', fontSize: '10.5px', color: '#16a34a', borderColor: '#16a34a' }}
+                        style={{ height: '24px', padding: '0 8px', fontSize: '10.5px', color: '#10b981', borderColor: '#10b981' }}
                       >
                         Collect Fee
                       </button>
@@ -808,7 +808,7 @@ export function AccountsView({ feeRecords }: { feeRecords: FeeRecord[] }) {
         </div>
         <div className="metric-box" style={{ backgroundColor: '#f0fdf4', borderColor: '#bbf7d0' }}>
           <div>
-            <div className="metric-value" style={{ color: '#15803d' }}>₹{paidAmount.toLocaleString()}</div>
+            <div className="metric-value" style={{ color: '#047857' }}>₹{paidAmount.toLocaleString()}</div>
             <div className="metric-label">Total Fees Collected</div>
           </div>
           <div style={{ backgroundColor: '#10b981', padding: '8px', borderRadius: '6px', color: '#ffffff' }}>

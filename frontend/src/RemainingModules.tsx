@@ -185,7 +185,7 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
               <tr key={l.id}>
                 <td style={{ fontWeight: 800 }}>{l.id}</td>
                 <td style={{ fontWeight: 800 }}>{l.staffName}</td>
-                <td style={{ color: '#00696b', fontWeight: 700 }}>{l.leaveType}</td>
+                <td style={{ color: '#2563eb', fontWeight: 700 }}>{l.leaveType}</td>
                 <td>{l.fromDate}</td>
                 <td>{l.toDate}</td>
                 <td style={{ fontWeight: 800 }}>{l.days} Days</td>
@@ -194,7 +194,7 @@ export function HRModule({ initialSubView = 'hr-staff-list', onNavigateSubView }
                 <td>
                   {subView === 'hr-leave-approve' && l.status === 'Pending' && (
                     <div style={{ display: 'flex', gap: 4 }}>
-                      <button onClick={() => showToast('Leave Approved!')} style={{ padding: '3px 8px', backgroundColor: '#16a34a', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Approve</button>
+                      <button onClick={() => showToast('Leave Approved!')} style={{ padding: '3px 8px', backgroundColor: '#10b981', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Approve</button>
                       <button onClick={() => showToast('Leave Rejected!')} style={{ padding: '3px 8px', backgroundColor: '#dc2626', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Reject</button>
                     </div>
                   )}
@@ -490,7 +490,7 @@ export function FrontOfficeModule({ initialSubView = 'fo-enquiry-list', onNaviga
                 <td style={{ fontSize: 12 }}>{v.purpose}</td>
                 <td>{v.toMeet}</td>
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{v.idType}</span></td>
-                <td style={{ color: '#16a34a', fontWeight: 700 }}>{v.inTime}</td>
+                <td style={{ color: '#10b981', fontWeight: 700 }}>{v.inTime}</td>
                 <td style={{ color: '#dc2626', fontWeight: 700 }}>{v.outTime}</td>
                 <td>{v.date}</td>
               </tr>
@@ -538,7 +538,7 @@ export function SendSMSModule({ initialSubView = 'sms-send-student', onNavigateS
 
       {subView === 'sms-balance' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 20 }}>
-          {[{ label: 'SMS Balance', value: '4,850 Credits', color: '#2563eb' }, { label: 'Used This Month', value: '1,150 SMS', color: '#dc2626' }, { label: 'Success Rate', value: '98.2%', color: '#16a34a' }].map(s => (
+          {[{ label: 'SMS Balance', value: '4,850 Credits', color: '#2563eb' }, { label: 'Used This Month', value: '1,150 SMS', color: '#dc2626' }, { label: 'Success Rate', value: '98.2%', color: '#10b981' }].map(s => (
             <div key={s.label} className="erp-card" style={{ padding: 16, borderLeft: `4px solid ${s.color}`, margin: 0, textAlign: 'center' }}>
               <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>{s.label}</div>
               <div style={{ fontSize: 22, fontWeight: 800, color: s.color, marginTop: 4 }}>{s.value}</div>
@@ -682,7 +682,7 @@ export function PayrollModule({ initialSubView = 'payroll-generate', onNavigateS
                 <td style={{ fontWeight: 800 }}>{fmt(p.gross)}</td>
                 <td style={{ color: '#dc2626' }}>{fmt(p.pf)}</td>
                 <td style={{ color: '#dc2626' }}>{fmt(p.tds)}</td>
-                <td style={{ fontWeight: 800, color: '#16a34a', fontSize: 14 }}>{fmt(p.net)}</td>
+                <td style={{ fontWeight: 800, color: '#10b981', fontSize: 14 }}>{fmt(p.net)}</td>
               </tr>
             ))}</tbody>
           </table></div></div>
@@ -753,7 +753,7 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{b.category}</span></td>
                 <td style={{ fontFamily: 'monospace', fontSize: 11 }}>{b.isbn}</td>
                 <td style={{ fontWeight: 800 }}>{b.copies}</td>
-                <td style={{ fontWeight: 800, color: b.available === 0 ? '#dc2626' : '#16a34a' }}>{b.available}</td>
+                <td style={{ fontWeight: 800, color: b.available === 0 ? '#dc2626' : '#10b981' }}>{b.available}</td>
                 <td style={{ color: '#2563eb', fontWeight: 700 }}>{b.rack}</td>
                 <td><button onClick={() => showToast('Book issue form opened')} style={{ padding: '4px 10px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Issue</button></td>
               </tr>
@@ -804,7 +804,7 @@ export function LibraryModule({ initialSubView = 'lib-book-list', onNavigateSubV
                 <td style={{ color: '#2563eb', fontWeight: 700 }}>{i.class}</td>
                 <td style={{ fontWeight: 800 }}>{i.book}</td>
                 <td>{i.issueDate}</td>
-                <td style={{ fontWeight: 800, color: i.status === 'Overdue' ? '#dc2626' : '#16a34a' }}>{i.dueDate}</td>
+                <td style={{ fontWeight: 800, color: i.status === 'Overdue' ? '#dc2626' : '#10b981' }}>{i.dueDate}</td>
                 <td><span className={`erp-badge ${i.status === 'Issued' ? 'badge-approved' : 'badge-rejected'}`}>{i.status}</span></td>
                 <td>
                   {subView !== 'lib-issue-book' && <button onClick={() => showToast('Book returned successfully!')} style={{ padding: '4px 10px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Return</button>}
@@ -868,7 +868,7 @@ export function InventoryModule({ initialSubView = 'inv-item-list', onNavigateSu
                 <td style={{ fontWeight: 800 }}>{item.id}</td>
                 <td style={{ fontWeight: 800, color: '#0f172a' }}>{item.name}</td>
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{item.category}</span></td>
-                <td style={{ fontWeight: 800, color: item.quantity <= item.reorderLevel ? '#dc2626' : '#16a34a' }}>{item.quantity}</td>
+                <td style={{ fontWeight: 800, color: item.quantity <= item.reorderLevel ? '#dc2626' : '#10b981' }}>{item.quantity}</td>
                 <td>{item.unit}</td>
                 <td>{item.store}</td>
                 <td style={{ fontSize: 12 }}>{item.supplier}</td>
@@ -954,7 +954,7 @@ export function TransportModule({ initialSubView = 'trans-route-list', onNavigat
                 <td style={{ fontWeight: 700, color: '#2563eb' }}>{r.vehicle}</td>
                 <td>{r.driver}</td>
                 <td style={{ fontWeight: 800 }}>{r.capacity} Seats</td>
-                <td style={{ fontWeight: 800, color: r.allocated >= r.capacity ? '#dc2626' : '#16a34a' }}>{r.allocated} Students</td>
+                <td style={{ fontWeight: 800, color: r.allocated >= r.capacity ? '#dc2626' : '#10b981' }}>{r.allocated} Students</td>
                 <td style={{ fontWeight: 800 }}>₹{r.fee.toLocaleString('en-IN')}</td>
               </tr>
             ))}</tbody>
@@ -1017,7 +1017,7 @@ export function HostelModule({ initialSubView = 'hostel-room-list', onNavigateSu
                 <td style={{ fontWeight: 800, color: '#2563eb' }}>{r.roomNo}</td>
                 <td><span style={{ padding: '2px 8px', backgroundColor: '#f0f9ff', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>{r.roomType}</span></td>
                 <td style={{ fontWeight: 800 }}>{r.capacity} Beds</td>
-                <td style={{ fontWeight: 800, color: r.occupied >= r.capacity ? '#dc2626' : '#16a34a' }}>{r.occupied} Beds</td>
+                <td style={{ fontWeight: 800, color: r.occupied >= r.capacity ? '#dc2626' : '#10b981' }}>{r.occupied} Beds</td>
                 <td style={{ fontWeight: 800 }}>₹{r.monthlyFee.toLocaleString('en-IN')}</td>
                 <td><span className={`erp-badge ${r.status === 'Full' ? 'badge-rejected' : 'badge-approved'}`}>{r.status}</span></td>
               </tr>
@@ -1340,7 +1340,7 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <h3 style={{ margin: 0, fontWeight: 800 }}>{masterTitles[subView]}</h3>
-          <button onClick={() => setShowForm(!showForm)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 700, fontSize: 13 }}><PlusCircle size={14} /> Add New</button>
+          <button onClick={() => setShowForm(!showForm)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 700, fontSize: 13 }}><PlusCircle size={14} /> Add New</button>
         </div>
         
         {showForm && (
@@ -1443,7 +1443,7 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
                         {isSessionView ? (
                           <div style={{ display: 'flex', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
                             {item.is_current ? (
-                              <span style={{ backgroundColor: '#dcfce7', color: '#166534', padding: '3px 8px', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>Current Active</span>
+                              <span style={{ backgroundColor: '#ecfdf5', color: '#166534', padding: '3px 8px', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>Current Active</span>
                             ) : (
                               <button onClick={() => handleSetCurrentSession(item.id)} style={{ padding: '3px 10px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Set Active</button>
                             )}
@@ -1473,7 +1473,7 @@ function SimpleConfigView({ title, items, onAdd }: { title: string; items: strin
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <h3 style={{ margin: 0, fontWeight: 800 }}>{title}</h3>
-        <button onClick={() => setShowForm(!showForm)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 700, fontSize: 13 }}><PlusCircle size={14} /> Add New</button>
+        <button onClick={() => setShowForm(!showForm)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', backgroundColor: '#2563eb', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 700, fontSize: 13 }}><PlusCircle size={14} /> Add New</button>
       </div>
       {showForm && (
         <div className="erp-card" style={{ marginBottom: 16 }}>

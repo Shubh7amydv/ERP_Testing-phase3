@@ -1976,7 +1976,7 @@ export default function App() {
 
                   {/* 2. Add Co-Scholastic */}
                   <div className={`menu-item ${activeView === 'examination' && examSubView === 'criteriagrade' ? 'active' : ''}`} onClick={() => { setActiveView('examination'); setExamSubView('criteriagrade'); }}>
-                    <Star size={15} color="#ea580c" />
+                    <Star size={15} color="#2563eb" />
                     <span>Add Co-Scholastic</span>
                   </div>
 
@@ -2084,7 +2084,7 @@ export default function App() {
                     <Bell size={15} /><span>Follow-Up Tracker</span>
                   </div>
                   <div className="menu-subgroup-header subgroup-header-teal" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
-                    <Mail size={14} color="#14b8a6" /><span>Postal Register</span>
+                    <Mail size={14} color="#60a5fa" /><span>Postal Register</span>
                     {foSubgroups.postal ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {foSubgroups.postal && <>
@@ -2202,7 +2202,7 @@ export default function App() {
                     <Bell size={15} /><span>Follow-Up Tracker</span>
                   </div>
                   <div className="menu-subgroup-header subgroup-header-teal" onClick={() => setFoSubgroups(p => ({ ...p, postal: !p.postal }))}>
-                    <Mail size={14} color="#14b8a6" /><span>Postal Register</span>
+                    <Mail size={14} color="#60a5fa" /><span>Postal Register</span>
                     {foSubgroups.postal ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {foSubgroups.postal && <>
@@ -2410,7 +2410,7 @@ export default function App() {
                     ))}
                   </>}
                   <div className="menu-subgroup-header subgroup-header-teal" onClick={() => setMasterSubgroups(p => ({ ...p, people: !p.people }))}>
-                    <Users size={14} color="#14b8a6" /><span>People Setup</span>
+                    <Users size={14} color="#60a5fa" /><span>People Setup</span>
                     {masterSubgroups.people ? <ChevronDown size={14} style={{ marginLeft: 'auto' }} /> : <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                   </div>
                   {masterSubgroups.people && <>
@@ -2488,12 +2488,12 @@ export default function App() {
                 <option value="Parent">Parent / Student</option>
               </select>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#0f766e' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#4f46e5' }}>
               <ShieldCheck size={14} />
               <span>Secure Session</span>
             </div>
             <div className="header-user-badge">
-              <Calendar size={14} style={{ color: '#0f766e' }} />
+              <Calendar size={14} style={{ color: '#4f46e5' }} />
               <span>{new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
             </div>
           </div>
@@ -2776,7 +2776,7 @@ export default function App() {
                     </div>
                     <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
                       <div>
-                        <div className="metric-value" style={{ color: '#15803d' }}>₹{totalCollectedFormatted}k</div>
+                        <div className="metric-value" style={{ color: '#047857' }}>₹{totalCollectedFormatted}k</div>
                         <div className="metric-label">Total Fee Collected</div>
                         <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Lump-sum payments added</span>
                       </div>
@@ -2798,9 +2798,9 @@ export default function App() {
                       <div>
                         <div className="metric-value" style={{ color: '#c2410c' }}>{students.filter(s => s.status === 'Pending').length}</div>
                         <div className="metric-label">Pending Reviews</div>
-                        <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Needs validation</span>
+                        <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Needs validation</span>
                       </div>
-                      <div style={{ backgroundColor: '#ea580c', padding: '10px', borderRadius: '8px' }}>
+                      <div style={{ backgroundColor: '#2563eb', padding: '10px', borderRadius: '8px' }}>
                         <Clock size={20} style={{ color: '#ffffff' }} />
                       </div>
                     </div>
@@ -2986,10 +2986,10 @@ export default function App() {
                             <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '14px', marginTop: '6px' }}>
                               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.3px' }}>
                                 <span>Collection Progress</span>
-                                <span style={{ color: '#16a34a' }}>78.2%</span>
+                                <span style={{ color: '#10b981' }}>78.2%</span>
                               </div>
                               <div style={{ width: '100%', height: '8px', backgroundColor: '#e2e8f0', borderRadius: '4px', marginTop: '6px', overflow: 'hidden' }}>
-                                <div style={{ width: '78.2%', height: '100%', backgroundColor: '#16a34a' }}></div>
+                                <div style={{ width: '78.2%', height: '100%', backgroundColor: '#10b981' }}></div>
                               </div>
                               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: '#64748b', marginTop: '6px' }}>
                                 <span>Paid: ₹{(totalFeesPaidSum + monthlyFeesPaidSum).toLocaleString()}</span>
@@ -3173,13 +3173,13 @@ export default function App() {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr><td>November</td><td>12 Students</td><td><span style={{ color: '#16a34a', fontWeight: 'bold' }}>+4%</span></td></tr>
-                          <tr><td>December</td><td>15 Students</td><td><span style={{ color: '#16a34a', fontWeight: 'bold' }}>+25%</span></td></tr>
+                          <tr><td>November</td><td>12 Students</td><td><span style={{ color: '#10b981', fontWeight: 'bold' }}>+4%</span></td></tr>
+                          <tr><td>December</td><td>15 Students</td><td><span style={{ color: '#10b981', fontWeight: 'bold' }}>+25%</span></td></tr>
                           <tr><td>January</td><td>8 Students</td><td><span style={{ color: '#ef4444', fontWeight: 'bold' }}>-46%</span></td></tr>
-                          <tr><td>February</td><td>18 Students</td><td><span style={{ color: '#16a34a', fontWeight: 'bold' }}>+125%</span></td></tr>
-                          <tr><td>March</td><td>22 Students</td><td><span style={{ color: '#16a34a', fontWeight: 'bold' }}>+22%</span></td></tr>
-                          <tr><td>April</td><td>30 Students</td><td><span style={{ color: '#16a34a', fontWeight: 'bold' }}>+36%</span></td></tr>
-                          <tr><td>May</td><td>35 Students</td><td><span style={{ color: '#16a34a', fontWeight: 'bold' }}>+16%</span></td></tr>
+                          <tr><td>February</td><td>18 Students</td><td><span style={{ color: '#10b981', fontWeight: 'bold' }}>+125%</span></td></tr>
+                          <tr><td>March</td><td>22 Students</td><td><span style={{ color: '#10b981', fontWeight: 'bold' }}>+22%</span></td></tr>
+                          <tr><td>April</td><td>30 Students</td><td><span style={{ color: '#10b981', fontWeight: 'bold' }}>+36%</span></td></tr>
+                          <tr><td>May</td><td>35 Students</td><td><span style={{ color: '#10b981', fontWeight: 'bold' }}>+16%</span></td></tr>
                         </tbody>
                       </table>
                     </div>
@@ -3634,7 +3634,7 @@ export default function App() {
                                     onChange={(e) => handlePhotoUpload(st.id, e)}
                                   />
                                   {st.photoName && (
-                                    <span style={{ fontSize: '11.5px', color: '#16a34a', fontWeight: 'bold' }}>
+                                    <span style={{ fontSize: '11.5px', color: '#10b981', fontWeight: 'bold' }}>
                                       {st.photoName}
                                     </span>
                                   )}
@@ -3821,7 +3821,7 @@ export default function App() {
                                   {f.status !== 'Paid' && (
                                     <button
                                       className="erp-btn btn-primary"
-                                      style={{ height: '26px', padding: '0 8px', fontSize: '10px', backgroundColor: '#15803d' }}
+                                      style={{ height: '26px', padding: '0 8px', fontSize: '10px', backgroundColor: '#047857' }}
                                       onClick={() => processPayment(f.id)}
                                     >
                                       Mark Paid
@@ -3928,7 +3928,7 @@ export default function App() {
                             <strong style={{ color: '#166534', fontSize: '13px' }}>
                               LUMP SUM CHECKOUT: {checkedMonths.join(', ')}
                             </strong>
-                            <div style={{ fontSize: '11px', color: '#15803d', marginTop: '2px' }}>
+                            <div style={{ fontSize: '11px', color: '#047857', marginTop: '2px' }}>
                               Collect <strong>{checkedMonths.length} months</strong> in one transaction
                             </div>
                           </div>

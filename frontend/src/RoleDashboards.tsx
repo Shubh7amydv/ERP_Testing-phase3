@@ -55,7 +55,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>95%</div>
+              <div className="metric-value" style={{ color: '#047857' }}>95%</div>
               <div className="metric-label">Today's Attendance</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Marked for Class 5-A</span>
             </div>
@@ -157,7 +157,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>24</div>
+              <div className="metric-value" style={{ color: '#047857' }}>24</div>
               <div className="metric-label">Checked Out</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Issued to active students</span>
             </div>
@@ -251,7 +251,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>5</div>
+              <div className="metric-value" style={{ color: '#047857' }}>5</div>
               <div className="metric-label">Total Lodgers</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Hostel Block A & B</span>
             </div>
@@ -263,9 +263,9 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>11</div>
               <div className="metric-label">Vacant Slots</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Ready to allocate</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Ready to allocate</span>
             </div>
-            <div style={{ backgroundColor: '#ea580c', padding: '10px', borderRadius: '8px' }}>
+            <div style={{ backgroundColor: '#2563eb', padding: '10px', borderRadius: '8px' }}>
               <Award size={20} style={{ color: '#ffffff' }} />
             </div>
           </div>
@@ -351,7 +351,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>2</div>
+              <div className="metric-value" style={{ color: '#047857' }}>2</div>
               <div className="metric-label">Buses on Road</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>DL-1P-9901, DL-1P-8802</span>
             </div>
@@ -445,7 +445,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>{teachers.length}</div>
+              <div className="metric-value" style={{ color: '#047857' }}>{teachers.length}</div>
               <div className="metric-label">Faculty Strength</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>All departments</span>
             </div>
@@ -467,9 +467,9 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>₹{totalCollectedFormatted}k</div>
               <div className="metric-label">Fee Collected</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Year to date</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Year to date</span>
             </div>
-            <div style={{ backgroundColor: '#ea580c', padding: '10px', borderRadius: '8px' }}>
+            <div style={{ backgroundColor: '#2563eb', padding: '10px', borderRadius: '8px' }}>
               <DollarSign size={20} style={{ color: '#ffffff' }} />
             </div>
           </div>
@@ -554,7 +554,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>94%</div>
+              <div className="metric-value" style={{ color: '#047857' }}>94%</div>
               <div className="metric-label">Today's Attendance</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>30/32 present</span>
             </div>
@@ -566,9 +566,9 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>3</div>
               <div className="metric-label">Pending Gatepasses</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Needs approval</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Needs approval</span>
             </div>
-            <div style={{ backgroundColor: '#ea580c', padding: '10px', borderRadius: '8px' }}>
+            <div style={{ backgroundColor: '#2563eb', padding: '10px', borderRadius: '8px' }}>
               <Ticket size={20} style={{ color: '#ffffff' }} />
             </div>
           </div>
@@ -666,7 +666,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>7</div>
+              <div className="metric-value" style={{ color: '#047857' }}>7</div>
               <div className="metric-label">Present Today</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>1 on leave</span>
             </div>
@@ -678,7 +678,7 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>2</div>
               <div className="metric-label">Pending Leaves</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Needs approval</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Needs approval</span>
             </div>
             <div style={{ backgroundColor: '#f97316', padding: '10px', borderRadius: '8px' }}>
               <Clock size={20} style={{ color: '#ffffff' }} />
@@ -760,7 +760,7 @@ export function RoleDashboard({
         <div className="metrics-row" style={{ marginBottom: '20px' }}>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>₹{totalCollectedFormatted}k</div>
+              <div className="metric-value" style={{ color: '#047857' }}>₹{totalCollectedFormatted}k</div>
               <div className="metric-label">Total Collected</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Year to date</span>
             </div>
@@ -772,7 +772,7 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>₹42k</div>
               <div className="metric-label">Outstanding Dues</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>15 students pending</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>15 students pending</span>
             </div>
             <div style={{ backgroundColor: '#f97316', padding: '10px', borderRadius: '8px' }}>
               <AlertTriangle size={20} style={{ color: '#ffffff' }} />
@@ -809,19 +809,19 @@ export function RoleDashboard({
                   <tr>
                     <td><strong>Aarav Sharma</strong></td>
                     <td>Class 5-A</td>
-                    <td style={{ color: '#16a34a', fontWeight: 700 }}>₹3,000</td>
+                    <td style={{ color: '#10b981', fontWeight: 700 }}>₹3,000</td>
                     <td>Cash</td>
                   </tr>
                   <tr>
                     <td><strong>Priya Das</strong></td>
                     <td>Class 4-B</td>
-                    <td style={{ color: '#16a34a', fontWeight: 700 }}>₹3,000</td>
+                    <td style={{ color: '#10b981', fontWeight: 700 }}>₹3,000</td>
                     <td>UPI</td>
                   </tr>
                   <tr>
                     <td><strong>Sneha Mondal</strong></td>
                     <td>Class 3-B</td>
-                    <td style={{ color: '#16a34a', fontWeight: 700 }}>₹3,000</td>
+                    <td style={{ color: '#10b981', fontWeight: 700 }}>₹3,000</td>
                     <td>Card</td>
                   </tr>
                 </tbody>
@@ -875,7 +875,7 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>3</div>
               <div className="metric-label">Active Gatepasses</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Students out</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Students out</span>
             </div>
             <div style={{ backgroundColor: '#f97316', padding: '10px', borderRadius: '8px' }}>
               <Ticket size={20} style={{ color: '#ffffff' }} />
@@ -883,7 +883,7 @@ export function RoleDashboard({
           </div>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>5</div>
+              <div className="metric-value" style={{ color: '#047857' }}>5</div>
               <div className="metric-label">Enquiries Today</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Admission related</span>
             </div>
@@ -962,7 +962,7 @@ export function RoleDashboard({
         <div className="metrics-row" style={{ marginBottom: '20px' }}>
           <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
             <div>
-              <div className="metric-value" style={{ color: '#15803d' }}>92%</div>
+              <div className="metric-value" style={{ color: '#047857' }}>92%</div>
               <div className="metric-label">Child's Attendance</div>
               <span style={{ fontSize: '10px', color: '#166534', fontWeight: 700 }}>Aarav Sharma - Class 5</span>
             </div>
@@ -984,9 +984,9 @@ export function RoleDashboard({
             <div>
               <div className="metric-value" style={{ color: '#c2410c' }}>₹6,000</div>
               <div className="metric-label">Fee Due</div>
-              <span style={{ fontSize: '10px', color: '#ea580c', fontWeight: 700 }}>Jun + Jul pending</span>
+              <span style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700 }}>Jun + Jul pending</span>
             </div>
-            <div style={{ backgroundColor: '#ea580c', padding: '10px', borderRadius: '8px' }}>
+            <div style={{ backgroundColor: '#2563eb', padding: '10px', borderRadius: '8px' }}>
               <Wallet size={20} style={{ color: '#ffffff' }} />
             </div>
           </div>
@@ -1001,7 +1001,7 @@ export function RoleDashboard({
               <strong>Unit Test 1 Schedule Released</strong>
               <p style={{ fontSize: '11px', color: '#64748b', margin: '4px 0 0' }}>Exams start July 15. Mathematics on Day 1.</p>
             </div>
-            <div style={{ padding: '10px', borderLeft: '3px solid #16a34a', backgroundColor: '#f8fafc' }}>
+            <div style={{ padding: '10px', borderLeft: '3px solid #10b981', backgroundColor: '#f8fafc' }}>
               <strong>PTA Meeting on July 18</strong>
               <p style={{ fontSize: '11px', color: '#64748b', margin: '4px 0 0' }}>Kindly confirm your attendance via the app.</p>
             </div>

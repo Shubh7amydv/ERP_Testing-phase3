@@ -202,7 +202,7 @@ export function ExaminationModule({ initialSubView = 'marks-entry', onNavigateSu
       {/* Toast Notification */}
       {toastMessage && (
         <div style={{
-          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#00696b', color: '#ffffff',
+          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#2563eb', color: '#ffffff',
           padding: '12px 20px', borderRadius: '8px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
           display: 'flex', alignItems: 'center', gap: '10px', zIndex: 9999, fontWeight: 600, fontSize: '13px'
         }}>
@@ -215,7 +215,7 @@ export function ExaminationModule({ initialSubView = 'marks-entry', onNavigateSu
       <div className="view-header">
         <div>
           <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Award size={22} color="#00696b" />
+            <Award size={22} color="#2563eb" />
             Examination & Gradebook Management Suite
           </h2>
           <span className="view-subtitle">
@@ -330,15 +330,15 @@ function MarksManagementSection({
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Student Admit Card Generator & Hall Tickets</h3>
             <span style={{ fontSize: '12px', color: '#64748b' }}>Generate examination admit cards with date-sheet and roll numbers</span>
           </div>
-          <button onClick={() => window.print()} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+          <button onClick={() => window.print()} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
             <Printer size={14} /> Print Admit Cards
           </button>
         </div>
 
-        <div className="erp-card" style={{ border: '2px solid #00696b', padding: '20px', borderRadius: '10px' }}>
+        <div className="erp-card" style={{ border: '2px solid #2563eb', padding: '20px', borderRadius: '10px' }}>
           <div style={{ textTransform: 'uppercase', textAlign: 'center', borderBottom: '2px dashed #cbd5e1', paddingBottom: '12px', marginBottom: '16px' }}>
-            <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#00696b', margin: 0 }}>DETTROIN ACADEMY INTERNATIONAL</h2>
-            <div style={{ fontSize: '13px', fontWeight: 700, color: '#ff7849' }}>HALF YEARLY EXAMINATION ADMIT CARD (SESSION 2026-2027)</div>
+            <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#2563eb', margin: 0 }}>DETTROIN ACADEMY INTERNATIONAL</h2>
+            <div style={{ fontSize: '13px', fontWeight: 700, color: '#4f46e5' }}>HALF YEARLY EXAMINATION ADMIT CARD (SESSION 2026-2027)</div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 140px', gap: '16px', marginBottom: '16px', fontSize: '13px' }}>
@@ -359,12 +359,12 @@ function MarksManagementSection({
 
           <table className="erp-table" style={{ marginBottom: '16px' }}>
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Timing</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Subject Code</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Subject Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Invigilator Sign</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Timing</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Subject Code</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Subject Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Invigilator Sign</th>
               </tr>
             </thead>
             <tbody>
@@ -398,8 +398,8 @@ function MarksManagementSection({
               * Electronic devices are strictly prohibited inside the center.
             </div>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontFamily: 'Dancing Script, cursive', fontSize: '16px', color: '#00696b', fontWeight: 800 }}>Dr. Geeta Dang</div>
-              <div style={{ fontSize: '11px', fontWeight: 800, borderTop: '1px solid #00696b', paddingTop: '2px', color: '#0f172a' }}>Controller of Examinations</div>
+              <div style={{ fontFamily: 'Dancing Script, cursive', fontSize: '16px', color: '#2563eb', fontWeight: 800 }}>Dr. Geeta Dang</div>
+              <div style={{ fontSize: '11px', fontWeight: 800, borderTop: '1px solid #2563eb', paddingTop: '2px', color: '#0f172a' }}>Controller of Examinations</div>
             </div>
           </div>
         </div>
@@ -413,7 +413,7 @@ function MarksManagementSection({
         <div className="erp-card">
           <div className="erp-card-header"><span className="erp-card-title">Batch Excel / CSV Marks Upload Importer</span></div>
           <div className="erp-card-body" style={{ padding: '24px', textAlign: 'center' }}>
-            <Upload size={48} color="#00696b" style={{ margin: '0 auto 12px' }} />
+            <Upload size={48} color="#2563eb" style={{ margin: '0 auto 12px' }} />
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>Drag & Drop Excel Marksheet (.xlsx / .csv)</h3>
             <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px' }}>
               Upload class marksheet exported from school evaluation software or offline spreadsheets.
@@ -422,7 +422,7 @@ function MarksManagementSection({
               <button onClick={() => showToast('Sample Excel Template Downloaded!')} className="erp-btn btn-outline">
                 <Download size={14} /> Download Sample Template
               </button>
-              <button onClick={() => showToast('Marks imported successfully from Excel!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button onClick={() => showToast('Marks imported successfully from Excel!')} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 Browse File & Import
               </button>
             </div>
@@ -463,7 +463,7 @@ function MarksManagementSection({
               </select>
             </div>
 
-            <button onClick={() => showToast('All student marks saved successfully!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+            <button onClick={() => showToast('All student marks saved successfully!')} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
               <Check size={14} /> Save Marks Entry
             </button>
           </div>
@@ -475,15 +475,15 @@ function MarksManagementSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Theory (80)</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Practical / Int (20)</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Grace</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Total (100)</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Grade</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Theory (80)</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Practical / Int (20)</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Grace</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Total (100)</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Grade</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
               </tr>
             </thead>
             <tbody>
@@ -500,9 +500,9 @@ function MarksManagementSection({
                   <td>
                     <input type="number" value={m.graceMarks} onChange={e => handleScoreChange(m.id, 'graceMarks', parseInt(e.target.value) || 0)} style={{ width: '60px', padding: '4px 8px', fontWeight: 700, color: '#dc2626' }} />
                   </td>
-                  <td style={{ fontWeight: 800, color: '#00696b', fontSize: '15px' }}>{m.totalMarks} / {m.maxMarks}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb', fontSize: '15px' }}>{m.totalMarks} / {m.maxMarks}</td>
                   <td style={{ textAlign: 'center' }}>
-                    <span className="erp-badge badge-approved" style={{ backgroundColor: '#00696b', color: '#fff', fontWeight: 800 }}>{m.grade}</span>
+                    <span className="erp-badge badge-approved" style={{ backgroundColor: '#2563eb', color: '#fff', fontWeight: 800 }}>{m.grade}</span>
                   </td>
                   <td style={{ color: '#64748b', fontSize: '12px' }}>{m.remarks}</td>
                 </tr>
@@ -535,7 +535,7 @@ function CoScholasticSection({
           <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Co-Scholastic & Non-Academic Activity Grading</h3>
           <span style={{ fontSize: '12px', color: '#64748b' }}>Grade Art, Physical Education, Discipline, and Moral Values (CBSE Format)</span>
         </div>
-        <button onClick={() => showToast('Co-scholastic grades saved!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+        <button onClick={() => showToast('Co-scholastic grades saved!')} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
           <Check size={14} /> Save Co-Scholastic Grades
         </button>
       </div>
@@ -544,14 +544,14 @@ function CoScholasticSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Work Education</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Art Education</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Health & Physical Ed</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Discipline</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Moral Values</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Work Education</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Art Education</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Health & Physical Ed</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Discipline</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Moral Values</th>
               </tr>
             </thead>
             <tbody>
@@ -600,14 +600,14 @@ function ExamResultSection({
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
               <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px', backgroundColor: '#f8fafc' }}>
-                <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#00696b', margin: '0 0 8px' }}>Class 10 (Half Yearly 2026)</h4>
+                <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#2563eb', margin: '0 0 8px' }}>Class 10 (Half Yearly 2026)</h4>
                 <p style={{ fontSize: '12px', color: '#64748b' }}>Status: Ready for release (42 Students)</p>
-                <button onClick={() => showToast('Class 10 results published to Parent App!')} className="erp-btn btn-primary" style={{ backgroundColor: '#16a34a', borderColor: '#16a34a', width: '100%', marginTop: '12px' }}>
+                <button onClick={() => showToast('Class 10 results published to Parent App!')} className="erp-btn btn-primary" style={{ backgroundColor: '#10b981', borderColor: '#10b981', width: '100%', marginTop: '12px' }}>
                   <Send size={14} /> Publish Class 10 Result
                 </button>
               </div>
               <div style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px', backgroundColor: '#f8fafc' }}>
-                <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#00696b', margin: '0 0 8px' }}>Class 12 (Board Pre-Exam 2026)</h4>
+                <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#2563eb', margin: '0 0 8px' }}>Class 12 (Board Pre-Exam 2026)</h4>
                 <p style={{ fontSize: '12px', color: '#64748b' }}>Status: Published on 12-Jul-2026</p>
                 <button onClick={() => showToast('Class 12 results unpublished')} className="erp-btn btn-outline" style={{ borderColor: '#dc2626', color: '#dc2626', width: '100%', marginTop: '12px' }}>
                   Unpublish Result
@@ -630,16 +630,16 @@ function ExamResultSection({
           <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Report Card Generator & Print Preview</h3>
           <span style={{ fontSize: '12px', color: '#64748b' }}>CBSE / State Board standardized annual progress report card format</span>
         </div>
-        <button onClick={() => window.print()} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+        <button onClick={() => window.print()} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
           <Printer size={14} /> Print Report Card
         </button>
       </div>
 
-      <div className="erp-card" style={{ border: '2px solid #00696b', padding: '24px', borderRadius: '10px' }}>
-        <div style={{ textAlign: 'center', borderBottom: '2px solid #00696b', paddingBottom: '16px', marginBottom: '20px' }}>
-          <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#00696b', margin: 0 }}>DETTROIN ACADEMY INTERNATIONAL</h2>
+      <div className="erp-card" style={{ border: '2px solid #2563eb', padding: '24px', borderRadius: '10px' }}>
+        <div style={{ textAlign: 'center', borderBottom: '2px solid #2563eb', paddingBottom: '16px', marginBottom: '20px' }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#2563eb', margin: 0 }}>DETTROIN ACADEMY INTERNATIONAL</h2>
           <div style={{ fontSize: '12px', color: '#475569', fontWeight: 700 }}>Affiliated to CBSE, New Delhi (Affiliation No: 1030982)</div>
-          <div style={{ fontSize: '14px', fontWeight: 800, color: '#ff7849', marginTop: '6px' }}>ACADEMIC PROGRESS REPORT CARD (SESSION 2026-2027)</div>
+          <div style={{ fontSize: '14px', fontWeight: 800, color: '#4f46e5', marginTop: '6px' }}>ACADEMIC PROGRESS REPORT CARD (SESSION 2026-2027)</div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px', fontSize: '13px', backgroundColor: '#f8fafc', padding: '12px', borderRadius: '6px' }}>
@@ -657,13 +657,13 @@ function ExamResultSection({
 
         <table className="erp-table" style={{ marginBottom: '20px' }}>
           <thead>
-            <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-              <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Scholastic Subjects</th>
-              <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Max Marks</th>
-              <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Theory</th>
-              <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Practical / Int</th>
-              <th style={{ backgroundColor: '#00696b', color: '#ffffff' }}>Total Obtained</th>
-              <th style={{ backgroundColor: '#00696b', color: '#ffffff', textAlign: 'center' }}>Grade</th>
+            <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+              <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Scholastic Subjects</th>
+              <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Max Marks</th>
+              <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Theory</th>
+              <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Practical / Int</th>
+              <th style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>Total Obtained</th>
+              <th style={{ backgroundColor: '#2563eb', color: '#ffffff', textAlign: 'center' }}>Grade</th>
             </tr>
           </thead>
           <tbody>
@@ -673,19 +673,19 @@ function ExamResultSection({
                 <td>{sub.maxMarks}</td>
                 <td>{sub.theoryObtained}</td>
                 <td>{sub.practicalObtained}</td>
-                <td style={{ fontWeight: 800, color: '#00696b' }}>{sub.totalObtained}</td>
+                <td style={{ fontWeight: 800, color: '#2563eb' }}>{sub.totalObtained}</td>
                 <td style={{ textAlign: 'center', fontWeight: 800 }}>{sub.grade}</td>
               </tr>
             ))}
             <tr style={{ backgroundColor: '#f1f5f9', fontWeight: 800 }}>
               <td colSpan={4}>GRAND TOTAL & PERCENTAGE</td>
-              <td style={{ color: '#00696b', fontSize: '15px' }}>{student.totalObtained} / {student.totalMax}</td>
-              <td style={{ textAlign: 'center', color: '#16a34a', fontSize: '15px' }}>{student.percentage}% ({student.resultStatus})</td>
+              <td style={{ color: '#2563eb', fontSize: '15px' }}>{student.totalObtained} / {student.totalMax}</td>
+              <td style={{ textAlign: 'center', color: '#10b981', fontSize: '15px' }}>{student.percentage}% ({student.resultStatus})</td>
             </tr>
           </tbody>
         </table>
 
-        <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#fff7ed', borderLeft: '4px solid #ff7849', borderRadius: '4px', fontSize: '13px' }}>
+        <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: '#fff7ed', borderLeft: '4px solid #4f46e5', borderRadius: '4px', fontSize: '13px' }}>
           <strong>Class Teacher's Remarks:</strong> {student.teacherRemarks}
         </div>
 
@@ -697,7 +697,7 @@ function ExamResultSection({
             <div style={{ borderTop: '1px solid #94a3b8', width: '150px', paddingTop: '4px', fontSize: '12px', fontWeight: 700 }}>Exam Controller Sign</div>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ borderTop: '1px solid #00696b', width: '150px', paddingTop: '4px', fontSize: '12px', fontWeight: 800, color: '#00696b' }}>Principal Signature</div>
+            <div style={{ borderTop: '1px solid #2563eb', width: '150px', paddingTop: '4px', fontSize: '12px', fontWeight: 800, color: '#2563eb' }}>Principal Signature</div>
           </div>
         </div>
       </div>
@@ -736,10 +736,10 @@ function ExamReportSection({
       }}>
         <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>{getTitle()} : (Session 2026-2027)</h3>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => alert('Exporting...')} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button onClick={() => alert('Exporting...')} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Download size={14} /> Export CSV
           </button>
-          <button onClick={() => window.print()} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => window.print()} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
             Print Sheet
           </button>
         </div>
@@ -749,18 +749,18 @@ function ExamReportSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class & Sec</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>English</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Maths</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Science</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.Science</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Hindi</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Total Marks</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>% Score</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Rank</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class & Sec</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>English</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Maths</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Science</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.Science</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Hindi</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Total Marks</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>% Score</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Rank</th>
               </tr>
             </thead>
             <tbody>
@@ -768,16 +768,16 @@ function ExamReportSection({
                 <tr key={rc.studentId}>
                   <td style={{ fontWeight: 800 }}>{rc.rollNo}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{rc.studentName}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>{rc.className}-{rc.section}</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>{rc.className}-{rc.section}</td>
                   <td>{rc.subjects[0]?.totalObtained}</td>
                   <td>{rc.subjects[1]?.totalObtained}</td>
                   <td>{rc.subjects[2]?.totalObtained}</td>
                   <td>{rc.subjects[3]?.totalObtained}</td>
                   <td>{rc.subjects[4]?.totalObtained}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{rc.totalObtained} / {rc.totalMax}</td>
-                  <td style={{ fontWeight: 800, color: '#16a34a' }}>{rc.percentage}%</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{rc.totalObtained} / {rc.totalMax}</td>
+                  <td style={{ fontWeight: 800, color: '#10b981' }}>{rc.percentage}%</td>
                   <td style={{ textAlign: 'center' }}>
-                    <span className="erp-badge badge-approved" style={{ backgroundColor: '#ff7849', color: '#fff' }}>#{rc.rank}</span>
+                    <span className="erp-badge badge-approved" style={{ backgroundColor: '#4f46e5', color: '#fff' }}>#{rc.rank}</span>
                   </td>
                 </tr>
               ))}
@@ -833,7 +833,7 @@ function ExamSettingSection({
             </div>
 
             <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Update Exam Setting
               </button>
             </div>
@@ -866,7 +866,7 @@ function MigrateSettingSection({ showToast }: { showToast: (msg: string) => void
             <select defaultValue="2026-2027"><option>2026-2027</option></select>
           </div>
         </div>
-        <button onClick={() => showToast('Exam structure migrated successfully to 2026-2027 session!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+        <button onClick={() => showToast('Exam structure migrated successfully to 2026-2027 session!')} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
           <RefreshCw size={14} /> Run Structure Migration
         </button>
       </div>
@@ -901,7 +901,7 @@ function ExtraMarksSection({ showToast }: { showToast: (msg: string) => void }) 
           </div>
         </div>
         <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-          <button onClick={() => showToast('Bonus marks credited to student mark sheet!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+          <button onClick={() => showToast('Bonus marks credited to student mark sheet!')} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
             <Check size={14} /> Award Bonus Marks
           </button>
         </div>

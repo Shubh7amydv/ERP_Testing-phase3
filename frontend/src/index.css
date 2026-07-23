@@ -19,7 +19,7 @@
     --color-card-bg: #ffffff;
     
     --color-accent-blue: #1d4ed8; /* Deep Royal Blue */
-    --color-accent-orange: #ea580c; /* Finalize orange accent */
+    --color-accent-orange: #2563eb; /* Finalize orange accent */
     
     --color-border: #e2e8f0; /* Slate 200 border */
     --color-border-hover: #cbd5e1;
@@ -28,8 +28,8 @@
     --color-text-muted: #64748b;
     
     /* Badges */
-    --badge-approved-bg: #dcfce7;
-    --badge-approved-text: #15803d;
+    --badge-approved-bg: #ecfdf5;
+    --badge-approved-text: #047857;
     --badge-pending-bg: #fef9c3;
     --badge-pending-text: #854d0e;
     --badge-rejected-bg: #fef2f2;
@@ -855,10 +855,10 @@ input[type="text"]::placeholder {
 }
 
 .icon-blue { color: #2563eb; }
-.icon-green { color: #16a34a; }
-.icon-orange { color: #ea580c; }
+.icon-green { color: #10b981; }
+.icon-orange { color: #2563eb; }
 .icon-purple { color: #7c3aed; }
-.icon-teal { color: #0d9488; }
+.icon-teal { color: #6366f1; }
 
 /* Hide scrollbars globally but preserve scroll functionality */
 *::-webkit-scrollbar {
@@ -1244,8 +1244,8 @@ input[type="text"]::placeholder {
     color: #ffffff !important;
 }
 .subgroup-header-teal {
-    background: rgba(20, 184, 166, 0.16) !important;
-    border-left: 3px solid #14b8a6 !important;
+    background: rgba(96, 165, 250, 0.16) !important;
+    border-left: 3px solid #60a5fa !important;
     color: #ffffff !important;
 }
 .subgroup-header-orange {
@@ -1261,7 +1261,7 @@ input[type="text"]::placeholder {
 .subgroup-header-rose:hover { background: rgba(244, 63, 94, 0.28) !important; }
 .subgroup-header-sky:hover { background: rgba(56, 189, 248, 0.28) !important; }
 .subgroup-header-indigo:hover { background: rgba(99, 102, 241, 0.28) !important; }
-.subgroup-header-teal:hover { background: rgba(20, 184, 166, 0.28) !important; }
+.subgroup-header-teal:hover { background: rgba(96, 165, 250, 0.28) !important; }
 .subgroup-header-orange:hover { background: rgba(249, 115, 22, 0.28) !important; }
 
 /* Subsection Container Left Border Tint Matching Header Accent */
@@ -1271,7 +1271,7 @@ input[type="text"]::placeholder {
 .subgroup-container-rose { border-left-color: rgba(244, 63, 94, 0.45) !important; }
 .subgroup-container-sky { border-left-color: rgba(56, 189, 248, 0.45) !important; }
 .subgroup-container-indigo { border-left-color: rgba(99, 102, 241, 0.45) !important; }
-.subgroup-container-teal { border-left-color: rgba(20, 184, 166, 0.45) !important; }
+.subgroup-container-teal { border-left-color: rgba(96, 165, 250, 0.45) !important; }
 .subgroup-container-orange { border-left-color: rgba(249, 115, 22, 0.45) !important; }
 
 /* Modules Grid Page */
@@ -1362,7 +1362,7 @@ input[type="text"]::placeholder {
 .card-bg-payroll { background-color: #ec4899 !important; }
 .card-bg-inventory { background-color: #27272a !important; }
 .card-bg-reception { background-color: #0284c7 !important; }
-.card-bg-academic { background-color: #ea580c !important; }
+.card-bg-academic { background-color: #2563eb !important; }
 .card-bg-hostel { background-color: #0c4a6e !important; }
 .card-bg-library { background-color: #14532d !important; }
 .card-bg-aiprogram { background-color: #374151 !important; }

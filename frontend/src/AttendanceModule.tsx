@@ -173,7 +173,7 @@ export function AttendanceModule({ initialSubView = 'mark-student', onNavigateSu
       {/* Toast Notification */}
       {toastMessage && (
         <div style={{
-          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#00696b', color: '#ffffff',
+          position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#2563eb', color: '#ffffff',
           padding: '12px 20px', borderRadius: '8px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
           display: 'flex', alignItems: 'center', gap: '10px', zIndex: 9999, fontWeight: 600, fontSize: '13px'
         }}>
@@ -186,7 +186,7 @@ export function AttendanceModule({ initialSubView = 'mark-student', onNavigateSu
       <div className="view-header">
         <div>
           <h2 className="view-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <CalendarCheck size={22} color="#00696b" />
+            <CalendarCheck size={22} color="#2563eb" />
             Attendance & Holiday Management Console
           </h2>
           <span className="view-subtitle">
@@ -318,13 +318,13 @@ function MarkStudentAttendanceSection({
             </div>
 
             <div style={{ display: 'flex', gap: '8px' }}>
-              <button onClick={() => markAll('Present')} className="erp-btn btn-outline" style={{ borderColor: '#16a34a', color: '#16a34a' }}>
+              <button onClick={() => markAll('Present')} className="erp-btn btn-outline" style={{ borderColor: '#10b981', color: '#10b981' }}>
                 Mark All Present
               </button>
               <button onClick={() => markAll('Absent')} className="erp-btn btn-outline" style={{ borderColor: '#dc2626', color: '#dc2626' }}>
                 Mark All Absent
               </button>
-              <button onClick={handleSave} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+              <button onClick={handleSave} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
                 <Check size={14} /> Submit Attendance
               </button>
             </div>
@@ -334,9 +334,9 @@ function MarkStudentAttendanceSection({
 
       {/* Metrics Summary Bar */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '16px' }}>
-        <div className="erp-card" style={{ padding: '12px', margin: 0, borderLeft: '4px solid #16a34a' }}>
+        <div className="erp-card" style={{ padding: '12px', margin: 0, borderLeft: '4px solid #10b981' }}>
           <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 800 }}>PRESENT</div>
-          <div style={{ fontSize: '20px', fontWeight: 800, color: '#16a34a' }}>{presentCount} Students</div>
+          <div style={{ fontSize: '20px', fontWeight: 800, color: '#10b981' }}>{presentCount} Students</div>
         </div>
         <div className="erp-card" style={{ padding: '12px', margin: 0, borderLeft: '4px solid #dc2626' }}>
           <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 800 }}>ABSENT</div>
@@ -357,13 +357,13 @@ function MarkStudentAttendanceSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class & Sec</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>In-Time</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Attendance Toggle</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class & Sec</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>In-Time</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Attendance Toggle</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
               </tr>
             </thead>
             <tbody>
@@ -371,13 +371,13 @@ function MarkStudentAttendanceSection({
                 <tr key={std.studentId}>
                   <td style={{ fontWeight: 800 }}>{std.rollNo}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{std.name}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>{std.className}-{std.section}</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>{std.className}-{std.section}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{std.inTime}</td>
                   <td style={{ textAlign: 'center' }}>
                     <div style={{ display: 'inline-flex', gap: '4px', backgroundColor: '#f1f5f9', padding: '3px', borderRadius: '6px' }}>
                       <button 
                         onClick={() => toggleStatus(std.studentId, 'Present')}
-                        style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: std.status === 'Present' ? '#16a34a' : 'transparent', color: std.status === 'Present' ? '#fff' : '#64748b' }}
+                        style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: std.status === 'Present' ? '#10b981' : 'transparent', color: std.status === 'Present' ? '#fff' : '#64748b' }}
                       >
                         Present
                       </button>
@@ -440,7 +440,7 @@ function MarkFacultyAttendanceSection({
             Daily staff punch-in records, biometric machine sync & attendance verification
           </span>
         </div>
-        <button onClick={() => showToast('Biometric machine records synced successfully!')} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+        <button onClick={() => showToast('Biometric machine records synced successfully!')} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
           <RefreshCw size={14} /> Sync Biometric Machine
         </button>
       </div>
@@ -449,14 +449,14 @@ function MarkFacultyAttendanceSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Emp ID</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Staff Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Department</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Designation</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Biometric Time</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Attendance Toggle</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Emp ID</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Staff Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Department</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Designation</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Biometric Time</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Attendance Toggle</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Remarks</th>
               </tr>
             </thead>
             <tbody>
@@ -464,12 +464,12 @@ function MarkFacultyAttendanceSection({
                 <tr key={f.facultyId}>
                   <td style={{ fontWeight: 800, color: '#dc2626' }}>{f.empId}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{f.name}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{f.department}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{f.department}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{f.designation}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{f.biometricTime}</td>
                   <td style={{ textAlign: 'center' }}>
                     <div style={{ display: 'inline-flex', gap: '4px', backgroundColor: '#f1f5f9', padding: '3px', borderRadius: '6px' }}>
-                      <button onClick={() => toggleFacultyStatus(f.facultyId, 'Present')} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: f.status === 'Present' ? '#16a34a' : 'transparent', color: f.status === 'Present' ? '#fff' : '#64748b' }}>Present</button>
+                      <button onClick={() => toggleFacultyStatus(f.facultyId, 'Present')} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: f.status === 'Present' ? '#10b981' : 'transparent', color: f.status === 'Present' ? '#fff' : '#64748b' }}>Present</button>
                       <button onClick={() => toggleFacultyStatus(f.facultyId, 'Absent')} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: f.status === 'Absent' ? '#dc2626' : 'transparent', color: f.status === 'Absent' ? '#fff' : '#64748b' }}>Absent</button>
                       <button onClick={() => toggleFacultyStatus(f.facultyId, 'Late')} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: f.status === 'Late' ? '#eab308' : 'transparent', color: f.status === 'Late' ? '#fff' : '#64748b' }}>Late</button>
                       <button onClick={() => toggleFacultyStatus(f.facultyId, 'Leave')} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: 800, borderRadius: '4px', border: 'none', cursor: 'pointer', backgroundColor: f.status === 'Leave' ? '#0284c7' : 'transparent', color: f.status === 'Leave' ? '#fff' : '#64748b' }}>Leave</button>
@@ -516,10 +516,10 @@ function FacultyReportsSection({
       }}>
         <h3 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>{getTitle()} : (Session: 2026-2027)</h3>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => alert('Exporting...')} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button onClick={() => alert('Exporting...')} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Download size={14} /> Export
           </button>
-          <button onClick={() => window.print()} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => window.print()} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
             Print
           </button>
         </div>
@@ -529,14 +529,14 @@ function FacultyReportsSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>S.No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Emp ID</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Faculty Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Department</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Designation</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Punch-In Time</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>S.No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Emp ID</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Faculty Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Department</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Designation</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Punch-In Time</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -545,7 +545,7 @@ function FacultyReportsSection({
                   <td style={{ fontWeight: 800 }}>{idx + 1}</td>
                   <td style={{ fontWeight: 800, color: '#dc2626' }}>{f.empId}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{f.name}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{f.department}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{f.department}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{f.designation}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{f.biometricTime}</td>
                   <td style={{ textAlign: 'center' }}>
@@ -595,10 +595,10 @@ function StudentReportsSection({
           {getTitle()} : (Session: 2026-2027)
         </h3>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={() => alert('Exporting...')} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <button onClick={() => alert('Exporting...')} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '13px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Download size={14} /> Export
           </button>
-          <button onClick={() => window.print()} style={{ backgroundColor: '#0d9488', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => window.print()} style={{ backgroundColor: '#6366f1', color: '#ffffff', border: 'none', borderRadius: '6px', padding: '6px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>
             Print
           </button>
         </div>
@@ -608,13 +608,13 @@ function StudentReportsSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class & Sec</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>In-Time</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Attendance %</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Roll No</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Student Name</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class & Sec</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>In-Time</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Attendance %</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800, textAlign: 'center' }}>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -622,9 +622,9 @@ function StudentReportsSection({
                 <tr key={std.studentId}>
                   <td style={{ fontWeight: 800 }}>{std.rollNo}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{std.name}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>{std.className}-{std.section}</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>{std.className}-{std.section}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{std.inTime}</td>
-                  <td style={{ fontWeight: 800, color: '#16a34a' }}>96.5%</td>
+                  <td style={{ fontWeight: 800, color: '#10b981' }}>96.5%</td>
                   <td style={{ textAlign: 'center' }}>
                     <span className="erp-badge badge-approved">{std.status}</span>
                   </td>
@@ -694,7 +694,7 @@ function MarkHolidaySection({
             Declare holidays, festival breaks & non-working days for {isStudent ? 'students' : 'staff'}
           </span>
         </div>
-        <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#00696b', borderColor: '#00696b' }}>
+        <button onClick={() => setShowAddForm(!showAddForm)} className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb', borderColor: '#2563eb' }}>
           <PlusCircle size={14} /> {showAddForm ? 'Close Form' : 'Declare New Holiday'}
         </button>
       </div>
@@ -722,7 +722,7 @@ function MarkHolidaySection({
               </div>
             </div>
             <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+              <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
                 <Check size={14} /> Save & Publish Holiday
               </button>
             </div>
@@ -734,19 +734,19 @@ function MarkHolidaySection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Holiday Title</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Target Audience</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Start Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>End Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Description</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Holiday Title</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Target Audience</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Start Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>End Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Description</th>
               </tr>
             </thead>
             <tbody>
               {holidays.map(h => (
                 <tr key={h.id}>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{h.title}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{h.targetGroup}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{h.targetGroup}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{h.startDate}</td>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{h.endDate}</td>
                   <td style={{ color: '#64748b' }}>{h.description}</td>
@@ -810,7 +810,7 @@ function AttendanceTimeSettingSection({
           </div>
 
           <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
-            <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#00696b' }}>
+            <button type="submit" className="erp-btn btn-primary" style={{ backgroundColor: '#2563eb' }}>
               <Check size={14} /> Update Timing Rules
             </button>
           </div>
@@ -848,25 +848,25 @@ function AttendanceSubjectSection({
         <div className="table-container">
           <table className="erp-table">
             <thead>
-              <tr style={{ backgroundColor: '#00696b', color: '#ffffff' }}>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Date</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Class</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Subject</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Faculty</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Period</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Present</th>
-                <th style={{ backgroundColor: '#00696b', color: '#ffffff', fontWeight: 800 }}>Absent</th>
+              <tr style={{ backgroundColor: '#2563eb', color: '#ffffff' }}>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Date</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Class</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Subject</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Faculty</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Period</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Present</th>
+                <th style={{ backgroundColor: '#2563eb', color: '#ffffff', fontWeight: 800 }}>Absent</th>
               </tr>
             </thead>
             <tbody>
               {subjectAtt.map(s => (
                 <tr key={s.id}>
                   <td style={{ fontWeight: 600, color: '#475569' }}>{s.date}</td>
-                  <td style={{ fontWeight: 800, color: '#00696b' }}>{s.className}-{s.section}</td>
+                  <td style={{ fontWeight: 800, color: '#2563eb' }}>{s.className}-{s.section}</td>
                   <td style={{ fontWeight: 800, color: '#0f172a' }}>{s.subject}</td>
                   <td style={{ fontWeight: 700, color: '#0f172a' }}>{s.teacherName}</td>
-                  <td style={{ fontWeight: 700, color: '#00696b' }}>Period {s.periodNo}</td>
-                  <td style={{ fontWeight: 800, color: '#16a34a' }}>{s.presentCount} Students</td>
+                  <td style={{ fontWeight: 700, color: '#2563eb' }}>Period {s.periodNo}</td>
+                  <td style={{ fontWeight: 800, color: '#10b981' }}>{s.presentCount} Students</td>
                   <td style={{ fontWeight: 800, color: '#dc2626' }}>{s.absentCount} Students</td>
                 </tr>
               ))}
@@ -892,7 +892,7 @@ function PaginationFooter({ currentCount, totalCount }: { currentCount: number; 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>First</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>‹</span>
-        <div style={{ backgroundColor: '#ff7849', color: '#ffffff', fontWeight: 800, padding: '2px 10px', borderRadius: '4px' }}>1</div>
+        <div style={{ backgroundColor: '#4f46e5', color: '#ffffff', fontWeight: 800, padding: '2px 10px', borderRadius: '4px' }}>1</div>
         <span style={{ color: '#94a3b8', cursor: 'pointer', fontWeight: 800 }}>›</span>
         <span style={{ color: '#94a3b8', cursor: 'pointer' }}>Last</span>
       </div>

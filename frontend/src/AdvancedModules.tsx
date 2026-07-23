@@ -132,7 +132,7 @@ export function AttendanceView({ students }: { students: { id: string; name: str
       <div className="metrics-row" style={{ marginBottom: '20px' }}>
         <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
           <div>
-            <div className="metric-value" style={{ color: '#15803d' }}>{presentCount}</div>
+            <div className="metric-value" style={{ color: '#047857' }}>{presentCount}</div>
             <div className="metric-label">Present Today</div>
           </div>
           <div style={{ backgroundColor: '#10b981', padding: '10px', borderRadius: '8px' }}>
@@ -150,7 +150,7 @@ export function AttendanceView({ students }: { students: { id: string; name: str
         </div>
         <div className="metric-box" style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #ffffff 100%)', borderColor: '#ffedd5' }}>
           <div>
-            <div className="metric-value" style={{ color: '#ea580c' }}>{lateCount}</div>
+            <div className="metric-value" style={{ color: '#2563eb' }}>{lateCount}</div>
             <div className="metric-label">Late / Half Day</div>
           </div>
           <div style={{ backgroundColor: '#f97316', padding: '10px', borderRadius: '8px' }}>
@@ -316,8 +316,8 @@ export function TimetableView({ editable = false }: { editable?: boolean }) {
 
   const subjectColors: Record<string, string> = {
     'Mathematics': '#2563eb', 'English': '#7c3aed', 'Science': '#10b981',
-    'Hindi': '#ea580c', 'Social Science': '#ca8a04', 'Computer': '#0891b2',
-    'Physical Education': '#16a34a', 'Art & Craft': '#e11d48', 'Library': '#6366f1',
+    'Hindi': '#2563eb', 'Social Science': '#ca8a04', 'Computer': '#0284c7',
+    'Physical Education': '#10b981', 'Art & Craft': '#e11d48', 'Library': '#6366f1',
     'Activity Period': '#f59e0b'
   };
 
@@ -652,7 +652,7 @@ export function ExaminationView({ students }: { students: { id: string; name: st
                     <td>{r.marks} / {r.maxMarks}</td>
                     <td>{((r.marks / r.maxMarks) * 100).toFixed(0)}%</td>
                     <td>
-                      <span style={{ fontWeight: 700, color: r.grade.startsWith('A') ? '#16a34a' : r.grade === 'B' ? '#2563eb' : '#ea580c' }}>
+                      <span style={{ fontWeight: 700, color: r.grade.startsWith('A') ? '#10b981' : r.grade === 'B' ? '#2563eb' : '#2563eb' }}>
                         {r.grade}
                       </span>
                     </td>
@@ -736,7 +736,7 @@ export function HRView() {
         </div>
         <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
           <div>
-            <div className="metric-value" style={{ color: '#15803d' }}>{staffList.filter(s => s.status === 'active').length}</div>
+            <div className="metric-value" style={{ color: '#047857' }}>{staffList.filter(s => s.status === 'active').length}</div>
             <div className="metric-label">Active Today</div>
           </div>
           <div style={{ backgroundColor: '#10b981', padding: '10px', borderRadius: '8px' }}>
@@ -745,7 +745,7 @@ export function HRView() {
         </div>
         <div className="metric-box" style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #ffffff 100%)', borderColor: '#ffedd5' }}>
           <div>
-            <div className="metric-value" style={{ color: '#ea580c' }}>{leaveRequests.filter(l => l.status === 'pending').length}</div>
+            <div className="metric-value" style={{ color: '#2563eb' }}>{leaveRequests.filter(l => l.status === 'pending').length}</div>
             <div className="metric-label">Pending Leaves</div>
           </div>
           <div style={{ backgroundColor: '#f97316', padding: '10px', borderRadius: '8px' }}>
@@ -907,7 +907,7 @@ export function HRView() {
                       <td>₹{staff.salary.toLocaleString()}</td>
                       <td>₹{hra.toLocaleString()}</td>
                       <td style={{ color: '#ef4444' }}>-₹{deductions.toLocaleString()}</td>
-                      <td style={{ fontWeight: 700, color: '#16a34a' }}>₹{net.toLocaleString()}</td>
+                      <td style={{ fontWeight: 700, color: '#10b981' }}>₹{net.toLocaleString()}</td>
                       <td><span className="erp-badge badge-pending">Pending</span></td>
                     </tr>
                   );
@@ -964,7 +964,7 @@ export function CommunicationView() {
   };
 
   const typeColors: Record<string, string> = {
-    general: '#64748b', academic: '#2563eb', event: '#7c3aed', emergency: '#ef4444', holiday: '#16a34a'
+    general: '#64748b', academic: '#2563eb', event: '#7c3aed', emergency: '#ef4444', holiday: '#10b981'
   };
 
   return (
@@ -1154,7 +1154,7 @@ export function InventoryView() {
       <div className="metrics-row" style={{ marginBottom: '20px' }}>
         <div className="metric-box" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)', borderColor: '#bbf7d0' }}>
           <div>
-            <div className="metric-value" style={{ color: '#15803d' }}>{inStock}</div>
+            <div className="metric-value" style={{ color: '#047857' }}>{inStock}</div>
             <div className="metric-label">In Stock</div>
           </div>
           <div style={{ backgroundColor: '#10b981', padding: '10px', borderRadius: '8px' }}>
@@ -1163,7 +1163,7 @@ export function InventoryView() {
         </div>
         <div className="metric-box" style={{ background: 'linear-gradient(135deg, #fff7ed 0%, #ffffff 100%)', borderColor: '#ffedd5' }}>
           <div>
-            <div className="metric-value" style={{ color: '#ea580c' }}>{lowStock}</div>
+            <div className="metric-value" style={{ color: '#2563eb' }}>{lowStock}</div>
             <div className="metric-label">Low Stock</div>
           </div>
           <div style={{ backgroundColor: '#f97316', padding: '10px', borderRadius: '8px' }}>
@@ -1218,7 +1218,7 @@ export function InventoryView() {
                   <td style={{ fontFamily: 'monospace', fontWeight: 600 }}>{item.id}</td>
                   <td><strong>{item.name}</strong></td>
                   <td>{item.category}</td>
-                  <td style={{ fontWeight: 700, color: item.quantity <= item.minStock ? '#ef4444' : '#16a34a' }}>{item.quantity}</td>
+                  <td style={{ fontWeight: 700, color: item.quantity <= item.minStock ? '#ef4444' : '#10b981' }}>{item.quantity}</td>
                   <td>{item.minStock}</td>
                   <td>{item.location}</td>
                   <td>

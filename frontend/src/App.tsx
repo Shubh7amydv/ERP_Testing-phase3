@@ -545,6 +545,16 @@ export default function App() {
 
       const fetchMetadata = async () => {
         try {
+          try {
+            const schools = await studentService.getSchools();
+            if (Array.isArray(schools) && schools.length > 0) {
+              setCurrentSchoolId(schools[0].id);
+              console.log('Detected active school ID from Django database:', schools[0].id);
+            }
+          } catch (schoolErr) {
+            console.warn('Failed to fetch school list from backend:', schoolErr);
+          }
+
           const classesRes = await studentService.getClasses({ limit: 100 });
           const classesList = Array.isArray(classesRes) ? classesRes : ((classesRes as any)?.results || []);
           setDbClasses(classesList);

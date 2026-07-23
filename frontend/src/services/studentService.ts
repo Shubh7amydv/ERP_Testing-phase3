@@ -214,4 +214,9 @@ export const studentService = {
       method: 'POST',
     });
   },
+
+  // 18. Schools List API
+  async getSchools() {
+    return apiClient<any[]>('/api/schools/', { method: 'GET' });
+  },
 };

@@ -543,6 +543,11 @@ export default function App() {
         await loginAndGetToken();
       }
 
+      if (localStorage.getItem('access_token')) {
+        setIsLoggedIn(true);
+        setActiveRole('Admin');
+      }
+
       const fetchMetadata = async () => {
         try {
           try {

@@ -196,4 +196,22 @@ export const studentService = {
       body: JSON.stringify(data),
     });
   },
+
+  // 17. Academic Years API
+  async getAcademicYears(schoolId: string) {
+    return apiClient<any[] | { results?: any[] }>(`/api/schools/${schoolId}/academic-years/`, { method: 'GET' });
+  },
+
+  async createAcademicYear(schoolId: string, data: { year: string; start_date: string; end_date: string; is_current?: boolean }) {
+    return apiClient(`/api/schools/${schoolId}/academic-years/create/`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async setCurrentAcademicYear(schoolId: string, yearId: number) {
+    return apiClient(`/api/schools/${schoolId}/academic-years/${yearId}/set-current/`, {
+      method: 'POST',
+    });
+  },
 };

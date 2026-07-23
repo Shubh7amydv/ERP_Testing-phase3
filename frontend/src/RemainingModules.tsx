@@ -1126,15 +1126,41 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
   const [subView, setSubView] = useState<MasterSubView>(initialSubView);
   const [toast, setToast] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState<string[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const [newItemName, setNewItemName] = useState('');
   const [showForm, setShowForm] = useState(false);
+
+  // Academic Session Form Fields
+  const [sessions, setSessions] = useState<any[]>([]);
+  const [selectedSessionId, setSelectedSessionId] = useState<string>('');
+  const [sessionName, setSessionName] = useState('');
+  const [sessionStart, setSessionStart] = useState('');
+  const [sessionEnd, setSessionEnd] = useState('');
+  const [sessionIsCurrent, setSessionIsCurrent] = useState(false);
+
+  const schoolId = '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb01';
 
   React.useEffect(() => { setSubView(initialSubView); }, [initialSubView]);
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3000); };
 
-  const isDynamic = ['master-class', 'master-section', 'master-caste', 'master-house', 'master-category'].includes(subView);
+  const isDynamic = ['master-class', 'master-section', 'master-caste', 'master-house', 'master-category', 'master-session'].includes(subView);
+
+  const fetchSessions = async () => {
+    try {
+      const res = await studentService.getAcademicYears(schoolId);
+      const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+      setSessions(list);
+      const current = list.find((s: any) => s.is_current);
+      if (current) {
+        setSelectedSessionId(String(current.id));
+      } else if (list.length > 0) {
+        setSelectedSessionId(String(list[0].id));
+      }
+    } catch (err) {
+      console.error('Failed to load academic years:', err);
+    }
+  };
 
   const fetchDynamicItems = async () => {
     setLoading(true);
@@ -1142,11 +1168,11 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
       if (subView === 'master-class') {
         const res = await studentService.getClasses({ limit: 100 });
         const list = Array.isArray(res) ? res : ((res as any)?.results || []);
-        setItems(list.map((cls: any) => cls.admission_class_display || cls.admission_class || ''));
+        setItems(list);
       } else if (subView === 'master-section') {
         const res = await studentService.getSections({ limit: 100 });
         const list = Array.isArray(res) ? res : ((res as any)?.results || []);
-        setItems(list.map((sec: any) => sec.section_display || sec.section || ''));
+        setItems(list);
       } else if (subView === 'master-caste') {
         const res = await studentService.getCastes({ limit: 100 });
         const list = Array.isArray(res) ? res : ((res as any)?.results || []);
@@ -1159,6 +1185,10 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
         const res = await studentService.getCategories({ limit: 100 });
         const list = Array.isArray(res) ? res : ((res as any)?.results || []);
         setItems(list.map((cat: any) => cat.name || ''));
+      } else if (subView === 'master-session') {
+        const res = await studentService.getAcademicYears(schoolId);
+        const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+        setItems(list);
       }
     } catch (err: any) {
       console.error('Failed to load master data:', err);
@@ -1202,10 +1232,16 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
           'class 12': 'XII', '12': 'XII', 'xii': 'XII'
         };
         const normalized = CLASS_MAPPING[newItemName.toLowerCase().trim()] || newItemName;
-        await studentService.createClass({ admission_class: normalized });
+        await studentService.createClass({ 
+          admission_class: normalized,
+          academic_year: selectedSessionId ? Number(selectedSessionId) : undefined
+        });
       } else if (subView === 'master-section') {
         const normalized = newItemName.replace(/section/i, '').trim().toUpperCase();
-        await studentService.createSection({ section: normalized });
+        await studentService.createSection({ 
+          section: normalized,
+          academic_year: selectedSessionId ? Number(selectedSessionId) : undefined
+        });
       } else if (subView === 'master-caste') {
         await studentService.createCaste({ caste_name: newItemName });
       } else if (subView === 'master-house') {
@@ -1223,14 +1259,48 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
     }
   };
 
+  const handleAddSession = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!sessionName.trim() || !sessionStart || !sessionEnd) return;
+    try {
+      await studentService.createAcademicYear(schoolId, {
+        year: sessionName,
+        start_date: sessionStart,
+        end_date: sessionEnd,
+        is_current: sessionIsCurrent
+      });
+      showToast('New academic session saved successfully!');
+      setSessionName('');
+      setSessionStart('');
+      setSessionEnd('');
+      setSessionIsCurrent(false);
+      setShowForm(false);
+      fetchDynamicItems();
+    } catch (err: any) {
+      console.error('Failed to save academic session:', err);
+      showToast(`Save failed: ${err.message || 'Error'}`);
+    }
+  };
+
+  const handleSetCurrentSession = async (yearId: number) => {
+    try {
+      await studentService.setCurrentAcademicYear(schoolId, yearId);
+      showToast('Session set as current active!');
+      fetchDynamicItems();
+    } catch (err: any) {
+      console.error('Failed to set active year:', err);
+      showToast('Failed to change current session.');
+    }
+  };
+
   const staticMasterItems: Record<MasterSubView, string[]> = {
     'master-class': [],
     'master-section': [],
     'master-caste': [],
     'master-house': [],
     'master-category': [],
+    'master-session': [],
     'master-subject': ['English', 'Mathematics', 'Science', 'Social Science', 'Hindi', 'Computer Science', 'Physical Education', 'Sanskrit', 'Drawing', 'Music'],
-    'master-session': ['2024-2025 (Inactive)', '2025-2026 (Inactive)', '2026-2027 (Current Active)'],
     'master-religion': ['Hinduism', 'Islam', 'Christianity', 'Sikhism', 'Buddhism', 'Jainism', 'Others'],
     'master-id-card': ['Student ID Card Template v1 (Current)', 'Staff ID Card Template v2 (Current)', 'Visitor Pass Template v1'],
     'master-permissions': ['Admin (Full Access)', 'Principal (Full Read/Write)', 'Teacher (Class & Attendance Access)', 'Accountant (Fees & Payroll Access)', 'Receptionist (Front Office Access)'],
@@ -1249,6 +1319,9 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
   React.useEffect(() => {
     if (isDynamic) {
       fetchDynamicItems();
+      if (subView === 'master-class' || subView === 'master-section') {
+        fetchSessions();
+      }
     } else {
       setItems(staticMasterItems[subView] || []);
     }
@@ -1272,13 +1345,52 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
         
         {showForm && (
           <div className="erp-card" style={{ marginBottom: 16 }}>
-            <form onSubmit={handleAdd} style={{ padding: 16, display: 'flex', gap: 12, alignItems: 'flex-end' }}>
-              <div className="form-group" style={{ flex: 1, margin: 0 }}>
-                <label>New Entry Name *</label>
-                <input type="text" required value={newItemName} onChange={e => setNewItemName(e.target.value)} placeholder="Enter name..." />
-              </div>
-              <button type="submit" className="erp-btn btn-primary" style={{ height: 38 }}><Check size={14} /> Save</button>
-            </form>
+            {subView === 'master-session' ? (
+              <form onSubmit={handleAddSession} style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+                  <div className="form-group" style={{ margin: 0 }}>
+                    <label>Session Year *</label>
+                    <input type="text" required value={sessionName} onChange={e => setSessionName(e.target.value)} placeholder="e.g. 2026-2027" />
+                  </div>
+                  <div className="form-group" style={{ margin: 0 }}>
+                    <label>Start Date *</label>
+                    <input type="date" required value={sessionStart} onChange={e => setSessionStart(e.target.value)} />
+                  </div>
+                  <div className="form-group" style={{ margin: 0 }}>
+                    <label>End Date *</label>
+                    <input type="date" required value={sessionEnd} onChange={e => setSessionEnd(e.target.value)} />
+                  </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 12 }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, cursor: 'pointer' }}>
+                    <input type="checkbox" checked={sessionIsCurrent} onChange={e => setSessionIsCurrent(e.target.checked)} />
+                    Set as Current Active Session
+                  </label>
+                  <button type="submit" className="erp-btn btn-primary" style={{ height: 38 }}><Check size={14} /> Save Session</button>
+                </div>
+              </form>
+            ) : (
+              <form onSubmit={handleAdd} style={{ padding: 16, display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+                <div className="form-group" style={{ flex: 1, margin: 0, minWidth: 200 }}>
+                  <label>New Entry Name *</label>
+                  <input type="text" required value={newItemName} onChange={e => setNewItemName(e.target.value)} placeholder="Enter name..." />
+                </div>
+                {(subView === 'master-class' || subView === 'master-section') && (
+                  <div className="form-group" style={{ width: 220, margin: 0 }}>
+                    <label>Academic Session *</label>
+                    <select required value={selectedSessionId} onChange={e => setSelectedSessionId(e.target.value)}>
+                      <option value="">Select Session</option>
+                      {sessions.map(s => (
+                        <option key={s.id} value={s.id}>
+                          {s.year} {s.is_current ? '(Active)' : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                <button type="submit" className="erp-btn btn-primary" style={{ height: 38 }}><Check size={14} /> Save</button>
+              </form>
+            )}
           </div>
         )}
         
@@ -1297,18 +1409,55 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
                   <tr>
                     <td colSpan={3} style={{ textAlign: 'center', color: '#64748b', padding: 24 }}>No entries found. Click "Add New" to add one!</td>
                   </tr>
-                ) : items.map((item, idx) => (
-                  <tr key={idx}>
-                    <td style={{ fontWeight: 800 }}>{idx + 1}</td>
-                    <td style={{ fontWeight: 700 }}>{item}</td>
-                    <td style={{ textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
-                        <button onClick={() => showToast('Edit clicked')} style={{ padding: '3px 10px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Edit</button>
-                        <button onClick={() => showToast('Delete clicked')} style={{ padding: '3px 10px', backgroundColor: '#dc2626', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Delete</button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}</tbody>
+                ) : items.map((item, idx) => {
+                  const isSessionView = subView === 'master-session';
+                  const name = isSessionView 
+                    ? item.year 
+                    : (subView === 'master-class' 
+                      ? (item.admission_class_display || item.admission_class) 
+                      : (subView === 'master-section' 
+                        ? (item.section_display || item.section) 
+                        : item));
+
+                  return (
+                    <tr key={idx}>
+                      <td style={{ fontWeight: 800 }}>{idx + 1}</td>
+                      <td style={{ fontWeight: 700 }}>
+                        {isSessionView ? (
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontSize: 14 }}>{name}</span>
+                            <span style={{ fontSize: 12, color: '#64748b', fontWeight: 500 }}>Duration: {item.start_date} to {item.end_date}</span>
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span style={{ fontSize: 14 }}>{name}</span>
+                            {(subView === 'master-class' || subView === 'master-section') && item.academic_year_display && (
+                              <span style={{ fontSize: 11, color: '#0369a1', backgroundColor: '#e0f2fe', padding: '2px 6px', borderRadius: 4, width: 'fit-content', marginTop: 4, fontWeight: 700 }}>
+                                Session: {item.academic_year_display}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        {isSessionView ? (
+                          <div style={{ display: 'flex', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
+                            {item.is_current ? (
+                              <span style={{ backgroundColor: '#dcfce7', color: '#166534', padding: '3px 8px', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>Current Active</span>
+                            ) : (
+                              <button onClick={() => handleSetCurrentSession(item.id)} style={{ padding: '3px 10px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Set Active</button>
+                            )}
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+                            <button onClick={() => showToast('Edit clicked')} style={{ padding: '3px 10px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Edit</button>
+                            <button onClick={() => showToast('Delete clicked')} style={{ padding: '3px 10px', backgroundColor: '#dc2626', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Delete</button>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}</tbody>
               </table>
             </div>
           </div>

@@ -325,6 +325,11 @@ class AcademicClassViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
 
+    def perform_create(self, serializer):
+        school = getattr(self.request.user, 'school', None)
+        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+        serializer.save(school=school, academic_year=academic_year)
+
     def get_queryset(self):
         qs = AcademicClass.objects.select_related('academic_year').all()
         school = getattr(self.request.user, 'school', None)
@@ -368,6 +373,11 @@ class SectionViewSet(viewsets.ModelViewSet):
     serializer_class = SectionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
+
+    def perform_create(self, serializer):
+        school = getattr(self.request.user, 'school', None)
+        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+        serializer.save(school=school, academic_year=academic_year)
 
     def get_queryset(self):
         qs = Section.objects.select_related('academic_year').all()
@@ -544,6 +554,11 @@ class CasteViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
 
+    def perform_create(self, serializer):
+        school = getattr(self.request.user, 'school', None)
+        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+        serializer.save(school=school, academic_year=academic_year)
+
     def get_queryset(self):
         qs = Caste.objects.select_related('academic_year').all()
         school = getattr(self.request.user, 'school', None)
@@ -586,6 +601,10 @@ class HouseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = HouseSerializer
 
+    def perform_create(self, serializer):
+        school = getattr(self.request.user, 'school', None)
+        serializer.save(school=school)
+
     def get_queryset(self):
         qs = House.objects.all()
         school = getattr(self.request.user, 'school', None)
@@ -623,6 +642,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
+
+    def perform_create(self, serializer):
+        school = getattr(self.request.user, 'school', None)
+        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+        serializer.save(school=school, academic_year=academic_year)
 
     def get_queryset(self):
         qs = Category.objects.select_related('academic_year').all()

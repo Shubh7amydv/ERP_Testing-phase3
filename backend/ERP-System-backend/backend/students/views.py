@@ -35,30 +35,12 @@ class StandardPaginationMixin:
             page_obj = paginator.page(page)
         except EmptyPage:
             page_obj = paginator.page(paginator.num_pages)
-
         return {
             'page': page,
             'limit': limit,
             'total': paginator.count,
             'results': list(page_obj),
         }
-
-class AutoInjectSchoolYearMixin:
-    def create(self, request, *args, **kwargs):
-        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
-        if 'school' not in data or not data['school']:
-            school = getattr(request.user, 'school', None)
-            if school:
-                data['school'] = school.id
-        if hasattr(self.get_serializer().Meta.model, 'academic_year') and ('academic_year' not in data or not data['academic_year']):
-            academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
-            if academic_year:
-                data['academic_year'] = academic_year.id
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def get_paginated_response(self, paginated_data):
         return Response({
@@ -72,6 +54,23 @@ class AutoInjectSchoolYearMixin:
                 }
             }
         })
+
+class AutoInjectSchoolYearMixin:
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
+        if 'school' not in data or not data['school']:
+            school = getattr(request.user, 'school', None)
+            if school:
+                data['school'] = school.id
+        if hasattr(self.serializer_class.Meta.model, 'academic_year') and ('academic_year' not in data or not data['academic_year']):
+            academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+            if academic_year:
+                data['academic_year'] = academic_year.id
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class AdmissionViewSet(StandardPaginationMixin, viewsets.ModelViewSet):
@@ -342,11 +341,6 @@ class AcademicClassViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
 
-    def perform_create(self, serializer):
-        school = getattr(self.request.user, 'school', None)
-        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
-        serializer.save(school=school, academic_year=academic_year)
-
     def get_queryset(self):
         qs = AcademicClass.objects.select_related('academic_year').all()
         school = getattr(self.request.user, 'school', None)
@@ -390,11 +384,6 @@ class SectionViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     serializer_class = SectionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
-
-    def perform_create(self, serializer):
-        school = getattr(self.request.user, 'school', None)
-        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
-        serializer.save(school=school, academic_year=academic_year)
 
     def get_queryset(self):
         qs = Section.objects.select_related('academic_year').all()
@@ -571,11 +560,6 @@ class CasteViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
 
-    def perform_create(self, serializer):
-        school = getattr(self.request.user, 'school', None)
-        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
-        serializer.save(school=school, academic_year=academic_year)
-
     def get_queryset(self):
         qs = Caste.objects.select_related('academic_year').all()
         school = getattr(self.request.user, 'school', None)
@@ -618,10 +602,6 @@ class HouseViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = HouseSerializer
 
-    def perform_create(self, serializer):
-        school = getattr(self.request.user, 'school', None)
-        serializer.save(school=school)
-
     def get_queryset(self):
         qs = House.objects.all()
         school = getattr(self.request.user, 'school', None)
@@ -659,11 +639,6 @@ class CategoryViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['academic_year']
-
-    def perform_create(self, serializer):
-        school = getattr(self.request.user, 'school', None)
-        academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
-        serializer.save(school=school, academic_year=academic_year)
 
     def get_queryset(self):
         qs = Category.objects.select_related('academic_year').all()

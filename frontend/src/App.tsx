@@ -254,6 +254,11 @@ export default function App() {
 
   // Data Sets (Initialized empty to load real registered student records from Database)
   const [students, setStudents] = useState<Student[]>([]);
+  const [dbClasses, setDbClasses] = useState<any[]>([]);
+  const [dbSections, setDbSections] = useState<any[]>([]);
+  const [dbCastes, setDbCastes] = useState<any[]>([]);
+  const [dbHouses, setDbHouses] = useState<any[]>([]);
+  const [dbCategories, setDbCategories] = useState<any[]>([]);
 
   const [feeRecords, setFeeRecords] = useState<FeeRecord[]>([
     { id: 1, class: "Class 1", section: "Section A", type: "Tuition", amount: 2500, due: "2026-04-10", status: "Paid" },
@@ -518,7 +523,6 @@ export default function App() {
     }, 4000);
   };
 
-  // Sync Live Students Data from Backend API at http://localhost:8000
   useEffect(() => {
     const ensureAuthAndFetch = async () => {
       const loginAndGetToken = async () => {
@@ -538,6 +542,32 @@ export default function App() {
       if (!localStorage.getItem('access_token')) {
         await loginAndGetToken();
       }
+
+      const fetchMetadata = async () => {
+        try {
+          const classesRes = await studentService.getClasses({ limit: 100 });
+          const classesList = Array.isArray(classesRes) ? classesRes : ((classesRes as any)?.results || []);
+          setDbClasses(classesList);
+
+          const sectionsRes = await studentService.getSections({ limit: 100 });
+          const sectionsList = Array.isArray(sectionsRes) ? sectionsRes : ((sectionsRes as any)?.results || []);
+          setDbSections(sectionsList);
+
+          const castesRes = await studentService.getCastes({ limit: 100 });
+          const castesList = Array.isArray(castesRes) ? castesRes : ((castesRes as any)?.results || []);
+          setDbCastes(castesList);
+
+          const housesRes = await studentService.getHouses({ limit: 100 });
+          const housesList = Array.isArray(housesRes) ? housesRes : ((housesRes as any)?.results || []);
+          setDbHouses(housesList);
+
+          const categoriesRes = await studentService.getCategories({ limit: 100 });
+          const categoriesList = Array.isArray(categoriesRes) ? categoriesRes : ((categoriesRes as any)?.results || []);
+          setDbCategories(categoriesList);
+        } catch (e) {
+          console.warn('Failed to fetch master metadata:', e);
+        }
+      };
 
       try {
         const res = await studentService.getAdmissions({ limit: 50 });
@@ -561,6 +591,7 @@ export default function App() {
         }));
         setStudents(mappedStudents);
         console.log('Live student records fetched from Django backend:', mappedStudents);
+        await fetchMetadata();
       } catch (err: any) {
         console.log('Backend API connection info, attempting re-auth:', err?.message);
         if (err?.message?.includes('401') || err?.message?.includes('token') || err?.message?.includes('Unauthorized')) {
@@ -587,6 +618,7 @@ export default function App() {
               aadhar: item.aadhaar_no || 'N/A',
             }));
             setStudents(mappedStudents);
+            await fetchMetadata();
           } catch (retryErr) {
             console.error('Retry after token refresh failed:', retryErr);
           }
@@ -4605,18 +4637,44 @@ export default function App() {
                           <label>Class *</label>
                           <select value={formClass} onChange={e => setFormClass(e.target.value)}>
                             <option value="">Select Class</option>
-                            <option value="Class 3">Class 3</option>
-                            <option value="Class 4">Class 4</option>
-                            <option value="Class 5">Class 5</option>
-                            <option value="Class 6">Class 6</option>
+                            {dbClasses.length === 0 ? (
+                              <>
+                                <option value="Class 3">Class 3 (Default)</option>
+                                <option value="Class 4">Class 4 (Default)</option>
+                                <option value="Class 5">Class 5 (Default)</option>
+                                <option value="Class 6">Class 6 (Default)</option>
+                              </>
+                            ) : (
+                              dbClasses.map(cls => {
+                                const displayValue = cls.admission_class_display || cls.admission_class || '';
+                                return (
+                                  <option key={cls.id} value={displayValue}>
+                                    {displayValue.startsWith('Class') ? displayValue : `Class ${displayValue}`}
+                                  </option>
+                                );
+                              })
+                            )}
                           </select>
                         </div>
                         <div className="form-group">
                           <label>Section *</label>
                           <select value={formSection} onChange={e => setFormSection(e.target.value)}>
                             <option value="">Select Section</option>
-                            <option value="Section A">Section A</option>
-                            <option value="Section B">Section B</option>
+                            {dbSections.length === 0 ? (
+                              <>
+                                <option value="Section A">Section A (Default)</option>
+                                <option value="Section B">Section B (Default)</option>
+                              </>
+                            ) : (
+                              dbSections.map(sec => {
+                                const displayValue = sec.section_display || sec.section || '';
+                                return (
+                                  <option key={sec.id} value={displayValue}>
+                                    {displayValue.startsWith('Section') ? displayValue : `Section ${displayValue}`}
+                                  </option>
+                                );
+                              })
+                            )}
                           </select>
                         </div>
                         <div className="form-group">
@@ -4630,15 +4688,33 @@ export default function App() {
                         <div className="form-group">
                           <label>Student Category *</label>
                           <select value={formCategory} onChange={e => setFormCategory(e.target.value)}>
-                            <option value="General">General</option>
-                            <option value="OBC">OBC</option>
-                            <option value="SC">SC</option>
-                            <option value="ST">ST</option>
+                            <option value="">Select Category</option>
+                            {dbCategories.length === 0 ? (
+                              <>
+                                <option value="General">General</option>
+                                <option value="OBC">OBC</option>
+                                <option value="SC">SC</option>
+                                <option value="ST">ST</option>
+                              </>
+                            ) : (
+                              dbCategories.map(cat => (
+                                <option key={cat.id} value={cat.name}>
+                                  {cat.name}
+                                </option>
+                              ))
+                            )}
                           </select>
                         </div>
                         <div className="form-group">
                           <label>Caste</label>
-                          <input type="text" placeholder="e.g. Hinduism" value={formCaste} onChange={e => setFormCaste(e.target.value)} />
+                          <select value={formCaste} onChange={e => setFormCaste(e.target.value)}>
+                            <option value="">Select Caste</option>
+                            {dbCastes.map(c => (
+                              <option key={c.id} value={c.caste_name || c.name}>
+                                {c.caste_name || c.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="form-group">
                           <label>Religion</label>
@@ -4646,7 +4722,14 @@ export default function App() {
                         </div>
                         <div className="form-group">
                           <label>House Name</label>
-                          <input type="text" placeholder="e.g. Red House" value={formHouse} onChange={e => setFormHouse(e.target.value)} />
+                          <select value={formHouse} onChange={e => setFormHouse(e.target.value)}>
+                            <option value="">Select House</option>
+                            {dbHouses.map(h => (
+                              <option key={h.id} value={h.house_name || h.name}>
+                                {h.house_name || h.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="form-group col-span-2">
                           <label>Bus Detail & Route</label>

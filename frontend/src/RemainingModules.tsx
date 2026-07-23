@@ -9,6 +9,8 @@ import {
   Bus, Clock, Video, ArrowRight, Send, AlertCircle, Eye, AlertTriangle, FileSpreadsheet, Lock
 } from 'lucide-react';
 
+import { studentService } from './services/studentService';
+
 // ===========================================================
 // TYPES
 // ===========================================================
@@ -1123,19 +1125,93 @@ export function EContentModule({ initialSubView = 'econtent-list', onNavigateSub
 export function MasterModule({ initialSubView = 'master-class', onNavigateSubView }: { initialSubView?: MasterSubView; onNavigateSubView?: (sv: MasterSubView) => void }) {
   const [subView, setSubView] = useState<MasterSubView>(initialSubView);
   const [toast, setToast] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState<string[]>([]);
+  const [newItemName, setNewItemName] = useState('');
+  const [showForm, setShowForm] = useState(false);
 
   React.useEffect(() => { setSubView(initialSubView); }, [initialSubView]);
+
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(null), 3000); };
 
-  const masterItems: Record<MasterSubView, string[]> = {
-    'master-class': ['Nursery', 'LKG', 'UKG', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'],
-    'master-section': ['Section A', 'Section B', 'Section C', 'Section D'],
+  const isDynamic = ['master-class', 'master-section', 'master-caste', 'master-house', 'master-category'].includes(subView);
+
+  const fetchDynamicItems = async () => {
+    setLoading(true);
+    try {
+      if (subView === 'master-class') {
+        const res = await studentService.getClasses({ limit: 100 });
+        const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+        setItems(list.map((cls: any) => cls.admission_class_display || cls.admission_class || ''));
+      } else if (subView === 'master-section') {
+        const res = await studentService.getSections({ limit: 100 });
+        const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+        setItems(list.map((sec: any) => sec.section_display || sec.section || ''));
+      } else if (subView === 'master-caste') {
+        const res = await studentService.getCastes({ limit: 100 });
+        const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+        setItems(list.map((caste: any) => caste.caste_name || caste.name || ''));
+      } else if (subView === 'master-house') {
+        const res = await studentService.getHouses({ limit: 100 });
+        const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+        setItems(list.map((house: any) => house.house_name || house.name || ''));
+      } else if (subView === 'master-category') {
+        const res = await studentService.getCategories({ limit: 100 });
+        const list = Array.isArray(res) ? res : ((res as any)?.results || []);
+        setItems(list.map((cat: any) => cat.name || ''));
+      }
+    } catch (err: any) {
+      console.error('Failed to load master data:', err);
+      showToast('Error loading master data from backend');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newItemName.trim()) return;
+
+    if (!isDynamic) {
+      // Mock mode
+      setItems(prev => [...prev, newItemName]);
+      showToast('New entry added (mock mode)!');
+      setNewItemName('');
+      setShowForm(false);
+      return;
+    }
+
+    try {
+      if (subView === 'master-class') {
+        await studentService.createClass({ admission_class: newItemName });
+      } else if (subView === 'master-section') {
+        await studentService.createSection({ section: newItemName });
+      } else if (subView === 'master-caste') {
+        await studentService.createCaste({ caste_name: newItemName });
+      } else if (subView === 'master-house') {
+        await studentService.createHouse({ house_name: newItemName });
+      } else if (subView === 'master-category') {
+        await studentService.createCategory({ name: newItemName });
+      }
+      showToast('New entry saved to backend database!');
+      setNewItemName('');
+      setShowForm(false);
+      fetchDynamicItems();
+    } catch (err: any) {
+      console.error('Failed to save master data:', err);
+      showToast(`Save failed: ${err.message || 'Error'}`);
+    }
+  };
+
+  const staticMasterItems: Record<MasterSubView, string[]> = {
+    'master-class': [],
+    'master-section': [],
+    'master-caste': [],
+    'master-house': [],
+    'master-category': [],
     'master-subject': ['English', 'Mathematics', 'Science', 'Social Science', 'Hindi', 'Computer Science', 'Physical Education', 'Sanskrit', 'Drawing', 'Music'],
     'master-session': ['2024-2025 (Inactive)', '2025-2026 (Inactive)', '2026-2027 (Current Active)'],
-    'master-category': ['General', 'OBC', 'SC', 'ST', 'EWS', 'PH'],
     'master-religion': ['Hinduism', 'Islam', 'Christianity', 'Sikhism', 'Buddhism', 'Jainism', 'Others'],
-    'master-caste': ['Brahmin', 'Rajput', 'Yadav', 'Kushwaha', 'Patel', 'Jain', 'Others'],
-    'master-house': ['Red House (Phoenix)', 'Blue House (Thunder)', 'Green House (Emerald)', 'Yellow House (Sunflower)'],
     'master-id-card': ['Student ID Card Template v1 (Current)', 'Staff ID Card Template v2 (Current)', 'Visitor Pass Template v1'],
     'master-permissions': ['Admin (Full Access)', 'Principal (Full Read/Write)', 'Teacher (Class & Attendance Access)', 'Accountant (Fees & Payroll Access)', 'Receptionist (Front Office Access)'],
     'master-gallery': ['School Events Gallery 2026', 'Sports Day 2026', 'Annual Day 2025', 'Science Exhibition 2025'],
@@ -1150,6 +1226,14 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
     'master-gallery': 'School Photo Gallery Manager',
   };
 
+  React.useEffect(() => {
+    if (isDynamic) {
+      fetchDynamicItems();
+    } else {
+      setItems(staticMasterItems[subView] || []);
+    }
+  }, [subView]);
+
   return (
     <div>
       {toast && <div style={{ position: 'fixed', bottom: 24, right: 24, backgroundColor: '#0f172a', color: '#fff', padding: '12px 20px', borderRadius: 8, zIndex: 9999, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 4px 14px rgba(0,0,0,0.25)' }}><CheckCircle2 size={16} color="#38bdf8" />{toast}</div>}
@@ -1159,14 +1243,61 @@ export function MasterModule({ initialSubView = 'master-class', onNavigateSubVie
           <span className="view-subtitle">School master data: classes, sections, subjects, sessions, categories, ID cards & role permissions</span>
         </div>
       </div>
-      <SimpleConfigView title={masterTitles[subView]} items={masterItems[subView]} onAdd={() => showToast('New entry added to master!')} />
+      
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <h3 style={{ margin: 0, fontWeight: 800 }}>{masterTitles[subView]}</h3>
+          <button onClick={() => setShowForm(!showForm)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 16px', backgroundColor: '#00696b', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontWeight: 700, fontSize: 13 }}><PlusCircle size={14} /> Add New</button>
+        </div>
+        
+        {showForm && (
+          <div className="erp-card" style={{ marginBottom: 16 }}>
+            <form onSubmit={handleAdd} style={{ padding: 16, display: 'flex', gap: 12, alignItems: 'flex-end' }}>
+              <div className="form-group" style={{ flex: 1, margin: 0 }}>
+                <label>New Entry Name *</label>
+                <input type="text" required value={newItemName} onChange={e => setNewItemName(e.target.value)} placeholder="Enter name..." />
+              </div>
+              <button type="submit" className="erp-btn btn-primary" style={{ height: 38 }}><Check size={14} /> Save</button>
+            </form>
+          </div>
+        )}
+        
+        {loading ? (
+          <div style={{ padding: 40, textAlign: 'center', fontWeight: 700, color: '#64748b' }}>Loading master data from backend...</div>
+        ) : (
+          <div className="erp-card">
+            <div className="table-container">
+              <table className="erp-table">
+                <thead><tr>
+                  <th style={{ width: 50 }}>S.No</th>
+                  <th>Name / Description</th>
+                  <th style={{ textAlign: 'center', width: 120 }}>Action</th>
+                </tr></thead>
+                <tbody>{items.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} style={{ textAlign: 'center', color: '#64748b', padding: 24 }}>No entries found. Click "Add New" to add one!</td>
+                  </tr>
+                ) : items.map((item, idx) => (
+                  <tr key={idx}>
+                    <td style={{ fontWeight: 800 }}>{idx + 1}</td>
+                    <td style={{ fontWeight: 700 }}>{item}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <div style={{ display: 'flex', gap: 6, justifyContent: 'center' }}>
+                        <button onClick={() => showToast('Edit clicked')} style={{ padding: '3px 10px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Edit</button>
+                        <button onClick={() => showToast('Delete clicked')} style={{ padding: '3px 10px', backgroundColor: '#dc2626', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}</tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-// ===========================================================
-// HELPER: Simple Config View (shared across all modules)
-// ===========================================================
 function SimpleConfigView({ title, items, onAdd }: { title: string; items: string[]; onAdd: () => void }) {
   const [showForm, setShowForm] = useState(false);
   return (

@@ -101,16 +101,27 @@ class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        debug_err = None
+        school_found = None
         if request.user.is_superuser and request.user.school is None:
             try:
                 from schools.models import School
                 school = School.objects.first()
                 if school:
+                    school_found = str(school.id)
                     request.user.school = school
                     request.user.save(update_fields=['school'])
-            except Exception:
-                pass
-        return Response(UserSerializer(request.user).data)
+                else:
+                    school_found = "None"
+            except Exception as e:
+                debug_err = str(e)
+        
+        data = UserSerializer(request.user).data
+        data["_debug_school_link"] = {
+            "school_found": school_found,
+            "error": debug_err
+        }
+        return Response(data)
 
     def put(self, request):
         serializer = UserSerializer(request.user, data=request.data, partial=True)

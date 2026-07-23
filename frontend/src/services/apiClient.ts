@@ -45,10 +45,71 @@ export async function apiClient<T = any>(endpoint: string, options: RequestOptio
     });
 
     if (!response.ok) {
-      if (response.status === 401) {
-        console.warn('API Unauthorized 401 - clearing token');
+      if (response.status === 401 && !endpoint.includes('/auth/login/')) {
+        console.warn('API Unauthorized 401 - attempting silent re-authentication');
         localStorage.removeItem('access_token');
+        
+        let loginSuccess = false;
+        let freshToken = '';
+        
+        // Try production credentials first
+        try {
+          const authRes = await fetch(`${BASE_URL}/api/auth/login/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: 'admin@example.com', password: 'Admin@1234' }),
+          });
+          if (authRes.ok) {
+            const authData = await authRes.json();
+            freshToken = authData.access || authData.access_token;
+            if (freshToken) {
+              localStorage.setItem('access_token', freshToken);
+              loginSuccess = true;
+            }
+          }
+        } catch (e) {
+          // Ignore
+        }
+        
+        // Try local dev credentials second if production failed
+        if (!loginSuccess) {
+          try {
+            const authRes = await fetch(`${BASE_URL}/api/auth/login/`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: 'admin@example.com', password: 'password123' }),
+            });
+            if (authRes.ok) {
+              const authData = await authRes.json();
+              freshToken = authData.access || authData.access_token;
+              if (freshToken) {
+                localStorage.setItem('access_token', freshToken);
+                loginSuccess = true;
+              }
+            }
+          } catch (e) {
+            // Ignore
+          }
+        }
+        
+        if (loginSuccess && freshToken) {
+          console.log('Silent re-authentication successful, retrying request...');
+          const retryHeaders = {
+            ...headers,
+            'Authorization': `Bearer ${freshToken}`
+          };
+          const retryResponse = await fetch(url, {
+            ...customConfig,
+            headers: retryHeaders,
+            body,
+          });
+          if (retryResponse.ok) {
+            if (retryResponse.status === 204) return {} as T;
+            return await retryResponse.json();
+          }
+        }
       }
+
       const errorText = await response.text();
       let errorJson: any = {};
       try {

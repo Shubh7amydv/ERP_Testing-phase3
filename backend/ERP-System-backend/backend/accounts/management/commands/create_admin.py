@@ -17,6 +17,15 @@ class Command(BaseCommand):
         user.first_name = 'Admin'
         user.last_name = 'ERP'
         user.set_password(password)
+        
+        try:
+            from schools.models import School
+            school = School.objects.first()
+            if school:
+                user.school = school
+        except Exception:
+            pass
+
         user.save()
 
         if created:

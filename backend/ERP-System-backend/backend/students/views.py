@@ -63,7 +63,7 @@ class AutoInjectSchoolYearMixin:
             if school:
                 data['school'] = school.id
         if hasattr(self.serializer_class.Meta.model, 'academic_year') and ('academic_year' not in data or not data['academic_year']):
-            academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+            academic_year = AcademicYear.objects.filter(is_current=True).first() or AcademicYear.objects.order_by('-year').first()
             if academic_year:
                 data['academic_year'] = academic_year.id
         serializer = self.get_serializer(data=data)

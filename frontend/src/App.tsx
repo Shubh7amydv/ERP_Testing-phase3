@@ -634,6 +634,8 @@ export default function App() {
             }));
             setStudents(mappedStudents);
             await fetchMetadata();
+            setIsLoggedIn(true);
+            setActiveRole('Admin');
           } catch (retryErr) {
             console.error('Retry after token refresh failed:', retryErr);
           }

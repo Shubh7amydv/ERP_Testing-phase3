@@ -4375,98 +4375,70 @@ export default function App() {
                   addToast('Validation Error', 'Student Name is required.', 'error');
                   return;
                 }
-                if (!formDob) {
-                  addToast('Validation Error', 'Date of Birth is required.', 'error');
-                  return;
-                }
-                if (!formAadhar.trim()) {
-                  addToast('Validation Error', 'Aadhar Number is required.', 'error');
-                  return;
-                }
-                if (!formFather.trim()) {
-                  addToast('Validation Error', 'Father\'s Name is required.', 'error');
-                  return;
-                }
-                if (!formMotherName.trim()) {
-                  addToast('Validation Error', 'Mother\'s Name is required.', 'error');
-                  return;
-                }
-                if (!formPhone.trim()) {
-                  addToast('Validation Error', 'Mobile Number is required.', 'error');
-                  return;
-                }
-                if (!formClass) {
-                  addToast('Validation Error', 'Class selection is required.', 'error');
-                  return;
-                }
-                if (!formSection) {
-                  addToast('Validation Error', 'Section selection is required.', 'error');
-                  return;
-                }
 
-                const payload = {
-                  name: formName,
-                  dob: formDob,
-                  gender: formGender,
-                  blood: formBlood,
-                  aadhar: formAadhar,
-                  rollNo: formRoll,
-                  category: formCategory,
-                  caste: formCaste,
-                  height: formHeight,
-                  weight: formWeight,
-                  class: formClass,
-                  section: formSection,
-                  fatherName: formFather,
-                  phone: formPhone,
-                  house: formHouse,
-                  type: formType,
-                  pen: formPen,
-                  apaarId: formApaarId,
-                  fatherOccupation: formFatherOccupation,
-                  fatherIncome: formFatherIncome,
-                  fatherAadhar: formFatherAadhar,
-                  motherName: formMotherName,
-                  motherOccupation: formMotherOccupation,
-                  motherIncome: formMotherIncome,
-                  motherAadhar: formMotherAadhar,
-                  alternatePhone: formAlternatePhone,
-                  email: formEmail,
-                  dateOfAdmission: formDateOfAdmission,
-                  shortAddress: formShortAddress,
-                  password: formPassword || 'password123',
-                  religion: formReligion,
-                  busDetail: formBusDetail,
-                  location: formLocation,
-                  staffWard: formStaffWard,
-                  sssmid: formSssmid,
-                  photoUrl: formStudentPhoto ? '/assets/hero.png' : undefined
-                };
-
-                const apiPayload = {
-                   first_name: formName.split(' ')[0] || 'Unknown',
-                   last_name: formName.split(' ').slice(1).join(' ') || '',
-                   phone: formPhone,
-                   address: formShortAddress || "123 School Lane",
-                   date_of_birth: formDob || "2016-01-01",
-                   gender: formGender,
-                   blood_group: formBlood || "O+",
-                   category: formCategory,
-                   caste: formCaste,
-                   religion: formReligion || "Hinduism",
-                   aadhaar_no: formAadhar || "123456789012",
-                   father_name: formFather,
-                   father_occupation: formFatherOccupation || "Business",
-                   mother_name: formMotherName || "Mother Name",
-                   admission_class: formClass.replace('Class ', ''),
-                   section: formSection.replace('Section ', ''),
-                   roll_number: formRoll || "1",
+                 const payload = {
+                   name: formName,
+                   dob: formDob || "2016-01-01",
+                   gender: formGender || "Male",
+                   blood: formBlood || "O+",
+                   aadhar: formAadhar || "123456789012",
+                   rollNo: formRoll || "1",
+                   category: formCategory || "General",
+                   caste: formCaste || "Hinduism",
+                   height: formHeight || "120",
+                   weight: formWeight || "30",
+                   class: formClass || "Class 4",
+                   section: formSection || "Section B",
+                   fatherName: formFather || "Father Name",
+                   phone: formPhone || "9999999999",
                    house: formHouse || "Red",
-                   bus_route: "Route-1",
-                   medium: "English",
-                   date_of_admission: formDateOfAdmission || new Date().toISOString().split('T')[0],
-                   status: "Approved"
+                   type: formType || "New",
+                   pen: formPen || "",
+                   apaarId: formApaarId || "",
+                   fatherOccupation: formFatherOccupation || "Business",
+                   fatherIncome: formFatherIncome || "500000",
+                   fatherAadhar: formFatherAadhar || "",
+                   motherName: formMotherName || "Mother Name",
+                   motherOccupation: formMotherOccupation || "Homemaker",
+                   motherIncome: formMotherIncome || "0",
+                   motherAadhar: formMotherAadhar || "",
+                   alternatePhone: formAlternatePhone || "",
+                   email: formEmail || "parent@example.com",
+                   dateOfAdmission: formDateOfAdmission || new Date().toISOString().split('T')[0],
+                   shortAddress: formShortAddress || "123 School Lane",
+                   password: formPassword || 'password123',
+                   religion: formReligion || "Hinduism",
+                   busDetail: formBusDetail || "",
+                   location: formLocation || "",
+                   staffWard: formStaffWard || "No",
+                   sssmid: formSssmid || "",
+                   photoUrl: formStudentPhoto ? '/assets/hero.png' : undefined
                  };
+
+                 const apiPayload = {
+                    first_name: formName.split(' ')[0] || 'Unknown',
+                    last_name: formName.split(' ').slice(1).join(' ') || 'Student',
+                    phone: formPhone || '9999999999',
+                    address: formShortAddress || "123 School Lane",
+                    date_of_birth: formDob || "2016-01-01",
+                    gender: formGender || "Male",
+                    blood_group: formBlood || "O+",
+                    category: formCategory || "General",
+                    caste: formCaste || "Hinduism",
+                    religion: formReligion || "Hinduism",
+                    aadhaar_no: formAadhar || "123456789012",
+                    father_name: formFather || "Father Name",
+                    father_occupation: formFatherOccupation || "Business",
+                    mother_name: formMotherName || "Mother Name",
+                    admission_class: (formClass || 'Class 4').replace('Class ', ''),
+                    section: (formSection || 'Section B').replace('Section ', ''),
+                    roll_number: formRoll || "1",
+                    house: formHouse || "Red",
+                    bus_route: "Route-1",
+                    medium: "English",
+                    date_of_admission: formDateOfAdmission || new Date().toISOString().split('T')[0],
+                    status: "Approved"
+                  };
 
                  studentService.createAdmission(apiPayload)
                    .then(backendRes => {

@@ -43,6 +43,23 @@ class StandardPaginationMixin:
             'results': list(page_obj),
         }
 
+class AutoInjectSchoolYearMixin:
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
+        if 'school' not in data or not data['school']:
+            school = getattr(request.user, 'school', None)
+            if school:
+                data['school'] = school.id
+        if hasattr(self.get_serializer().Meta.model, 'academic_year') and ('academic_year' not in data or not data['academic_year']):
+            academic_year = AcademicYear.objects.filter(is_active=True).first() or AcademicYear.objects.order_by('-year').first()
+            if academic_year:
+                data['academic_year'] = academic_year.id
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     def get_paginated_response(self, paginated_data):
         return Response({
             'success': True,
@@ -319,7 +336,7 @@ class AdmissionViewSet(StandardPaginationMixin, viewsets.ModelViewSet):
         }, status=status.HTTP_200_OK)
 
 
-class AcademicClassViewSet(viewsets.ModelViewSet):
+class AcademicClassViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = AcademicClassSerializer
     filter_backends = [DjangoFilterBackend]
@@ -368,7 +385,7 @@ class AcademicClassViewSet(viewsets.ModelViewSet):
         })
 
 
-class SectionViewSet(viewsets.ModelViewSet):
+class SectionViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = SectionSerializer
     filter_backends = [DjangoFilterBackend]
@@ -548,7 +565,7 @@ class SiblingGroupViewSet(viewsets.GenericViewSet):
         return Response({'success': True, 'data': response_data}, status=status.HTTP_200_OK)
 
 
-class CasteViewSet(viewsets.ModelViewSet):
+class CasteViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = CasteSerializer
     filter_backends = [DjangoFilterBackend]
@@ -597,7 +614,7 @@ class CasteViewSet(viewsets.ModelViewSet):
         })
 
 
-class HouseViewSet(viewsets.ModelViewSet):
+class HouseViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = HouseSerializer
 
@@ -637,7 +654,7 @@ class HouseViewSet(viewsets.ModelViewSet):
         })
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
+class CategoryViewSet(AutoInjectSchoolYearMixin, viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsSchoolMember, ModulePermission("admissions")]
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend]

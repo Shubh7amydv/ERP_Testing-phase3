@@ -242,7 +242,7 @@ class Admission(models.Model):
     admission_no = models.CharField(max_length=100, unique=True)
     pen_no = models.CharField(max_length=100, blank=True, null=True)
     first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, blank=True, null=True, default='')
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, blank=True, null=True)
     blood_group = models.CharField(max_length=20, blank=True, null=True)

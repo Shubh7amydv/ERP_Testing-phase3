@@ -202,6 +202,16 @@ class AdmissionSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         data = data.copy()
+        if 'name' in data and not data.get('first_name'):
+            name_val = str(data.get('name', '')).strip()
+            name_parts = name_val.split(' ', 1)
+            data['first_name'] = name_parts[0]
+            if len(name_parts) > 1:
+                data['last_name'] = name_parts[1]
+        if 'first_name' in data and ('last_name' not in data or data.get('last_name') is None):
+            data['last_name'] = ''
+        if 'last_name' in data and (data['last_name'] is None or str(data['last_name']).strip() == ''):
+            data['last_name'] = ''
         if 'class' in data and 'admission_class' not in data:
             data['admission_class'] = self._normalize_value(data.pop('class'))
         if 'admission_class' in data:
@@ -216,17 +226,23 @@ class AdmissionSerializer(serializers.ModelSerializer):
             data['category'] = self._normalize_value(data['category'])
         return super().to_internal_value(data)
 
-    admission_class = serializers.ChoiceField(
-        choices=AcademicClass.CLASS_CHOICES,
-        write_only=True,
+    last_name = serializers.CharField(
         required=False,
-        allow_null=True
+        allow_blank=True,
+        allow_null=True,
+        default=''
     )
-    section = serializers.ChoiceField(
-        choices=Section.SECTION_CHOICES,
+    admission_class = serializers.CharField(
         write_only=True,
         required=False,
-        allow_null=True
+        allow_null=True,
+        allow_blank=True
+    )
+    section = serializers.CharField(
+        write_only=True,
+        required=False,
+        allow_null=True,
+        allow_blank=True
     )
     caste = serializers.CharField(write_only=True, required=False, allow_null=True)
     house = serializers.CharField(write_only=True, required=False, allow_null=True)
@@ -324,18 +340,34 @@ class AdmissionSerializer(serializers.ModelSerializer):
         if admission_class_code or section_code:
             academic_year = resolve_academic_year(year_str, school=school)
             if admission_class_code:
-                academic_class, _ = AcademicClass.objects.get_or_create(
-                    admission_class=admission_class_code,
-                    academic_year=academic_year,
-                    defaults={'school': school},
-                )
+                academic_class = None
+                code_str = str(admission_class_code).strip()
+                if code_str.isdigit():
+                    academic_class = AcademicClass.objects.filter(pk=int(code_str)).first()
+                if not academic_class:
+                    academic_class = AcademicClass.objects.filter(admission_class__iexact=code_str).first()
+                if not academic_class:
+                    num_to_roman = {'1':'I','2':'II','3':'III','4':'IV','5':'V','6':'VI','7':'VII','8':'VIII','9':'IX','10':'X','11':'XI','12':'XII'}
+                    mapped_code = num_to_roman.get(code_str, code_str)
+                    academic_class, _ = AcademicClass.objects.get_or_create(
+                        admission_class=mapped_code,
+                        academic_year=academic_year,
+                        defaults={'school': school},
+                    )
                 validated_data['admission_class'] = academic_class
             if section_code:
-                section_obj, _ = Section.objects.get_or_create(
-                    section=section_code,
-                    academic_year=academic_year,
-                    defaults={'school': school},
-                )
+                section_obj = None
+                sec_str = str(section_code).strip()
+                if sec_str.isdigit():
+                    section_obj = Section.objects.filter(pk=int(sec_str)).first()
+                if not section_obj:
+                    section_obj = Section.objects.filter(section__iexact=sec_str).first()
+                if not section_obj:
+                    section_obj, _ = Section.objects.get_or_create(
+                        section=sec_str,
+                        academic_year=academic_year,
+                        defaults={'school': school},
+                    )
                 validated_data['section'] = section_obj
 
         if caste_name_input and str(caste_name_input).strip():

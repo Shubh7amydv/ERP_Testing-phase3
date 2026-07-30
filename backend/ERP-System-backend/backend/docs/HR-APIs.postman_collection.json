@@ -1,0 +1,714 @@
+{
+  "info": {
+    "name": "ERP HR API",
+    "description": "HR Module - All Endpoints\n\nEndpoints:\n- Departments (CRUD)\n- Designations (CRUD)\n- Staff (CRUD)\n- Staff Attendance (CRUD + bulk)\n- Leave Types (CRUD)\n- Staff Leaves (CRUD)\n- Payroll Months (CRUD)\n- Salary Slips (CRUD)\n- Salary Components (CRUD)\n- Reports (staff-list, payroll-summary, attendance-summary, leave-summary, pf-report, esi-report)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "List Departments",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/departments/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Department",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/departments/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Science Department\",\n  \"head\": null,\n  \"description\": \"Handles science courses\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Department Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/departments/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Department",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/departments/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Science Department Updated\",\n  \"head\": 1,\n  \"description\": \"Updated description\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Department",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/departments/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Designations",
+      "item": [
+        {
+          "name": "List Designations",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/designations/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Designation",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/designations/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Senior Teacher\",\n  \"level\": \"senior\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Designation Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/designations/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Designation",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/designations/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Staff",
+      "item": [
+        {
+          "name": "List Staff",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/staff/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Staff",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/staff/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": \"EMP001\",\n  \"first_name\": \"Priya\",\n  \"last_name\": \"Sharma\",\n  \"date_of_birth\": \"1990-05-15\",\n  \"gender\": \"female\",\n  \"phone\": \"9876543210\",\n  \"email\": \"priya.sharma@school.com\",\n  \"department\": 1,\n  \"designation\": 1,\n  \"date_of_joining\": \"2024-04-01\",\n  \"employment_type\": \"full_time\",\n  \"basic_salary\": 50000.00,\n  \"status\": \"active\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Staff Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/staff/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Staff",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/staff/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": \"EMP001\",\n  \"first_name\": \"Priya\",\n  \"last_name\": \"Verma\",\n  \"department\": 1,\n  \"designation\": 2,\n  \"status\": \"active\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Staff",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/staff/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Staff Attendance",
+      "item": [
+        {
+          "name": "List Staff Attendance",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/staff-attendances/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Mark Staff Attendance",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/staff-attendances/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staff\": 1,\n  \"date\": \"2025-07-15\",\n  \"check_in\": \"09:00:00\",\n  \"check_out\": \"17:30:00\",\n  \"status\": \"present\",\n  \"overtime_hours\": 0.5,\n  \"remarks\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Bulk Mark Staff Attendance",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/staff-attendances/bulk/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2025-07-15\",\n  \"attendance\": [\n    {\"staff\": 1, \"status\": \"present\", \"check_in\": \"09:00:00\"},\n    {\"staff\": 2, \"status\": \"absent\"}\n  ]\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leave Types",
+      "item": [
+        {
+          "name": "List Leave Types",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/leave-types/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Leave Type",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/leave-types/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Casual Leave\",\n  \"days_per_year\": 12,\n  \"is_carry_forward\": false,\n  \"max_carry_forward\": 0,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Leave Type Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/leave-types/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Leave Type",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/leave-types/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Staff Leaves",
+      "item": [
+        {
+          "name": "List Staff Leaves",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/staff-leaves/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Staff Leave",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/staff-leaves/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staff\": 1,\n  \"leave_type\": 1,\n  \"start_date\": \"2025-07-20\",\n  \"end_date\": \"2025-07-22\",\n  \"reason\": \"Family function\",\n  \"status\": \"pending\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Approve Staff Leave",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/staff-leaves/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"approved\",\n  \"remarks\": \"Approved\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payroll Months",
+      "item": [
+        {
+          "name": "List Payroll Months",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/payroll-months/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Payroll Month",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/payroll-months/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"month\": 7,\n  \"year\": 2025,\n  \"status\": \"draft\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Payroll Month Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/payroll-months/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Process Payroll Month",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/payroll-months/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"processed\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Salary Slips",
+      "item": [
+        {
+          "name": "List Salary Slips",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/salary-slips/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Salary Slip",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/salary-slips/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"staff\": 1,\n  \"payroll_month\": 1,\n  \"basic_salary\": 50000.00,\n  \"hra\": 15000.00,\n  \"da\": 5000.00,\n  \"conveyance\": 2000.00,\n  \"medical\": 1000.00,\n  \"other_allowances\": 0.00,\n  \"pf\": 6000.00,\n  \"esi\": 0.00,\n  \"tds\": 0.00,\n  \"professional_tax\": 200.00,\n  \"other_deductions\": 0.00,\n  \"payment_status\": \"paid\",\n  \"payment_date\": \"2025-07-31\",\n  \"payment_mode\": \"bank_transfer\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Salary Slip Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/salary-slips/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Salary Components",
+      "item": [
+        {
+          "name": "List Salary Components",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/salary-components/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Salary Component",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/salary-components/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"HRA\",\n  \"type\": \"earning\",\n  \"calculation\": \"percentage\",\n  \"value\": 30.00,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Salary Component Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/salary-components/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Salary Component",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/salary-components/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Staff List Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hr/reports/staff-list/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Payroll Summary Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hr/reports/payroll-summary/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Attendance Summary Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hr/reports/attendance-summary/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Leave Summary Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hr/reports/leave-summary/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "PF Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hr/reports/pf-report/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "ESI Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hr/reports/esi-report/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

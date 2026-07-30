@@ -1,0 +1,352 @@
+{
+  "info": {
+    "name": "ERP Transport API",
+    "description": "Transport Module - All Endpoints\n\nEndpoints:\n- Bus Routes (CRUD)\n- Buses (CRUD)\n- Bus Route Fees (CRUD)\n- Admission Bus Details (CRUD)\n- Reports (route-wise, collection)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Bus Routes",
+      "item": [
+        {
+          "name": "List Bus Routes",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/bus-routes/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Bus Route",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/bus-routes/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Route A - Downtown\",\n  \"start_point\": \"Central Bus Stand\",\n  \"end_point\": \"School Gate\",\n  \"distance_km\": 12.5,\n  \"stops\": [\"Market Square\", \"City Hospital\", \"Park Road\"],\n  \"morning_time\": \"07:30:00\",\n  \"evening_time\": \"15:30:00\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Bus Route Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/bus-routes/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Bus Route",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/bus-routes/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Route A - Downtown Updated\",\n  \"start_point\": \"Central Bus Stand\",\n  \"end_point\": \"School Gate\",\n  \"distance_km\": 13.0,\n  \"stops\": [\"Market Square\", \"City Hospital\", \"Park Road\", \"New Stop\"],\n  \"morning_time\": \"07:15:00\",\n  \"evening_time\": \"15:30:00\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Bus Route",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/bus-routes/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Buses",
+      "item": [
+        {
+          "name": "List Buses",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/buses/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Bus",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/buses/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bus_number\": \"MH-12-AB-1234\",\n  \"capacity\": 40,\n  \"driver_name\": \"Suresh Driver\",\n  \"driver_phone\": \"9876543210\",\n  \"conductor_name\": \"Mohan Conductor\",\n  \"conductor_phone\": \"9876543211\",\n  \"status\": \"active\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Bus Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/buses/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Bus",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/buses/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bus_number\": \"MH-12-AB-1234\",\n  \"capacity\": 45,\n  \"driver_name\": \"Suresh Updated\",\n  \"driver_phone\": \"9876543210\",\n  \"conductor_name\": \"Mohan Updated\",\n  \"conductor_phone\": \"9876543211\",\n  \"status\": \"active\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Bus",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/buses/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bus Route Fees",
+      "item": [
+        {
+          "name": "List Bus Route Fees",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/bus-route-fees/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Bus Route Fee",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/bus-route-fees/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"route\": 1,\n  \"academic_year\": 1,\n  \"monthly_fee\": 2000.00,\n  \"quarterly_fee\": 5500.00,\n  \"annual_fee\": 20000.00\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Bus Route Fee Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/bus-route-fees/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Bus Route Fee",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/bus-route-fees/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admission Bus Details",
+      "item": [
+        {
+          "name": "List Admission Bus Details",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/admission-bus-details/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Admission Bus Detail",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/admission-bus-details/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": 1,\n  \"route\": 1,\n  \"bus\": 1,\n  \"pickup_point\": \"Market Square\",\n  \"drop_point\": \"Market Square\",\n  \"payment_mode\": \"annual\",\n  \"fee_amount\": 20000.00,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Admission Bus Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/admission-bus-details/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Admission Bus Detail",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/admission-bus-details/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Route-wise Students Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/reports/transport/route-wise/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Transport Collection Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/reports/transport/collection/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

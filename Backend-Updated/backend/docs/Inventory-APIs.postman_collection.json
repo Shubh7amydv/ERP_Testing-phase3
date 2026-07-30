@@ -1,0 +1,1321 @@
+{
+  "info": {
+    "name": "ERP System - Inventory Module APIs",
+    "description": "Complete Postman collection for all Inventory module APIs including Categories, Items, Stock Entries, Suppliers, Purchase Orders, and Reports.\n\nBase URL: http://localhost:8000\nAuthentication: JWT Bearer Token\n\nPermission Requirements:\n- IsSchoolMember: user must be authenticated and belong to a school\n\nSteps:\n1. Login via POST /api/auth/login/ to get access token\n2. Ensure user has a role with inventory permissions assigned\n3. Set the token in collection variables or Authorization header\n4. Use the token for all subsequent requests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "category_id",
+      "value": "1"
+    },
+    {
+      "key": "item_id",
+      "value": "1"
+    },
+    {
+      "key": "stock_entry_id",
+      "value": "1"
+    },
+    {
+      "key": "supplier_id",
+      "value": "1"
+    },
+    {
+      "key": "purchase_order_id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Inventory Categories",
+      "description": "CRUD operations for inventory categories. Categories group items by type (e.g., Electronics, Furniture, Stationery).",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/categories/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) {",
+                  "  pm.environment.set('category_id', res.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/categories/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Electronics\",\n  \"description\": \"Electronic items and gadgets\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Electronics Updated\",\n  \"description\": \"Electronic items and gadgets - updated\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Partial Update Category",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Electronics - Renamed\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory Items",
+      "description": "CRUD operations for inventory items plus low-stock and out-of-stock alerts.",
+      "item": [
+        {
+          "name": "List Items",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Search Items",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/?search=computer",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", ""],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "computer",
+                  "description": "Text search on name, item_code, description"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Items by Category",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/?category={{category_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", ""],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "{{category_id}}",
+                  "description": "Filter by category ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Items by Unit",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/?unit=piece",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", ""],
+              "query": [
+                {
+                  "key": "unit",
+                  "value": "piece",
+                  "description": "Filter by unit: piece, kg, litre, meter, pack"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) {",
+                  "  pm.environment.set('item_id', res.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/items/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dell Monitor 24 inch\",\n  \"category\": {{category_id}},\n  \"item_code\": \"MON-001\",\n  \"unit\": \"piece\",\n  \"min_stock\": 5,\n  \"current_stock\": 20,\n  \"unit_price\": \"15000.00\",\n  \"description\": \"24 inch Dell LED Monitor\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Item",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/{{item_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", "{{item_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Item",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/items/{{item_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", "{{item_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dell Monitor 27 inch\",\n  \"category\": {{category_id}},\n  \"item_code\": \"MON-001\",\n  \"unit\": \"piece\",\n  \"min_stock\": 5,\n  \"current_stock\": 18,\n  \"unit_price\": \"18000.00\",\n  \"description\": \"27 inch Dell LED Monitor - Updated\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Partial Update Item",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{base_url}}/api/items/{{item_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", "{{item_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_stock\": 15\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Item",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/items/{{item_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", "{{item_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Low Stock Items",
+          "description": "List items where current_stock <= min_stock and > 0 (active only)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/low-stock/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", "low-stock", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Out of Stock Items",
+          "description": "List items where current_stock = 0 (active only)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/items/out-of-stock/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "items", "out-of-stock", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stock Entries",
+      "description": "CRUD operations for stock entries. Stock entries track purchases, issues, adjustments, and returns. Creating a stock entry automatically updates the item's current_stock.",
+      "item": [
+        {
+          "name": "List Stock Entries",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Stock Entries by Item",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/?item={{item_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""],
+              "query": [
+                {
+                  "key": "item",
+                  "value": "{{item_id}}",
+                  "description": "Filter by item ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Stock Entries by Type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/?entry_type=purchase",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""],
+              "query": [
+                {
+                  "key": "entry_type",
+                  "value": "purchase",
+                  "description": "Filter by type: purchase, issue, adjustment, return"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Stock Entries by Date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/?entry_date=2026-07-14",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""],
+              "query": [
+                {
+                  "key": "entry_date",
+                  "value": "2026-07-14",
+                  "description": "Filter by entry date (YYYY-MM-DD)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Stock Entry (Purchase)",
+          "description": "Creates a purchase entry. Adds quantity to item's current_stock.",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) {",
+                  "  pm.environment.set('stock_entry_id', res.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_id\": {{item_id}},\n  \"entry_type\": \"purchase\",\n  \"quantity\": \"50.00\",\n  \"unit_price\": \"15000.00\",\n  \"supplier\": \"Dell Technologies\",\n  \"invoice_no\": \"INV-2026-001\",\n  \"remarks\": \"Bulk purchase of monitors\",\n  \"entry_date\": \"2026-07-14\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Stock Entry (Issue)",
+          "description": "Creates an issue entry. Subtracts quantity from item's current_stock. Fails with 400 if insufficient stock.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_id\": {{item_id}},\n  \"entry_type\": \"issue\",\n  \"quantity\": \"2.00\",\n  \"unit_price\": \"15000.00\",\n  \"issued_to\": \"Computer Lab\",\n  \"issued_to_type\": \"department\",\n  \"remarks\": \"Issued to computer lab\",\n  \"entry_date\": \"2026-07-14\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Stock Entry (Return)",
+          "description": "Creates a return entry. Adds quantity back to item's current_stock.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_id\": {{item_id}},\n  \"entry_type\": \"return\",\n  \"quantity\": \"1.00\",\n  \"unit_price\": \"15000.00\",\n  \"issued_to\": \"Computer Lab\",\n  \"issued_to_type\": \"department\",\n  \"remarks\": \"Returned from computer lab\",\n  \"entry_date\": \"2026-07-14\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Stock Entry (Adjustment)",
+          "description": "Creates an adjustment entry. Sets item's current_stock to the provided quantity (overwrites).",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_id\": {{item_id}},\n  \"entry_type\": \"adjustment\",\n  \"quantity\": \"48.00\",\n  \"unit_price\": \"15000.00\",\n  \"remarks\": \"Stock count correction\",\n  \"entry_date\": \"2026-07-14\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Stock Entry",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/{{stock_entry_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", "{{stock_entry_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Stock Entry",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/{{stock_entry_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", "{{stock_entry_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item_id\": {{item_id}},\n  \"entry_type\": \"purchase\",\n  \"quantity\": \"55.00\",\n  \"unit_price\": \"14500.00\",\n  \"supplier\": \"Dell Technologies\",\n  \"invoice_no\": \"INV-2026-001\",\n  \"remarks\": \"Updated purchase entry\",\n  \"entry_date\": \"2026-07-14\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Partial Update Stock Entry",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/{{stock_entry_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", "{{stock_entry_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Updated remarks only\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Stock Entry",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/{{stock_entry_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", "{{stock_entry_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "List Stock Entries by Item",
+          "description": "List all stock entries for a specific item",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/stock-entries/by-item/{{item_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "stock-entries", "by-item", "{{item_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "description": "CRUD operations for suppliers. Suppliers provide items to the school.",
+      "item": [
+        {
+          "name": "List Suppliers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Search Suppliers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/?search=dell",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", ""],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "dell",
+                  "description": "Text search on name, contact_person, phone, email"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Supplier",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) {",
+                  "  pm.environment.set('supplier_id', res.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dell Technologies\",\n  \"contact_person\": \"Rajesh Kumar\",\n  \"phone\": \"9876543210\",\n  \"email\": \"rajesh@dell.com\",\n  \"address\": \"123 Tech Park, Bangalore\",\n  \"gst_no\": \"29AABCT1234F1Z5\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Supplier",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/{{supplier_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "{{supplier_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Supplier",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/{{supplier_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "{{supplier_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dell Technologies Updated\",\n  \"contact_person\": \"Rajesh Kumar\",\n  \"phone\": \"9876543211\",\n  \"email\": \"rajesh.updated@dell.com\",\n  \"address\": \"456 Tech Park, Bangalore\",\n  \"gst_no\": \"29AABCT1234F1Z5\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Partial Update Supplier",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/{{supplier_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "{{supplier_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9999999999\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Supplier",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/suppliers/{{supplier_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "suppliers", "{{supplier_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Purchase Orders",
+      "description": "CRUD operations for purchase orders plus workflow actions (submit, approve, receive, cancel).\n\nStatus Flow:\ndraft -> pending -> approved -> received\ndraft -> cancelled\npending -> cancelled\napproved -> cancelled",
+      "item": [
+        {
+          "name": "List Purchase Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Search Purchase Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/?search=PO-2026",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", ""],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "PO-2026",
+                  "description": "Search on order_no and supplier name"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Purchase Orders by Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/?status=draft",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", ""],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "draft",
+                  "description": "Filter by status: draft, pending, approved, received, cancelled"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Filter Purchase Orders by Supplier",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/?supplier={{supplier_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", ""],
+              "query": [
+                {
+                  "key": "supplier",
+                  "value": "{{supplier_id}}",
+                  "description": "Filter by supplier ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Purchase Order",
+          "description": "Create a new purchase order with line items. Status starts as 'draft'.",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) {",
+                  "  pm.environment.set('purchase_order_id', res.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"supplier_id\": {{supplier_id}},\n  \"order_date\": \"2026-07-14\",\n  \"expected_date\": \"2026-07-20\",\n  \"remarks\": \"Quarterly stock replenishment\",\n  \"items\": [\n    {\n      \"item_id\": {{item_id}},\n      \"quantity\": \"20.00\",\n      \"unit_price\": \"15000.00\"\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Purchase Order",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Purchase Order",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"supplier_id\": {{supplier_id}},\n  \"order_date\": \"2026-07-14\",\n  \"expected_date\": \"2026-07-25\",\n  \"remarks\": \"Updated order\",\n  \"items\": [\n    {\n      \"item_id\": {{item_id}},\n      \"quantity\": \"25.00\",\n      \"unit_price\": \"14500.00\"\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Partial Update Purchase Order",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Updated remarks only\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Purchase Order",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Submit Purchase Order",
+          "description": "Submit a draft order. Changes status from draft to pending.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/submit/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", "submit", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Approve Purchase Order",
+          "description": "Approve a pending order. Changes status from pending to approved.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/approve/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", "approve", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Approved for procurement\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Receive Purchase Order",
+          "description": "Receive an approved order. Changes status from approved to received. Updates item stock and creates stock entries automatically.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/receive/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", "receive", ""]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"purchase_order_item_id\": 1,\n      \"received_qty\": \"20.00\"\n    }\n  ],\n  \"remarks\": \"Full delivery received\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Cancel Purchase Order",
+          "description": "Cancel an order. Not allowed if already received or cancelled.",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/purchase-orders/{{purchase_order_id}}/cancel/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "purchase-orders", "{{purchase_order_id}}", "cancel", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory Reports",
+      "description": "Read-only report endpoints for inventory analytics.",
+      "item": [
+        {
+          "name": "Stock Summary Report",
+          "description": "Returns total items, total stock value, low stock count, out of stock count, and per-category breakdown.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/inventory/reports/stock-summary/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "reports", "stock-summary", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Stock Movement Report",
+          "description": "Returns entry type summary (purchase, issue, adjustment, return counts and totals) and recent entries.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/inventory/reports/stock-movement/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "reports", "stock-movement", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Stock Movement Report (Filtered)",
+          "description": "Returns stock movement filtered by entry type.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/inventory/reports/stock-movement/?entry_type=purchase",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "reports", "stock-movement", ""],
+              "query": [
+                {
+                  "key": "entry_type",
+                  "value": "purchase",
+                  "description": "Filter by entry type: purchase, issue, adjustment, return"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Purchase Orders Report",
+          "description": "Returns purchase order status summary, pending approval count, and total spent.",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/inventory/reports/purchase-orders/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "inventory", "reports", "purchase-orders", ""]
+            },
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

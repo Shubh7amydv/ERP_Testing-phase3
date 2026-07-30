@@ -1,0 +1,700 @@
+{
+  "info": {
+    "name": "ERP Attendance Module APIs",
+    "description": "Attendance Module API Collection for ERP System\n\nPermission Requirements:\n- ModulePermission(\"attendance\") checks: attendance.view (GET), attendance.add (POST - mark), attendance.change (PUT/PATCH)\n- ModulePermission(\"reports\") checks: reports.view (GET) for report endpoints\n- IsSchoolMember ensures user belongs to a school",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "school_id",
+      "value": ""
+    },
+    {
+      "key": "student_id",
+      "value": ""
+    },
+    {
+      "key": "period_id",
+      "value": ""
+    },
+    {
+      "key": "holiday_id",
+      "value": ""
+    },
+    {
+      "key": "leave_id",
+      "value": ""
+    },
+    {
+      "key": "class_id",
+      "value": ""
+    },
+    {
+      "key": "section_id",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.access) { pm.collectionVariables.set('token', res.access); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Attendance Periods",
+      "item": [
+        {
+          "name": "List Periods",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance-periods/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance-periods", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Period",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"name\": \"Period 1\",\n  \"start_time\": \"08:00:00\",\n  \"end_time\": \"08:45:00\",\n  \"period_order\": 1,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance-periods/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance-periods", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('period_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Period Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance-periods/{{period_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance-periods", "{{period_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Period",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"name\": \"Period 1\",\n  \"start_time\": \"08:00:00\",\n  \"end_time\": \"08:50:00\",\n  \"period_order\": 1,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance-periods/{{period_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance-periods", "{{period_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Period",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/attendance-periods/{{period_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance-periods", "{{period_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attendance Records",
+      "item": [
+        {
+          "name": "List Attendance Records",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Attendance Record",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"date\": \"2026-06-25\",\n  \"status\": \"present\",\n  \"period\": null,\n  \"remarks\": \"\",\n  \"source\": \"manual\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", ""]
+            }
+          }
+        },
+        {
+          "name": "Bulk Mark Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"class_id\": {{class_id}},\n  \"section_id\": {{section_id}},\n  \"date\": \"2026-06-25\",\n  \"period_id\": null,\n  \"attendance\": [\n    {\n      \"student_id\": \"{{student_id}}\",\n      \"status\": \"present\",\n      \"remarks\": \"\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance/mark/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "mark", ""]
+            }
+          }
+        },
+        {
+          "name": "Mark Single Student Attendance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"{{student_id}}\",\n  \"date\": \"2026-06-25\",\n  \"status\": \"present\",\n  \"period_id\": null,\n  \"remarks\": \"\",\n  \"source\": \"manual\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance/mark-single/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "mark-single", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Class Attendance by Date",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/class/{{class_id}}/{{section_id}}/?date=2026-06-25",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "class", "{{class_id}}", "{{section_id}}", ""],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-06-25"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Student Attendance History",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/student/{{student_id}}/?start_date=2026-06-01&end_date=2026-06-30",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "student", "{{student_id}}", ""],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "2026-06-01"
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-06-30"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Student Attendance Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/student/{{student_id}}/summary/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "student", "{{student_id}}", "summary", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Class Attendance Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/class/{{class_id}}/summary/?date=2026-06-25",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "class", "{{class_id}}", "summary", ""],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-06-25"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Attendance Record",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"date\": \"2026-06-25\",\n  \"status\": \"late\",\n  \"period\": null,\n  \"remarks\": \"Arrived late\",\n  \"source\": \"manual\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/attendance/{{attendance_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "{{attendance_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Attendance Record",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/attendance/{{attendance_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "{{attendance_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Holidays",
+      "item": [
+        {
+          "name": "List Holidays",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/holidays/",
+              "host": ["{{base_url}}"],
+              "path": ["holidays", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Holiday",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"name\": \"Independence Day\",\n  \"date\": \"2026-08-15\",\n  \"holiday_type\": \"national\",\n  \"description\": \"National Holiday\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/holidays/",
+              "host": ["{{base_url}}"],
+              "path": ["holidays", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('holiday_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Holiday Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/holidays/{{holiday_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["holidays", "{{holiday_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Holiday",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"name\": \"Independence Day\",\n  \"date\": \"2026-08-15\",\n  \"holiday_type\": \"national\",\n  \"description\": \"National Holiday - Updated\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/holidays/{{holiday_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["holidays", "{{holiday_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Holiday",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/holidays/{{holiday_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["holidays", "{{holiday_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leave Applications",
+      "item": [
+        {
+          "name": "List Leave Applications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/leave-applications/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Leave Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"start_date\": \"2026-06-25\",\n  \"end_date\": \"2026-06-27\",\n  \"reason\": \"Family function\",\n  \"remarks\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/leave-applications/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('leave_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Leave Application Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/leave-applications/{{leave_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", "{{leave_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Leave Application",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"start_date\": \"2026-06-25\",\n  \"end_date\": \"2026-06-27\",\n  \"reason\": \"Family function - Updated\",\n  \"remarks\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/leave-applications/{{leave_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", "{{leave_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Approve Leave Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Approved by admin\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/leave-applications/{{leave_id}}/approve/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", "{{leave_id}}", "approve", ""]
+            }
+          }
+        },
+        {
+          "name": "Reject Leave Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Insufficient reason\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/leave-applications/{{leave_id}}/reject/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", "{{leave_id}}", "reject", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Leave Application",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/leave-applications/{{leave_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["leave-applications", "{{leave_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Daily Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/reports/daily/?date=2026-06-25",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "reports", "daily", ""],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-06-25"
+                },
+                {
+                  "key": "class_id",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "section_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Monthly Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/reports/monthly/?month=6&year=2026",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "reports", "monthly", ""],
+              "query": [
+                {
+                  "key": "month",
+                  "value": "6"
+                },
+                {
+                  "key": "year",
+                  "value": "2026"
+                },
+                {
+                  "key": "class_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Class-Wise Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/reports/class-wise/?date=2026-06-25",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "reports", "class-wise", ""],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-06-25"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Low Attendance Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/reports/low-attendance/?threshold=75",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "reports", "low-attendance", ""],
+              "query": [
+                {
+                  "key": "threshold",
+                  "value": "75"
+                },
+                {
+                  "key": "academic_year_id",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Bulk SMS Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/attendance/reports/bulk-sms/?threshold=75",
+              "host": ["{{base_url}}"],
+              "path": ["attendance", "reports", "bulk-sms", ""],
+              "query": [
+                {
+                  "key": "threshold",
+                  "value": "75"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "info": {
+    "name": "ERP Parents API",
+    "description": "Parents Module - All Endpoints\n\nEndpoints:\n- Parents (CRUD)\n- Parent-Student Links (CRUD)\n- Parent Feedback (CRUD)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Parents",
+      "item": [
+        {
+          "name": "List Parents",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/parents/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Parent Profile",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/parents/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user\": 1,\n  \"first_name\": \"Rajesh\",\n  \"last_name\": \"Kumar\",\n  \"phone\": \"9876543210\",\n  \"email\": \"rajesh.kumar@email.com\",\n  \"occupation\": \"Engineer\",\n  \"relationship\": \"Father\",\n  \"is_primary\": true,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Parent Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/parents/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Parent",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/parents/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Rajesh\",\n  \"last_name\": \"Verma\",\n  \"phone\": \"9876543211\",\n  \"email\": \"rajesh.verma@email.com\",\n  \"occupation\": \"Manager\",\n  \"relationship\": \"Father\",\n  \"is_primary\": true,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Parent",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/parents/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Parent-Student Links",
+      "item": [
+        {
+          "name": "List Parent-Student Links",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/parent-student-links/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Parent-Student Link",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/parent-student-links/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parent\": 1,\n  \"student\": 1,\n  \"is_primary\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Parent-Student Link Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/parent-student-links/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Parent-Student Link",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/parent-student-links/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Parent Feedback",
+      "item": [
+        {
+          "name": "List Parent Feedback",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/parent-feedback/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Parent Feedback",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/parent-feedback/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parent\": 1,\n  \"student\": 1,\n  \"subject\": \"Academic Performance\",\n  \"message\": \"Request to discuss my child's progress in upcoming PTM.\",\n  \"feedback_type\": \"complaint\",\n  \"status\": \"open\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Parent Feedback Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/parent-feedback/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Respond to Parent Feedback",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/parent-feedback/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"resolved\",\n  \"response\": \"PTM scheduled for next Monday.\",\n  \"responded_by\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Parent Feedback",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/parent-feedback/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

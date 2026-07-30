@@ -1,0 +1,669 @@
+{
+  "info": {
+    "name": "ERP Library Module APIs",
+    "description": "Library Module API Collection for ERP System\n\nPermission Requirements:\n- IsSchoolMember ensures user belongs to a school\n\nEndpoints:\n- Book Categories: CRUD operations for book categories\n- Books: CRUD + search, available, overdue\n- Book Issues: Issue/Return books, active/overdue lists, by-member\n- Book Reservations: Reserve, fulfill, cancel\n- Library Members: CRUD + issue history\n- Reports: Popular books, member activity, overdue summary, inventory",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "school_id",
+      "value": ""
+    },
+    {
+      "key": "category_id",
+      "value": ""
+    },
+    {
+      "key": "book_id",
+      "value": ""
+    },
+    {
+      "key": "issue_id",
+      "value": ""
+    },
+    {
+      "key": "reservation_id",
+      "value": ""
+    },
+    {
+      "key": "member_id",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.access) { pm.collectionVariables.set('token', res.access); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Book Categories",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-categories/",
+              "host": ["{{base_url}}"],
+              "path": ["book-categories", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"name\": \"Fiction\",\n  \"description\": \"Fiction books\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/book-categories/",
+              "host": ["{{base_url}}"],
+              "path": ["book-categories", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('category_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Category Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["book-categories", "{{category_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"name\": \"Fiction\",\n  \"description\": \"Fiction books - Updated\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/book-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["book-categories", "{{category_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/book-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["book-categories", "{{category_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "List Books",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/books/",
+              "host": ["{{base_url}}"],
+              "path": ["books", ""]
+            }
+          }
+        },
+        {
+          "name": "Search Books",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/books/?search=python",
+              "host": ["{{base_url}}"],
+              "path": ["books", ""],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "python"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"title\": \"Python Crash Course\",\n  \"author\": \"Eric Matthes\",\n  \"isbn\": \"9781593279288\",\n  \"publisher\": \"No Starch Press\",\n  \"category\": {{category_id}},\n  \"edition\": \"3rd\",\n  \"year_published\": 2023,\n  \"language\": \"English\",\n  \"pages\": 544,\n  \"description\": \"A Hands-On, Project-Based Introduction to Programming\",\n  \"total_copies\": 5,\n  \"available_copies\": 5,\n  \"location\": \"Shelf A-1\",\n  \"price\": 39.99,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/books/",
+              "host": ["{{base_url}}"],
+              "path": ["books", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('book_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Book Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/books/{{book_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["books", "{{book_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Book",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"title\": \"Python Crash Course\",\n  \"author\": \"Eric Matthes\",\n  \"isbn\": \"9781593279288\",\n  \"publisher\": \"No Starch Press\",\n  \"category\": {{category_id}},\n  \"edition\": \"3rd\",\n  \"year_published\": 2023,\n  \"language\": \"English\",\n  \"pages\": 544,\n  \"description\": \"A Hands-On, Project-Based Introduction to Programming - Updated\",\n  \"total_copies\": 5,\n  \"available_copies\": 4,\n  \"location\": \"Shelf A-1\",\n  \"price\": 39.99,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/books/{{book_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["books", "{{book_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Book",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/books/{{book_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["books", "{{book_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Available Books",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/books/available/",
+              "host": ["{{base_url}}"],
+              "path": ["books", "available", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Overdue Books",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/books/overdue/",
+              "host": ["{{base_url}}"],
+              "path": ["books", "overdue", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Book Issues",
+      "item": [
+        {
+          "name": "List All Issues",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-issues/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", ""]
+            }
+          }
+        },
+        {
+          "name": "Issue Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"book_id\": {{book_id}},\n  \"issued_to_type\": \"student\",\n  \"issued_to_id\": 1,\n  \"due_date\": \"2026-07-15\",\n  \"remarks\": \"Regular issue\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/book-issues/issue/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", "issue", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('issue_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Issue Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-issues/{{issue_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", "{{issue_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Return Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Book returned in good condition\",\n  \"fine\": 0,\n  \"fine_paid\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/book-issues/{{issue_id}}/return/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", "{{issue_id}}", "return", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Active Issues",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-issues/active/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", "active", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Overdue Issues",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-issues/overdue/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", "overdue", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Issues by Member",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-issues/by-member/student/1/",
+              "host": ["{{base_url}}"],
+              "path": ["book-issues", "by-member", "student", "1", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Book Reservations",
+      "item": [
+        {
+          "name": "List Reservations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-reservations/",
+              "host": ["{{base_url}}"],
+              "path": ["book-reservations", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Reservation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"book\": {{book_id}},\n  \"reserved_by_type\": \"student\",\n  \"reserved_by_id\": 1,\n  \"reservation_date\": \"2026-07-01\",\n  \"expiry_date\": \"2026-07-15\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/book-reservations/",
+              "host": ["{{base_url}}"],
+              "path": ["book-reservations", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('reservation_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Reservation Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/book-reservations/{{reservation_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["book-reservations", "{{reservation_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Fulfill Reservation",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/book-reservations/{{reservation_id}}/fulfill/",
+              "host": ["{{base_url}}"],
+              "path": ["book-reservations", "{{reservation_id}}", "fulfill", ""]
+            }
+          }
+        },
+        {
+          "name": "Cancel Reservation",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/book-reservations/{{reservation_id}}/cancel/",
+              "host": ["{{base_url}}"],
+              "path": ["book-reservations", "{{reservation_id}}", "cancel", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Library Members",
+      "item": [
+        {
+          "name": "List Members",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library-members/",
+              "host": ["{{base_url}}"],
+              "path": ["library-members", ""]
+            }
+          }
+        },
+        {
+          "name": "Create Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"member_type\": \"student\",\n  \"member_id\": 1,\n  \"max_books\": 5,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/library-members/",
+              "host": ["{{base_url}}"],
+              "path": ["library-members", ""]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if(res.id) { pm.collectionVariables.set('member_id', res.id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Member Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library-members/{{member_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["library-members", "{{member_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Member",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": {{school_id}},\n  \"member_type\": \"student\",\n  \"member_id\": 1,\n  \"max_books\": 7,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/library-members/{{member_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["library-members", "{{member_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Member",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/library-members/{{member_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["library-members", "{{member_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Member Issue History",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library-members/{{member_id}}/history/",
+              "host": ["{{base_url}}"],
+              "path": ["library-members", "{{member_id}}", "history", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Popular Books Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library/reports/popular-books/?limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["library", "reports", "popular-books", ""],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Member Activity Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library/reports/member-activity/",
+              "host": ["{{base_url}}"],
+              "path": ["library", "reports", "member-activity", ""],
+              "query": [
+                {
+                  "key": "member_type",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Overdue Summary Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library/reports/overdue-summary/",
+              "host": ["{{base_url}}"],
+              "path": ["library", "reports", "overdue-summary", ""]
+            }
+          }
+        },
+        {
+          "name": "Inventory Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/library/reports/inventory/",
+              "host": ["{{base_url}}"],
+              "path": ["library", "reports", "inventory", ""]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1903 @@
+{
+  "info": {
+    "name": "ERP System - Fees Module APIs",
+    "description": "Complete Postman collection for all Fees module APIs including Fee Categories, Fee Heads, Fee Structures, Student Fee Assignments, Fee Payments, Fee Receipts, Fines, Due Reminders, Installments, and Reports.\n\nBase URL: http://localhost:8000\nAuthentication: JWT Bearer Token\n\nPermission Requirements:\n- ModulePermission(\"fees\") checks: fees.view (GET), fees.add (POST), fees.change (PUT/PATCH), fees.delete (DELETE)\n- ModulePermission(\"reports\") checks: reports.view (GET) for report endpoints\n- IsSchoolMember ensures user belongs to a school\n\nSteps:\n1. Login via POST /api/auth/login/ to get access token\n2. Ensure user has a role with fees.* permissions assigned\n3. Set the token in collection variables or Authorization header\n4. Use the token for all subsequent requests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "school_id",
+      "value": ""
+    },
+    {
+      "key": "student_id",
+      "value": ""
+    },
+    {
+      "key": "category_id",
+      "value": "1"
+    },
+    {
+      "key": "fee_head_id",
+      "value": "1"
+    },
+    {
+      "key": "fee_structure_id",
+      "value": "1"
+    },
+    {
+      "key": "assignment_id",
+      "value": "1"
+    },
+    {
+      "key": "payment_id",
+      "value": "1"
+    },
+    {
+      "key": "receipt_id",
+      "value": "1"
+    },
+    {
+      "key": "fine_id",
+      "value": "1"
+    },
+    {
+      "key": "reminder_id",
+      "value": "1"
+    },
+    {
+      "key": "installment_id",
+      "value": ""
+    },
+    {
+      "key": "class_id",
+      "value": "1"
+    },
+    {
+      "key": "academic_year_id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.access) {",
+                  "    pm.collectionVariables.set('access_token', jsonData.access);",
+                  "    console.log('Token saved to collection variable');",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@school.com\",\n  \"password\": \"your_password\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login", ""]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh\": \"{{refresh_token}}\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/refresh/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "refresh", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fee Categories",
+      "item": [
+        {
+          "name": "List Fee Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-categories/?is_active=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-categories", ""],
+              "query": [
+                {
+                  "key": "is_active",
+                  "value": "true",
+                  "description": "Filter by active status (optional)"
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Fee Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"name\": \"Tuition Fees\",\n  \"description\": \"All tuition related fees\",\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-categories/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-categories", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Fee Category Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-categories", "{{category_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Fee Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"name\": \"Tuition Fees Updated\",\n  \"description\": \"Updated description\",\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-categories", "{{category_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Fee Category",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": false"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-categories", "{{category_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Fee Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-categories", "{{category_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fee Heads",
+      "item": [
+        {
+          "name": "List Fee Heads",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-heads/?is_active=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-heads", ""],
+              "query": [
+                {
+                  "key": "is_active",
+                  "value": "true",
+                  "description": "Filter by active status (optional)"
+                },
+                {
+                  "key": "category",
+                  "value": "{{category_id}}",
+                  "description": "Filter by category ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Fee Head",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"category\": {{category_id}},\n  \"name\": \"Tuition Fee\",\n  \"description\": \"Monthly tuition fee\",\n  \"is_recurring\": true,\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-heads/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-heads", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Fee Head Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-heads/{{fee_head_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-heads", "{{fee_head_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Fee Head",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"category\": {{category_id}},\n  \"name\": \"Tuition Fee Updated\",\n  \"description\": \"Updated description\",\n  \"is_recurring\": true,\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-heads/{{fee_head_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-heads", "{{fee_head_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Fee Head",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_recurring\": false"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-heads/{{fee_head_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-heads", "{{fee_head_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Fee Head",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-heads/{{fee_head_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-heads", "{{fee_head_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fee Structures",
+      "item": [
+        {
+          "name": "List Fee Structures",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/?is_active=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", ""],
+              "query": [
+                {
+                  "key": "is_active",
+                  "value": "true",
+                  "description": "Filter by active status (optional)"
+                },
+                {
+                  "key": "academic_year",
+                  "value": "{{academic_year_id}}",
+                  "description": "Filter by academic year ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "class_obj",
+                  "value": "{{class_id}}",
+                  "description": "Filter by class ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Fee Structure",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"academic_year\": {{academic_year_id}},\n  \"class_obj\": {{class_id}},\n  \"fee_head\": {{fee_head_id}},\n  \"amount\": \"5000.00\",\n  \"due_date\": \"2026-12-31\",\n  \"late_fee\": \"100.00\",\n  \"late_fee_per_day\": \"10.00\",\n  \"installment_allowed\": true,\n  \"max_installments\": 3,\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Fee Structure Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/{{fee_structure_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", "{{fee_structure_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Fee Structure",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"academic_year\": {{academic_year_id}},\n  \"class_obj\": {{class_id}},\n  \"fee_head\": {{fee_head_id}},\n  \"amount\": \"5500.00\",\n  \"due_date\": \"2026-12-31\",\n  \"late_fee\": \"150.00\",\n  \"late_fee_per_day\": \"15.00\",\n  \"installment_allowed\": true,\n  \"max_installments\": 3,\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/{{fee_structure_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", "{{fee_structure_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Fee Structure",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"6000.00\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/{{fee_structure_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", "{{fee_structure_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Fee Structure",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/{{fee_structure_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", "{{fee_structure_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Bulk Create Fee Structures",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academic_year\": {{academic_year_id}},\n  \"fee_head\": {{fee_head_id}},\n  \"amount\": \"5000.00\",\n  \"class_ids\": [1, 2, 3, 4]"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/bulk-create/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", "bulk-create", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Fee Structures by Class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-structures/by-class/{{class_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-structures", "by-class", "{{class_id}}", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student Fee Assignments",
+      "item": [
+        {
+          "name": "List Assignments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/?is_active=true",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", ""],
+              "query": [
+                {
+                  "key": "is_active",
+                  "value": "true",
+                  "description": "Filter by active status (optional)"
+                },
+                {
+                  "key": "student",
+                  "value": "{{student_id}}",
+                  "description": "Filter by student ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "fee_structure",
+                  "value": "{{fee_structure_id}}",
+                  "description": "Filter by fee structure ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Assignment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_structure\": {{fee_structure_id}},\n  \"discount\": \"500.00\",\n  \"discount_reason\": \"Scholarship discount\",\n  \"override_amount\": null,\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Assignment Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/{{assignment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", "{{assignment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Assignment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_structure\": {{fee_structure_id}},\n  \"discount\": \"1000.00\",\n  \"discount_reason\": \"Updated scholarship\",\n  \"override_amount\": null,\n  \"is_active\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/{{assignment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", "{{assignment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Assignment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"discount\": \"750.00\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/{{assignment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", "{{assignment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Assignment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/{{assignment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", "{{assignment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Bulk Assign to Class",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"class_id\": {{class_id}},\n  \"fee_structure_id\": {{fee_structure_id}}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-assignments/bulk-assign/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-assignments", "bulk-assign", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fee Payments",
+      "item": [
+        {
+          "name": "List Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", ""],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{student_id}}",
+                  "description": "Filter by student ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "fee_structure",
+                  "value": "{{fee_structure_id}}",
+                  "description": "Filter by fee structure ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "payment_mode",
+                  "value": "cash",
+                  "description": "Filter by payment mode (optional) - cash/online/card/chque/upi/neft/rtgs",
+                  "disabled": true
+                },
+                {
+                  "key": "is_verified",
+                  "value": "false",
+                  "description": "Filter by verification status (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Record Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_structure\": {{fee_structure_id}},\n  \"amount_paid\": \"5000.00\",\n  \"payment_date\": \"2026-06-24\",\n  \"payment_mode\": \"cash\",\n  \"transaction_id\": \"\",\n  \"cheque_no\": \"\",\n  \"bank_name\": \"\",\n  \"remarks\": \"First installment paid\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/{{payment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "{{payment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Payment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_structure\": {{fee_structure_id}},\n  \"amount_paid\": \"5500.00\",\n  \"payment_date\": \"2026-06-24\",\n  \"payment_mode\": \"online\",\n  \"transaction_id\": \"TXN123456\",\n  \"cheque_no\": \"\",\n  \"bank_name\": \"HDFC Bank\",\n  \"remarks\": \"Updated payment via online\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/{{payment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "{{payment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Payment",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Updated remarks only\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/{{payment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "{{payment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Payment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/{{payment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "{{payment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Verify Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/{{payment_id}}/verify/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "{{payment_id}}", "verify", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Payments by Student",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/by-student/?student_id={{student_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "by-student", ""],
+              "query": [
+                {
+                  "key": "student_id",
+                  "value": "{{student_id}}",
+                  "description": "Student admission ID (required)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pending Dues",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/pending/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "pending", ""]
+            }
+          }
+        },
+        {
+          "name": "Today's Collections",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-payments/today/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-payments", "today", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fee Receipts",
+      "item": [
+        {
+          "name": "List Receipts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", ""],
+              "query": [
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "payment",
+                  "value": "{{payment_id}}",
+                  "description": "Filter by payment ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Receipt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"receipt_no\": \"RCP-001\",\n  \"payment\": {{payment_id}}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Receipt Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Receipt",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"receipt_no\": \"RCP-001-UPDATED\",\n  \"payment\": {{payment_id}}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Receipt",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"receipt_no\": \"RCP-002\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Receipt",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Download Receipt PDF",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/download/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", "download", ""]
+            }
+          }
+        },
+        {
+          "name": "Resend Receipt via Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"via\": \"email\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/resend/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", "resend", ""]
+            }
+          }
+        },
+        {
+          "name": "Resend Receipt via SMS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"via\": \"sms\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-receipts/{{receipt_id}}/resend/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-receipts", "{{receipt_id}}", "resend", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fines",
+      "item": [
+        {
+          "name": "List Fines",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fines/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", ""],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{student_id}}",
+                  "description": "Filter by student ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "is_waived",
+                  "value": "false",
+                  "description": "Filter by waiver status (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Fine",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_payment\": {{payment_id}},\n  \"reason\": \"Late submission of fees\",\n  \"amount\": \"200.00\",\n  \"fine_date\": \"2026-06-24\",\n  \"is_waived\": false,\n  \"waived_reason\": \"\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fines/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Fine Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fines/{{fine_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", "{{fine_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Fine",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_payment\": {{payment_id}},\n  \"reason\": \"Updated reason for fine\",\n  \"amount\": \"300.00\",\n  \"fine_date\": \"2026-06-24\",\n  \"is_waived\": false,\n  \"waived_reason\": \"\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fines/{{fine_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", "{{fine_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Fine",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"250.00\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fines/{{fine_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", "{{fine_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Fine",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fines/{{fine_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", "{{fine_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Waive Fine",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Medical leave approved by principal\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fines/{{fine_id}}/waive/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fines", "{{fine_id}}", "waive", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fee Due Reminders",
+      "item": [
+        {
+          "name": "List Due Reminders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", ""],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{student_id}}",
+                  "description": "Filter by student ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "reminder_sent",
+                  "value": "false",
+                  "description": "Filter by sent status (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Due Reminder",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_structure\": {{fee_structure_id}},\n  \"amount_due\": \"3000.00\",\n  \"due_date\": \"2026-07-15\",\n  \"reminder_sent\": false"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Due Reminder Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/{{reminder_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", "{{reminder_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Due Reminder",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"school\": \"{{school_id}}\",\n  \"student\": \"{{student_id}}\",\n  \"fee_structure\": {{fee_structure_id}},\n  \"amount_due\": \"3500.00\",\n  \"due_date\": \"2026-07-20\",\n  \"reminder_sent\": false"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/{{reminder_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", "{{reminder_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Due Reminder",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reminder_sent\": true"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/{{reminder_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", "{{reminder_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Due Reminder",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/{{reminder_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", "{{reminder_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Auto-Generate Reminders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academic_year\": {{academic_year_id}}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/generate/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", "generate", ""]
+            }
+          }
+        },
+        {
+          "name": "Send All Pending Reminders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/fee-due-reminders/send/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fee-due-reminders", "send", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student Fee Installments Paid",
+      "item": [
+        {
+          "name": "List Installment Records",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", ""],
+              "query": [
+                {
+                  "key": "student",
+                  "value": "{{student_id}}",
+                  "description": "Filter by student ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "installment_number",
+                  "value": "1",
+                  "description": "Filter by installment number (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "school",
+                  "value": "{{school_id}}",
+                  "description": "Filter by school ID (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Installment Record",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{student_id}}\",\n  \"installment_number\": 1,\n  \"amount_paid\": \"2500.00\",\n  \"s_code\": \"CODE123\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Installment Record Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/{{installment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", "{{installment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Installment Record",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": \"{{student_id}}\",\n  \"installment_number\": 1,\n  \"amount_paid\": \"3000.00\",\n  \"s_code\": \"CODE123-UPDATED\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/{{installment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", "{{installment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Partial Update Installment Record",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount_paid\": \"2750.00\""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/{{installment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", "{{installment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Delete Installment Record",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/{{installment_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", "{{installment_id}}", ""]
+            }
+          }
+        },
+        {
+          "name": "Bulk Update Installments",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"student\": \"{{student_id}}\",\n    \"installment_number\": 1,\n    \"amount_paid\": \"2500.00\",\n    \"s_code\": \"CODE123\"\n  },\n  {\n    \"student\": \"{{student_id}}\",\n    \"installment_number\": 2,\n    \"amount_paid\": \"2500.00\",\n    \"s_code\": \"CODE456\"\n  }"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/student-fee-installments-paid/bulk-update/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "student-fee-installments-paid", "bulk-update", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Collection Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/reports/collection/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "reports", "collection", ""],
+              "query": [
+                {
+                  "key": "academic_year",
+                  "value": "{{academic_year_id}}",
+                  "description": "Filter by academic year (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "start_date",
+                  "value": "2026-01-01",
+                  "description": "Start date filter YYYY-MM-DD (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "end_date",
+                  "value": "2026-12-31",
+                  "description": "End date filter YYYY-MM-DD (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pending Dues Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/reports/pending/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "reports", "pending", ""],
+              "query": [
+                {
+                  "key": "academic_year",
+                  "value": "{{academic_year_id}}",
+                  "description": "Filter by academic year (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Class-wise Collection Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/reports/class-wise/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "reports", "class-wise", ""],
+              "query": [
+                {
+                  "key": "academic_year",
+                  "value": "{{academic_year_id}}",
+                  "description": "Filter by academic year (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Monthly Collection Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/reports/monthly/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "reports", "monthly", ""],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2026",
+                  "description": "Year for monthly report (optional, defaults to current year)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Daily Collection Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/reports/daily/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "reports", "daily", ""],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-06-24",
+                  "description": "Date for daily report YYYY-MM-DD (optional, defaults to today)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Installment Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/installment-data/?installment_number=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "installment-data", ""],
+              "query": [
+                {
+                  "key": "installment_number",
+                  "value": "1",
+                  "description": "Installment number (required)"
+                },
+                {
+                  "key": "year",
+                  "value": "{{academic_year_id}}",
+                  "description": "Academic year ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "class",
+                  "value": "{{class_id}}",
+                  "description": "Class ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "section",
+                  "value": "A",
+                  "description": "Section (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Table Installments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/fees/table-installments/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "fees", "table-installments", ""],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "{{academic_year_id}}",
+                  "description": "Academic year ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "class",
+                  "value": "{{class_id}}",
+                  "description": "Class ID (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "section",
+                  "value": "A",
+                  "description": "Section (optional)",
+                  "disabled": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

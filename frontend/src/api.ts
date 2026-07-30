@@ -1,4 +1,10 @@
 import { studentService } from './services/studentService';
+import { transportService } from './services/transportService';
+import { eventsService } from './services/eventsService';
+import { visitorsService } from './services/visitorsService';
+import { documentsService } from './services/documentsService';
+import { parentsService } from './services/parentsService';
+import { reportsService } from './services/reportsService';
 
 export interface Student {
   id: string;
@@ -375,7 +381,22 @@ export const api = {
   // ==========================================
   async getTransportRoutes(schoolId: string): Promise<TransportRoute[]> {
     void schoolId;
-    await delay();
+    try {
+      const res = await transportService.getBusRoutes();
+      if (Array.isArray(res) && res.length > 0) {
+        return res.map((r: any, idx: number) => ({
+          id: String(r.id || `t${idx + 1}`),
+          routeName: r.route_name || 'Main Route',
+          vehicleNumber: r.vehicle_number || 'DL-01-AB-1234',
+          driverName: r.driver_name || 'Driver Name',
+          driverPhone: r.driver_phone || '9876543210',
+          stops: ['Stop A', 'Stop B', 'School'],
+          studentCount: r.student_count || 20
+        }));
+      }
+    } catch {
+      // Fallback
+    }
     return getLocalStorageItem<TransportRoute[]>('dettroin_transport', INITIAL_TRANSPORT);
   },
 

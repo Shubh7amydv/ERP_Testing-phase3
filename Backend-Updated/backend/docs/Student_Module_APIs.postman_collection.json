@@ -1,0 +1,969 @@
+{
+  "info": {
+    "name": "ERP System - Student Module APIs",
+    "description": "Complete Postman collection for all Student Module APIs including Admissions, Academic Classes, Sections, Castes, Houses, Categories, and Sibling Groups.\n\nBase URL: http://localhost:8000\n\nAuthentication: All endpoints require JWT token in Authorization header.\nFormat: Bearer <access_token>\n\nPermission Requirements:\n- ModulePermission(\"admissions\") checks: admissions.view (GET), admissions.add (POST), admissions.change (PUT/PATCH), admissions.delete (DELETE)\n- IsSchoolMember ensures user belongs to a school",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admission_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "class_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "section_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "caste_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "house_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "category_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "sibling_group_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (Get Access Token)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login", ""]
+            },
+            "description": "Login and get JWT access token. Save the access_token from response to collection variable."
+          },
+          "response": []
+        }
+      ],
+      "description": "Authentication endpoints"
+    },
+    {
+      "name": "Admissions",
+      "item": [
+        {
+          "name": "List Admissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admissions/?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", ""],
+              "query": [
+                { "key": "page", "value": "1", "description": "Page number" },
+                { "key": "limit", "value": "10", "description": "Records per page" },
+                { "key": "year", "value": "", "description": "Academic year (e.g. 2026-2027)", "disabled": true },
+                { "key": "search", "value": "", "description": "Search by name, admission_no, father_name, phone", "disabled": true },
+                { "key": "admission_class", "value": "", "description": "Filter by class", "disabled": true },
+                { "key": "section", "value": "", "description": "Filter by section", "disabled": true },
+                { "key": "gender", "value": "", "description": "Male or Female", "disabled": true },
+                { "key": "house", "value": "", "description": "Filter by house", "disabled": true },
+                { "key": "ordering", "value": "", "description": "roll_number or -created_at", "disabled": true }
+              ]
+            },
+            "description": "Fetch paginated list of all active admissions with filtering, search, and ordering."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Admission",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "first_name", "value": "Rahul", "type": "text" },
+                { "key": "last_name", "value": "Sharma", "type": "text" },
+                { "key": "email", "value": "rahul@example.com", "type": "text", "description": "Optional - creates user account if provided" },
+                { "key": "password", "value": "password123", "type": "text", "description": "Optional - password for created user" },
+                { "key": "phone", "value": "9876543210", "type": "text" },
+                { "key": "address", "value": "123 Main Street, Delhi", "type": "text" },
+                { "key": "date_of_birth", "value": "2010-05-15", "type": "text", "description": "YYYY-MM-DD" },
+                { "key": "gender", "value": "Male", "type": "text" },
+                { "key": "blood_group", "value": "O+", "type": "text" },
+                { "key": "category", "value": "General", "type": "text" },
+                { "key": "caste", "value": "Hindu", "type": "text" },
+                { "key": "religion", "value": "Hinduism", "type": "text" },
+                { "key": "aadhaar_no", "value": "123456789012", "type": "text" },
+                { "key": "father_name", "value": "Suresh Sharma", "type": "text" },
+                { "key": "father_occupation", "value": "Business", "type": "text" },
+                { "key": "mother_name", "value": "Sunita Sharma", "type": "text" },
+                { "key": "admission_class", "value": "I", "type": "text", "description": "e.g. I, II, LKG, UKG" },
+                { "key": "section", "value": "A", "type": "text" },
+                { "key": "roll_number", "value": "1", "type": "text" },
+                { "key": "house", "value": "Red", "type": "text" },
+                { "key": "bus_route", "value": "Route-1", "type": "text" },
+                { "key": "medium", "value": "English", "type": "text" },
+                { "key": "date_of_admission", "value": "2026-04-01", "type": "text" },
+                { "key": "status", "value": "Pending", "type": "text" },
+                { "key": "photo", "type": "file", "src": [] },
+                { "key": "parent_photo", "type": "file", "src": [] },
+                { "key": "tc_document", "type": "file", "src": [] },
+                { "key": "aadhaar_document", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admissions/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", ""]
+            },
+            "description": "Create a new student admission. Auto-generates admission_no. Supports multipart/form-data for file uploads."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Admission",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admissions/{{admission_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "{{admission_id}}", ""]
+            },
+            "description": "Fetch details of a single admission by UUID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Admission (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "first_name", "value": "Rahul", "type": "text" },
+                { "key": "last_name", "value": "Sharma", "type": "text" },
+                { "key": "phone", "value": "9876543210", "type": "text" },
+                { "key": "admission_class", "value": "I", "type": "text" },
+                { "key": "section", "value": "A", "type": "text" },
+                { "key": "roll_number", "value": "1", "type": "text" }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admissions/{{admission_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "{{admission_id}}", ""]
+            },
+            "description": "Full update of an admission record. All fields expected (full replacement)."
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Admission (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"section\": \"B\",\n  \"roll_number\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admissions/{{admission_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "{{admission_id}}", ""]
+            },
+            "description": "Partial update - only provided fields are updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Admission (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admissions/{{admission_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "{{admission_id}}", ""]
+            },
+            "description": "Soft delete - sets is_active = false. Does NOT permanently remove the record."
+          },
+          "response": []
+        },
+        {
+          "name": "Filter Admissions by Groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admissions/filter-by-groups/?year=2026-2027&page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "filter-by-groups", ""],
+              "query": [
+                { "key": "year", "value": "2026-2027", "description": "Academic year" },
+                { "key": "groups", "value": "[{\"class\":\"I\",\"section\":\"A\"},{\"class\":\"II\"}]", "description": "JSON array of class/section filters", "disabled": true },
+                { "key": "ordering", "value": "", "description": "house, new, or default", "disabled": true },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            },
+            "description": "Filter admissions by class/section groups with ordering and pagination."
+          },
+          "response": []
+        },
+        {
+          "name": "Class-wise Total Students Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admissions/class-wise-total-students/?year=2026-2027",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "class-wise-total-students", ""],
+              "query": [
+                { "key": "year", "value": "2026-2027", "description": "Academic year (default: current year)" }
+              ]
+            },
+            "description": "Returns aggregated student statistics (boys, girls, total, dropout, TC, new students) grouped by class and section."
+          },
+          "response": []
+        },
+        {
+          "name": "Bulk Update Admissions",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": \"admission-uuid-1\",\n    \"first_name\": \"Updated Name\",\n    \"section\": \"B\"\n  },\n  {\n    \"id\": \"admission-uuid-2\",\n    \"roll_number\": 5\n  }\n]"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admissions/bulk-update/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admissions", "bulk-update", ""]
+            },
+            "description": "Bulk update multiple admission records in one request. Each object must have 'id' plus fields to update."
+          },
+          "response": []
+        }
+      ],
+      "description": "Student Admission CRUD and management endpoints"
+    },
+    {
+      "name": "Academic Classes",
+      "item": [
+        {
+          "name": "List Classes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/classes/?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "classes", ""],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "year", "value": "", "description": "Academic year", "disabled": true },
+                { "key": "search", "value": "", "description": "Search by admission_class", "disabled": true }
+              ]
+            },
+            "description": "Fetch paginated list of academic classes."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Class",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"admission_class\": \"III\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/classes/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "classes", ""]
+            },
+            "description": "Create a new academic class. Unique combination of (admission_class, academic_year)."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Class",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/classes/{{class_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "classes", "{{class_id}}", ""]
+            },
+            "description": "Fetch a single academic class by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Class (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"admission_class\": \"III\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/classes/{{class_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "classes", "{{class_id}}", ""]
+            },
+            "description": "Full update of an academic class."
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Class (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"admission_class\": \"IV\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/classes/{{class_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "classes", "{{class_id}}", ""]
+            },
+            "description": "Partial update - only provided fields are updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Class",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/classes/{{class_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "classes", "{{class_id}}", ""]
+            },
+            "description": "Hard delete - returns 204 No Content."
+          },
+          "response": []
+        }
+      ],
+      "description": "Academic Class CRUD endpoints"
+    },
+    {
+      "name": "Sections",
+      "item": [
+        {
+          "name": "List Sections",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sections/?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sections", ""],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "year", "value": "", "description": "Academic year", "disabled": true },
+                { "key": "search", "value": "", "description": "Search by section name", "disabled": true }
+              ]
+            },
+            "description": "Fetch paginated list of sections."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Section",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"section\": \"B\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sections/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sections", ""]
+            },
+            "description": "Create a new section. Section is a single letter A-Z."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Section",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sections/{{section_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sections", "{{section_id}}", ""]
+            },
+            "description": "Fetch a single section by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Section (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"section\": \"C\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sections/{{section_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sections", "{{section_id}}", ""]
+            },
+            "description": "Full update of a section."
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Section (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"section\": \"D\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sections/{{section_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sections", "{{section_id}}", ""]
+            },
+            "description": "Partial update - only provided fields are updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Section",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sections/{{section_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sections", "{{section_id}}", ""]
+            },
+            "description": "Hard delete - returns 204 No Content."
+          },
+          "response": []
+        }
+      ],
+      "description": "Section CRUD endpoints"
+    },
+    {
+      "name": "Castes",
+      "item": [
+        {
+          "name": "List Castes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/castes/?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "castes", ""],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "", "description": "Search by caste name", "disabled": true }
+              ]
+            },
+            "description": "Fetch paginated list of castes."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Caste",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caste_name\": \"Brahmin\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/castes/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "castes", ""]
+            },
+            "description": "Create a new caste. Unique name required."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Caste",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/castes/{{caste_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "castes", "{{caste_id}}", ""]
+            },
+            "description": "Fetch a single caste by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Caste (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caste_name\": \"Brahmin Updated\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/castes/{{caste_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "castes", "{{caste_id}}", ""]
+            },
+            "description": "Full update of a caste."
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Caste (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caste_name\": \"Brahmin New\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/castes/{{caste_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "castes", "{{caste_id}}", ""]
+            },
+            "description": "Partial update - only provided fields are updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Caste",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/castes/{{caste_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "castes", "{{caste_id}}", ""]
+            },
+            "description": "Hard delete - returns 204 No Content."
+          },
+          "response": []
+        }
+      ],
+      "description": "Caste CRUD endpoints"
+    },
+    {
+      "name": "Houses",
+      "item": [
+        {
+          "name": "List Houses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/houses/?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "houses", ""],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "", "description": "Search by name or color_code", "disabled": true }
+              ]
+            },
+            "description": "Fetch paginated list of houses."
+          },
+          "response": []
+        },
+        {
+          "name": "Create House",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"house_name\": \"Red House\",\n  \"color_code\": \"#FF0000\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/houses/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "houses", ""]
+            },
+            "description": "Create a new house. Unique name required."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve House",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/houses/{{house_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "houses", "{{house_id}}", ""]
+            },
+            "description": "Fetch a single house by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update House (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"house_name\": \"Blue House\",\n  \"color_code\": \"#0000FF\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/houses/{{house_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "houses", "{{house_id}}", ""]
+            },
+            "description": "Full update of a house."
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update House (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"color_code\": \"#00FF00\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/houses/{{house_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "houses", "{{house_id}}", ""]
+            },
+            "description": "Partial update - only provided fields are updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete House",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/houses/{{house_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "houses", "{{house_id}}", ""]
+            },
+            "description": "Hard delete - returns 204 No Content."
+          },
+          "response": []
+        }
+      ],
+      "description": "House CRUD endpoints"
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "List Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories/?page=1&limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", ""],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "", "description": "Search by name", "disabled": true }
+              ]
+            },
+            "description": "Fetch paginated list of categories."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"General\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", ""]
+            },
+            "description": "Create a new category. Unique name required."
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "description": "Fetch a single category by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"General Category\",\n  \"academic_year\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "description": "Full update of a category."
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Category (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"OBC\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "description": "Partial update - only provided fields are updated."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/categories/{{category_id}}/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "categories", "{{category_id}}", ""]
+            },
+            "description": "Hard delete - returns 204 No Content."
+          },
+          "response": []
+        }
+      ],
+      "description": "Category CRUD endpoints"
+    },
+    {
+      "name": "Sibling Groups",
+      "item": [
+        {
+          "name": "List Sibling Groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sibling-groups/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sibling-groups", ""],
+              "query": [
+                { "key": "year", "value": "", "description": "Academic year filter", "disabled": true },
+                { "key": "groups", "value": "", "description": "JSON array of class/section filters", "disabled": true }
+              ]
+            },
+            "description": "Fetch all sibling groups with their associated admissions."
+          },
+          "response": []
+        },
+        {
+          "name": "Add to Sibling Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sibling_group_name\": \"Sharma Siblings\",\n  \"admission_ids\": [\"admission-uuid-1\", \"admission-uuid-2\"],\n  \"primary_sibling\": \"admission-uuid-1\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sibling-groups/add-to-sibling-group/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sibling-groups", "add-to-sibling-group", ""]
+            },
+            "description": "Create or update a sibling group by assigning admissions to it. primary_sibling is optional (defaults to first admission)."
+          },
+          "response": []
+        }
+      ],
+      "description": "Sibling Group management endpoints"
+    }
+  ]
+}

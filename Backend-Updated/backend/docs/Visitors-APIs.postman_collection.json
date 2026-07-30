@@ -1,0 +1,256 @@
+{
+  "info": {
+    "name": "ERP Visitors API",
+    "description": "Visitors Module - All Endpoints\n\nEndpoints:\n- Visitor Categories (CRUD)\n- Visitors (CRUD)\n- Visitor Passes (CRUD)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Visitor Categories",
+      "item": [
+        {
+          "name": "List Visitor Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/visitor-categories/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Visitor Category",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/visitor-categories/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Parent\",\n  \"badge_color\": \"#4CAF50\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Visitor Category Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/visitor-categories/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Visitor Category",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/visitor-categories/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Parent Updated\",\n  \"badge_color\": \"#2196F3\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Visitor Category",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/visitor-categories/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Visitors",
+      "item": [
+        {
+          "name": "List Visitors",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/visitors/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Visitor",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/visitors/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rajesh Kumar\",\n  \"phone\": \"9876543210\",\n  \"category\": 1,\n  \"id_type\": \"aadhaar\",\n  \"id_number\": \"1234-5678-9012\",\n  \"purpose\": \"Meeting with class teacher\",\n  \"meeting_with\": \"Mrs. Sharma\",\n  \"meeting_with_type\": \"staff\",\n  \"vehicle_no\": \"MH-12-XY-5678\",\n  \"items_carrying\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Visitor Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/visitors/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Check Out Visitor",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/visitors/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"check_out\": \"2025-07-15T16:30:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Visitor",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/visitors/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Visitor Passes",
+      "item": [
+        {
+          "name": "List Visitor Passes",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/visitor-passes/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Visitor Pass",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/visitor-passes/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"visitor\": 1,\n  \"pass_no\": \"VP-2025-001\",\n  \"valid_from\": \"2025-07-15\",\n  \"valid_to\": \"2025-07-15\",\n  \"purpose\": \"PTM Meeting\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Visitor Pass Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/visitor-passes/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Visitor Pass",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/visitor-passes/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

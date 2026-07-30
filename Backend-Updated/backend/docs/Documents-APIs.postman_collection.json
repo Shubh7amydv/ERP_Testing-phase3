@@ -1,0 +1,328 @@
+{
+  "info": {
+    "name": "ERP Documents API",
+    "description": "Documents Module - All Endpoints\n\nEndpoints:\n- Document Categories (CRUD)\n- Documents (CRUD + file upload)\n- Document Templates (CRUD)\n- Transfer Certificates (CRUD)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Document Categories",
+      "item": [
+        {
+          "name": "List Document Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/document-categories/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Document Category",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/document-categories/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Academic Records\",\n  \"description\": \"School academic documents\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Document Category Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/document-categories/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Document Category",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/document-categories/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Academic Records Updated\",\n  \"description\": \"Updated description\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Document Category",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/document-categories/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents",
+      "item": [
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/documents/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Document (multipart)",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/documents/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "category", "value": "1", "type": "text" },
+                { "key": "title", "value": "Annual Exam Results 2025", "type": "text" },
+                { "key": "description", "value": "Class 10 results", "type": "text" },
+                { "key": "file", "type": "file" },
+                { "key": "target_type", "value": "class", "type": "text" },
+                { "key": "target_id", "value": "1", "type": "text" },
+                { "key": "academic_year", "value": "1", "type": "text" },
+                { "key": "is_public", "value": "true", "type": "text" },
+                { "key": "tags", "value": "exam,results,class10", "type": "text" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Document Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/documents/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Document",
+          "request": {
+            "method": "PATCH",
+            "url": "{{base_url}}/documents/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Updated Title", "type": "text" },
+                { "key": "description", "value": "Updated description", "type": "text" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/documents/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Document Templates",
+      "item": [
+        {
+          "name": "List Document Templates",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/document-templates/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Document Template",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/document-templates/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "category", "value": "1", "type": "text" },
+                { "key": "name", "value": "TC Template", "type": "text" },
+                { "key": "template_file", "type": "file" },
+                { "key": "placeholders", "value": "[\"student_name\", \"school_name\", \"date\"]", "type": "text" },
+                { "key": "is_active", "value": "true", "type": "text" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Document Template Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/document-templates/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Document Template",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/document-templates/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transfer Certificates",
+      "item": [
+        {
+          "name": "List Transfer Certificates",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/transfer-certificates/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Transfer Certificate",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/transfer-certificates/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student\": 1,\n  \"tc_number\": \"TC-2025-001\",\n  \"issue_date\": \"2025-06-15\",\n  \"reason\": \"Family relocation\",\n  \"conduct\": \"Good\",\n  \"class_studied\": \"Class 10\",\n  \"last_exam_passed\": \"AISSE 2025\",\n  \"remarks\": \"Good student\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Transfer Certificate Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/transfer-certificates/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Transfer Certificate",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/transfer-certificates/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

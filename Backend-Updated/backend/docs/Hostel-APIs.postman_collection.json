@@ -1,0 +1,490 @@
+{
+  "info": {
+    "name": "ERP Hostel API",
+    "description": "Hostel Module - All Endpoints\n\nEndpoints:\n- Hostels (CRUD)\n- Hostel Rooms (CRUD)\n- Hostel Allocations (CRUD)\n- Hostel Fees (CRUD)\n- Hostel Attendance (CRUD + bulk)\n- Hostel Visitors (CRUD)\n- Hostel Mess Menu (CRUD)\n- Reports (occupancy, fee-collection)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Hostels",
+      "item": [
+        {
+          "name": "List Hostels",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostels/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Hostel",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostels/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Boys Hostel A\",\n  \"type\": \"boys\",\n  \"address\": \"Block A, Campus Road\",\n  \"warden\": \"Mr. Sharma\",\n  \"contact\": \"9876543210\",\n  \"total_rooms\": 50,\n  \"capacity\": 200,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Hostel Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostels/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Hostel",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/hostels/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Boys Hostel A Updated\",\n  \"type\": \"boys\",\n  \"address\": \"Block A, Campus Road\",\n  \"warden\": \"Mr. Verma\",\n  \"contact\": \"9876543211\",\n  \"total_rooms\": 60,\n  \"capacity\": 240,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Hostel",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/hostels/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hostel Rooms",
+      "item": [
+        {
+          "name": "List Hostel Rooms",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-rooms/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Hostel Room",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-rooms/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"room_number\": \"A-101\",\n  \"floor\": 1,\n  \"room_type\": \"triple\",\n  \"capacity\": 3,\n  \"occupied\": 0,\n  \"monthly_fee\": 5000.00,\n  \"facilities\": \"WiFi, Attached Bathroom\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Hostel Room Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-rooms/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Hostel Room",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/hostel-rooms/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hostel Allocations",
+      "item": [
+        {
+          "name": "List Hostel Allocations",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-allocations/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Hostel Allocation",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-allocations/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"room\": 1,\n  \"student\": 1,\n  \"academic_year\": 1,\n  \"allocated_from\": \"2025-04-01\",\n  \"allocated_to\": \"2026-03-31\",\n  \"status\": \"active\",\n  \"remarks\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Hostel Allocation Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-allocations/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Hostel Allocation",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/hostel-allocations/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"room\": 1,\n  \"student\": 1,\n  \"academic_year\": 1,\n  \"allocated_from\": \"2025-04-01\",\n  \"allocated_to\": \"2026-03-31\",\n  \"status\": \"inactive\",\n  \"remarks\": \"Student graduated\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hostel Fees",
+      "item": [
+        {
+          "name": "List Hostel Fees",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-fees/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Hostel Fee",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-fees/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"academic_year\": 1,\n  \"room_type\": \"triple\",\n  \"monthly_fee\": 5000.00,\n  \"security_deposit\": 10000.00,\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Hostel Fee Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-fees/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Hostel Fee",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/hostel-fees/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hostel Attendance",
+      "item": [
+        {
+          "name": "List Hostel Attendance",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-attendance/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Mark Hostel Attendance",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-attendance/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"student\": 1,\n  \"date\": \"2025-07-15\",\n  \"check_in_time\": \"18:00:00\",\n  \"check_out_time\": null,\n  \"status\": \"present\",\n  \"remarks\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Bulk Mark Hostel Attendance",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-attendance/bulk/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"2025-07-15\",\n  \"attendance\": [\n    {\"student\": 1, \"status\": \"present\"},\n    {\"student\": 2, \"status\": \"absent\"}\n  ]\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hostel Visitors",
+      "item": [
+        {
+          "name": "List Hostel Visitors",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-visitors/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Hostel Visitor",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-visitors/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"student\": 1,\n  \"visitor_name\": \"Rajesh Kumar\",\n  \"visitor_phone\": \"9876543210\",\n  \"relation\": \"Father\",\n  \"id_proof\": \"Aadhaar\",\n  \"visit_date\": \"2025-07-15\",\n  \"check_in\": \"14:00:00\",\n  \"check_out\": \"16:00:00\",\n  \"purpose\": \"Family visit\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Hostel Visitor Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-visitors/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hostel Mess Menu",
+      "item": [
+        {
+          "name": "List Hostel Mess Menu",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel-mess-menu/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Hostel Mess Menu",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/hostel-mess-menu/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostel\": 1,\n  \"day_of_week\": \"monday\",\n  \"meal_type\": \"lunch\",\n  \"menu_items\": \"Rice, Dal, Paneer, Salad\",\n  \"date\": \"2025-07-21\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Hostel Occupancy Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel/reports/occupancy/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Hostel Fee Collection Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/hostel/reports/fee-collection/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

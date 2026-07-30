@@ -1,0 +1,342 @@
+{
+  "info": {
+    "name": "ERP Events API",
+    "description": "Events Module - All Endpoints\n\nEndpoints:\n- Event Types (CRUD)\n- Events (CRUD)\n- Exam Events (CRUD)\n- School Calendars (CRUD)\n\nAll endpoints require Bearer token authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Event Types",
+      "item": [
+        {
+          "name": "List Event Types",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/event-types/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Event Type",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/event-types/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Holiday\",\n  \"color\": \"#FF5733\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Event Type Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/event-types/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Event Type",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/event-types/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Holiday Updated\",\n  \"color\": \"#FF0000\",\n  \"is_active\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Event Type",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/event-types/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List Events",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/events/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/events/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_type\": 1,\n  \"title\": \"Annual Day Celebration\",\n  \"description\": \"School annual day function\",\n  \"start_date\": \"2025-12-20\",\n  \"end_date\": \"2025-12-20\",\n  \"location\": \"School Auditorium\",\n  \"is_holiday\": true,\n  \"target_audience\": \"all\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Event Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/events/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update Event",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/events/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_type\": 1,\n  \"title\": \"Annual Day Updated\",\n  \"description\": \"Updated description\",\n  \"start_date\": \"2025-12-21\",\n  \"end_date\": \"2025-12-21\",\n  \"location\": \"Main Hall\",\n  \"is_holiday\": true,\n  \"target_audience\": \"all\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Event",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/events/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Exam Events",
+      "item": [
+        {
+          "name": "List Exam Events",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/exam-events/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Exam Event",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/exam-events/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": 1,\n  \"exam\": 1,\n  \"classes\": [1, 2, 3]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Exam Event Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/exam-events/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Delete Exam Event",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/exam-events/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "School Calendars",
+      "item": [
+        {
+          "name": "List School Calendars",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/school-calendars/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create School Calendar",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/school-calendars/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academic_year\": 1,\n  \"name\": \"Academic Calendar 2025-26\",\n  \"year\": 2025,\n  \"is_published\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Get School Calendar Detail",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/school-calendars/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Update School Calendar",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/school-calendars/1/",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academic_year\": 1,\n  \"name\": \"Academic Calendar 2025-26\",\n  \"year\": 2025,\n  \"is_published\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete School Calendar",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/school-calendars/1/",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

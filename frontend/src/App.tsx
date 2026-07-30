@@ -467,7 +467,7 @@ export default function App() {
     holiday: true,
     mark: true
   });
-  const [examSubView, setExamSubView] = useState<ExaminationSubView>('marks-entry');
+  const [examSubView, setExamSubView] = useState<ExaminationSubView>('marks-add-marks');
   const [examSubgroups, setExamSubgroups] = useState<Record<string, boolean>>({
     marks: true,
     result: true,
